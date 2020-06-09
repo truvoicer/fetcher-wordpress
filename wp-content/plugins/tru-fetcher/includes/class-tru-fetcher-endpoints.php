@@ -74,7 +74,7 @@ class Tru_Fetcher_Endpoints
                     $array[$widgetInstanceName]["menu_items"] = $this->getMenu($widgetData['nav_menu']);
                 }
             }
-            if ($widgetInstanceName === "listings_filter_Iwidget") {
+            if ($widgetInstanceName === "listings_filter_widget") {
 	            $array[$widgetInstanceName] = get_fields('widget_' . $item);
             }
             return $array;
