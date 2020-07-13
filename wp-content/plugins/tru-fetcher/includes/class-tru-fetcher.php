@@ -192,8 +192,8 @@ class Tru_Fetcher {
 	}
 
 	private function define_post_types() {
-        $truFetcherPostTypes = new Tru_Fetcher_Post_Types();
-        $this->loader->add_action( 'init', $truFetcherPostTypes, "register_post_types" );
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/post_types/listings_post_type.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/post_types/filter_lists_post_type.php';
 	}
 
 	private function define_blocks() {

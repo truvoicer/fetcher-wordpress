@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: en_GB\n"
 "Project-Id-Version: Themes - Twenty Seventeen\n"
 
@@ -59,14 +59,14 @@ msgstr "Pause background video"
 msgid "Play background video"
 msgstr "Play background video"
 
+#: inc/customizer.php:109
+msgid "When the two-column layout is assigned, the page title is in one column and content is in the other."
+msgstr "When the two-column layout is assigned, the page title is in one column and content is in the other."
+
 #. translators: %s: The section ID.
 #: inc/template-tags.php:158
 msgid "Front Page Section %s Placeholder"
 msgstr "Front Page Section %s Placeholder"
-
-#: inc/customizer.php:109
-msgid "When the two-column layout is assigned, the page title is in one column and content is in the other."
-msgstr "When the two-column layout is assigned, the page title is in one column and content is in the other."
 
 #: single.php:34
 msgid "Next Post"
@@ -160,11 +160,6 @@ msgstr "Add widgets here to appear in your footer."
 msgid "Footer 1"
 msgstr "Footer 1"
 
-#: functions.php:290
-msgctxt "Libre Franklin font: on or off"
-msgid "on"
-msgstr "on"
-
 #: template-parts/navigation/navigation-top.php:12 functions.php:64
 #: functions.php:205
 msgid "Top Menu"
@@ -174,26 +169,18 @@ msgstr "Top Menu"
 msgid "Reply"
 msgstr "Reply"
 
-#: template-parts/post/content-none.php:33
-msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
-msgstr "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+#: functions.php:290
+msgctxt "Libre Franklin font: on or off"
+msgid "on"
+msgstr "on"
 
 #: search.php:59
 msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
 msgstr "Sorry, but nothing matched your search terms. Please try again with some different keywords."
 
-#. translators: %s: Post editor URL.
-#: template-parts/post/content-none.php:27
-msgid "Ready to publish your first post? <a href=\"%s\">Get started here</a>."
-msgstr "Ready to publish your first post? <a href=\"%s\">Get started here</a>."
-
 #: template-parts/post/content-none.php:17 search.php:26
 msgid "Nothing Found"
 msgstr "Nothing Found"
-
-#: single.php:33
-msgid "Previous Post"
-msgstr "Previous Post"
 
 #: single.php:33 comments.php:71
 msgid "Previous"
@@ -203,49 +190,28 @@ msgstr "Previous"
 msgid "Next"
 msgstr "Next"
 
-#: searchform.php:20
-msgctxt "submit button"
-msgid "Search"
-msgstr "Search"
+#: template-parts/post/content-none.php:33
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
 
 #: searchform.php:19
 msgctxt "placeholder"
 msgid "Search &hellip;"
 msgstr "Search &hellip;"
 
-#: searchform.php:17
-msgctxt "label"
-msgid "Search for:"
-msgstr "Search for:"
+#: searchform.php:20
+msgctxt "submit button"
+msgid "Search"
+msgstr "Search"
 
-#. translators: Search query.
-#: search.php:22
-msgid "Search Results for: %s"
-msgstr "Search Results for: %s"
+#: single.php:33
+msgid "Previous Post"
+msgstr "Previous Post"
 
-#. translators: %s: Post title.
-#: template-parts/post/content.php:57 template-parts/post/content-audio.php:84
-#: template-parts/post/content-image.php:61
-#: template-parts/post/content-video.php:83
-#: template-parts/post/content-gallery.php:71
-#: template-parts/page/content-front-page.php:42
-#: template-parts/page/content-front-page-panels.php:45 functions.php:392
-msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
-msgstr "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
-
-#: inc/customizer.php:63
-msgid "Dark"
-msgstr "Dark"
-
-#. translators: %s: The current WordPress version.
-#: inc/back-compat.php:40 inc/back-compat.php:54 inc/back-compat.php:73
-msgid "Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again."
-msgstr "Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again."
-
-#. translators: %s: Post title.
-#: inc/template-tags.php:117
-msgid "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
-msgstr "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
+#. translators: %s: Post editor URL.
+#: template-parts/post/content-none.php:27
+msgid "Ready to publish your first post? <a href=\"%s\">Get started here</a>."
+msgstr "Ready to publish your first post? <a href=\"%s\">Get started here</a>."
 
 #: template-parts/post/content.php:64 template-parts/post/content-audio.php:91
 #: template-parts/post/content-image.php:68
@@ -263,17 +229,37 @@ msgstr "Menu"
 msgid "Skip to content"
 msgstr "Skip to content"
 
-#: functions.php:484
-msgid "Collapse child menu"
-msgstr "Collapse child menu"
-
-#: functions.php:483
-msgid "Expand child menu"
-msgstr "Expand child menu"
-
 #: functions.php:65 functions.php:216
 msgid "Social Links Menu"
 msgstr "Social Links Menu"
+
+#: comments.php:82
+msgid "Comments are closed."
+msgstr "Comments are closed."
+
+#: index.php:55 archive.php:51 search.php:52
+msgid "Page"
+msgstr "Page"
+
+#: index.php:54 archive.php:50 search.php:51
+msgid "Next page"
+msgstr "Next page"
+
+#: 404.php:21
+msgid "Oops! That page can&rsquo;t be found."
+msgstr "Oops! That page can&rsquo;t be found."
+
+#: 404.php:24
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr "It looks like nothing was found at this location. Maybe try a search?"
+
+#: index.php:53 archive.php:49 search.php:50
+msgid "Previous page"
+msgstr "Previous page"
+
+#: inc/customizer.php:63
+msgid "Dark"
+msgstr "Dark"
 
 #. translators: %s: WordPress
 #: template-parts/footer/site-info.php:21
@@ -284,9 +270,43 @@ msgstr "Proudly powered by %s"
 msgid "Footer Social Links Menu"
 msgstr "Footer Social Links Menu"
 
-#: comments.php:82
-msgid "Comments are closed."
-msgstr "Comments are closed."
+#: searchform.php:17
+msgctxt "label"
+msgid "Search for:"
+msgstr "Search for:"
+
+#. translators: %s: Post title.
+#: template-parts/post/content.php:57 template-parts/post/content-audio.php:84
+#: template-parts/post/content-image.php:61
+#: template-parts/post/content-video.php:83
+#: template-parts/post/content-gallery.php:71
+#: template-parts/page/content-front-page.php:42
+#: template-parts/page/content-front-page-panels.php:45 functions.php:392
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+
+#. translators: %s: The current WordPress version.
+#: inc/back-compat.php:40 inc/back-compat.php:54 inc/back-compat.php:73
+msgid "Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again."
+msgstr "Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again."
+
+#: functions.php:484
+msgid "Collapse child menu"
+msgstr "Collapse child menu"
+
+#: functions.php:483
+msgid "Expand child menu"
+msgstr "Expand child menu"
+
+#. translators: Search query.
+#: search.php:22
+msgid "Search Results for: %s"
+msgstr "Search Results for: %s"
+
+#. translators: %s: Post title.
+#: inc/template-tags.php:117
+msgid "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
 
 #. translators: 1: Number of comments, 2: Post title.
 #: comments.php:41
@@ -301,26 +321,6 @@ msgstr[1] "%1$s Replies to &ldquo;%2$s&rdquo;"
 msgctxt "comments title"
 msgid "One Reply to &ldquo;%s&rdquo;"
 msgstr "One Reply to &ldquo;%s&rdquo;"
-
-#: index.php:55 archive.php:51 search.php:52
-msgid "Page"
-msgstr "Page"
-
-#: 404.php:21
-msgid "Oops! That page can&rsquo;t be found."
-msgstr "Oops! That page can&rsquo;t be found."
-
-#: 404.php:24
-msgid "It looks like nothing was found at this location. Maybe try a search?"
-msgstr "It looks like nothing was found at this location. Maybe try a search?"
-
-#: index.php:53 archive.php:49 search.php:50
-msgid "Previous page"
-msgstr "Previous page"
-
-#: index.php:54 archive.php:50 search.php:51
-msgid "Next page"
-msgstr "Next page"
 
 #. Author of the theme
 msgid "the WordPress team"
