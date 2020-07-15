@@ -182,6 +182,7 @@ class Tru_Fetcher_Endpoints
 		    }
 	    }
 	    $page->blocks_data = $blocksArray;
+	    $page->head_title = $page->post_title . " - " . get_bloginfo( 'name' );
 	    $page->post_content = apply_filters("the_content", $page->post_content);
 	    return $page;
     }
