@@ -53,6 +53,10 @@ class Tru_Fetcher_Endpoints
             'methods' => WP_REST_Server::READABLE,
             'callback' => [$this, "getSidebar"]
         ));
+        register_rest_route($this->namespace, '/site/config', array(
+            'methods' => WP_REST_Server::READABLE,
+            'callback' => [$this, "getSiteConfig"]
+        ));
     }
 
     public function getSidebar($request)
@@ -160,32 +164,43 @@ class Tru_Fetcher_Endpoints
                 )
             )[0];
         }
-		$page = $this->buildPageObject($getPage);
+	    $this->apiPostResponse = $this->buildApiResponse($getPage);
 //        return;
-        $this->apiPostResponse->setPost($page);
         // Return the product as a response.
         return rest_ensure_response($this->apiPostResponse);
     }
 
-    private function buildPageObject($page) {
-	    $blocksArray = $this->getAcfBlockData($page->post_content);
-
-	    if(array_key_exists(self::LISTINGS_FILTERS['NAME'], $blocksArray)) {
-	    	$listingsArray = $blocksArray[self::LISTINGS_FILTERS['NAME']];
-		    if ( array_key_exists( self::LISTINGS_FILTERS['OVERRIDE'], $listingsArray ) &&
-		         $listingsArray[self::LISTINGS_FILTERS['OVERRIDE']] ) {
-			    $blocksArray[self::LISTINGS_FILTERS['NAME']]
-			    [self::LISTINGS_FILTERS['OVERRIDE_ARRAY']]
-			    [self::LISTINGS_FILTERS['FILTERS_LIST']] =
-				    $this->buildListingFilters( $listingsArray[self::LISTINGS_FILTERS['OVERRIDE_ARRAY']]
-				    [self::LISTINGS_FILTERS['FILTERS_LIST']] );
-		    }
+    private function buildApiResponse($page) {
+    	//Blocks data must be set first
+    	$blocksData = $this->buildListingsBlock($page->post_content);
+    	$pageObject = $this->buildPageObject($page);
+	    $this->apiPostResponse->setPost($pageObject);
+	    $this->apiPostResponse->setSiteConfig($this->getSiteConfig());
+	    if (count($blocksData) !== 0) {
+		    $this->apiPostResponse->setListingsblockdata( $blocksData );
 	    }
-	    $page->blocks_data = $blocksArray;
-	    $page->head_title = $page->post_title . " - " . get_bloginfo( 'name' );
+	    return $this->apiPostResponse;
+    }
+
+    private function buildPageObject($page) {
+	    $page->seo_title = $page->post_title . " - " . get_bloginfo( 'name' );
 	    $page->post_content = apply_filters("the_content", $page->post_content);
 	    return $page;
     }
+
+	private function getSiteConfig() {
+    	return [
+    	    "admin_email" => get_option("admin_email"),
+    	    "blogname" => get_option("blogname"),
+    	    "blogdescription" => get_option("blogdescription"),
+    	    "blog_charset" => get_option("blog_charset"),
+    	    "date_format" => get_option("date_format"),
+    	    "default_category" => get_option("default_category"),
+    	    "home" => get_option("home"),
+    	    "siteurl" => get_option("siteurl"),
+    	    "posts_per_page" => get_option("posts_per_page"),
+	    ];
+	}
 
     private function getAcfBlockData($postContent) {
 	    $blocks = parse_blocks($postContent);
@@ -205,6 +220,21 @@ class Tru_Fetcher_Endpoints
 	    }
 	    return $blocksDataArray;
     }
+	private function buildListingsBlock($postContent) {
+		$blocksArray = $this->getAcfBlockData($postContent);
+		if(array_key_exists(self::LISTINGS_FILTERS['NAME'], $blocksArray)) {
+			$listingsArray = $blocksArray[self::LISTINGS_FILTERS['NAME']];
+			if ( array_key_exists( self::LISTINGS_FILTERS['OVERRIDE'], $listingsArray ) &&
+			     $listingsArray[self::LISTINGS_FILTERS['OVERRIDE']] ) {
+				$blocksArray[self::LISTINGS_FILTERS['NAME']]
+				[self::LISTINGS_FILTERS['OVERRIDE_ARRAY']]
+				[self::LISTINGS_FILTERS['FILTERS_LIST']] =
+					$this->buildListingFilters( $listingsArray[self::LISTINGS_FILTERS['OVERRIDE_ARRAY']]
+					[self::LISTINGS_FILTERS['FILTERS_LIST']] );
+			}
+		}
+		return $blocksArray;
+	}
 
     private function showError($code, $message)
     {

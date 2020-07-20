@@ -26,7 +26,8 @@ function acf_init_listing_block() {
             'render_template'   => plugin_dir_path( dirname( __FILE__ ) ) . 'blocks/listings/template/listings.php',
             'category'          => 'widget',
             'icon'              => 'admin-comments',
-            'keywords'          => array( 'testimonial', 'quote' ),
+            'keywords'          => array( 'listings', 'block' ),
+            'mode'				=> 'edit',
         ));
     }
 }
