@@ -222,7 +222,7 @@ class Tru_Fetcher {
     }
 
     public function register_sidebars() {
-        $args = array(
+        $leftSidebar = array(
             'name'          =>  __( 'Left Sidebar' ),
             'id'            => "left-sidebar",
             'description'   => '',
@@ -232,7 +232,29 @@ class Tru_Fetcher {
             'before_title'  => '<h2 class="widgettitle">',
             'after_title'   => "</h2>\n",
         );
-        register_sidebar( $args );
+        register_sidebar( $leftSidebar );
+        $topBar = array(
+            'name'          =>  __( 'Top Bar' ),
+            'id'            => "top-bar",
+            'description'   => '',
+            'class'         => '',
+            'before_widget' => '<li id="%1$s" class="widget %2$s">',
+            'after_widget'  => "</li>\n",
+            'before_title'  => '<h2 class="widgettitle">',
+            'after_title'   => "</h2>\n",
+        );
+        register_sidebar( $topBar );
+        $footer = array(
+            'name'          =>  __( 'Footer' ),
+            'id'            => "footer",
+            'description'   => '',
+            'class'         => '',
+            'before_widget' => '<li id="%1$s" class="widget %2$s">',
+            'after_widget'  => "</li>\n",
+            'before_title'  => '<h2 class="widgettitle">',
+            'after_title'   => "</h2>\n",
+        );
+        register_sidebar( $footer );
     }
 
 	/**
