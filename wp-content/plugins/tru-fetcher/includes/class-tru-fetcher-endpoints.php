@@ -23,6 +23,13 @@
 class Tru_Fetcher_Endpoints
 {
 
+	const LISTINGS_FILTERS = [
+		"NAME" => "tru_fetcher_listings",
+		"OVERRIDE" => "show_filters",
+		"OVERRIDE_ARRAY" => "filters",
+		"FILTERS_LIST" => "listings_filters",
+	] ;
+
     private $namespace = "wp/v2";
     private $apiPostResponse;
 
@@ -45,6 +52,10 @@ class Tru_Fetcher_Endpoints
         register_rest_route($this->namespace, '/sidebar/(?<sidebar_name>[\w-]+)', array(
             'methods' => WP_REST_Server::READABLE,
             'callback' => [$this, "getSidebar"]
+        ));
+        register_rest_route($this->namespace, '/site/config', array(
+            'methods' => WP_REST_Server::READABLE,
+            'callback' => [$this, "getSiteConfig"]
         ));
     }
 
@@ -75,12 +86,30 @@ class Tru_Fetcher_Endpoints
                 }
             }
             if ($widgetInstanceName === "listings_filter_widget") {
-	            $array[$widgetInstanceName] = get_fields('widget_' . $item);
+            	$widgetFields = get_fields('widget_' . $item);
+
+	            $widgetFields[self::LISTINGS_FILTERS['FILTERS_LIST']] = $this->buildListingFilters($widgetFields[self::LISTINGS_FILTERS['FILTERS_LIST']]);
+	            $array[$widgetInstanceName]                           = $widgetFields;
             }
             return $array;
 
         }, $sidebarWidgets[$sidebarName]);
+
         return rest_ensure_response($sidebarArray);
+    }
+
+    private function buildListingFilters($listingFiltersArray) {
+	    return array_map(function ($widgetItem) {
+		    if ($widgetItem['type'] == "list") {
+			    $selectedList = $widgetItem['list'];
+			    $widgetItem['list'] = false;
+			    if ($selectedList) {
+				    $widgetItem['list'] = get_field( "list_items", $selectedList->ID );
+			    }
+			    return $widgetItem;
+		    }
+		    return $widgetItem;
+	    }, $listingFiltersArray);
     }
 
     public function getMenuByName($request) {
@@ -125,9 +154,9 @@ class Tru_Fetcher_Endpoints
         }
         if ($pageName === "home") {
             $pageId = get_option("page_on_front");
-            $page = get_post($pageId);
+            $getPage = get_post($pageId);
         } else {
-            $page = get_posts(
+	        $getPage = get_posts(
                 array(
                     'name' => $pageName,
                     'post_type' => 'page',
@@ -135,11 +164,77 @@ class Tru_Fetcher_Endpoints
                 )
             )[0];
         }
-        $page->post_content = apply_filters("the_content", $page->post_content);
-        $this->apiPostResponse->setPost($page);
+	    $this->apiPostResponse = $this->buildApiResponse($getPage);
+//        return;
         // Return the product as a response.
         return rest_ensure_response($this->apiPostResponse);
     }
+
+    private function buildApiResponse($page) {
+    	//Blocks data must be set first
+    	$blocksData = $this->buildListingsBlock($page->post_content);
+    	$pageObject = $this->buildPageObject($page);
+	    $this->apiPostResponse->setPost($pageObject);
+	    $this->apiPostResponse->setSiteConfig($this->getSiteConfig());
+	    if (count($blocksData) !== 0) {
+		    $this->apiPostResponse->setListingsblockdata( $blocksData );
+	    }
+	    return $this->apiPostResponse;
+    }
+
+    private function buildPageObject($page) {
+	    $page->seo_title = $page->post_title . " - " . get_bloginfo( 'name' );
+	    $page->post_content = apply_filters("the_content", $page->post_content);
+	    return $page;
+    }
+
+	private function getSiteConfig() {
+    	return [
+    	    "admin_email" => get_option("admin_email"),
+    	    "blogname" => get_option("blogname"),
+    	    "blogdescription" => get_option("blogdescription"),
+    	    "blog_charset" => get_option("blog_charset"),
+    	    "date_format" => get_option("date_format"),
+    	    "default_category" => get_option("default_category"),
+    	    "home" => get_option("home"),
+    	    "siteurl" => get_option("siteurl"),
+    	    "posts_per_page" => get_option("posts_per_page"),
+	    ];
+	}
+
+    private function getAcfBlockData($postContent) {
+	    $blocks = parse_blocks($postContent);
+	    $blocksDataArray = array();
+	    foreach($blocks as $block){
+			if (!array_key_exists("data", $block['attrs'])) {
+				continue;
+			}
+		    acf_setup_meta( $block['attrs']['data'], $block['attrs']['id'], true );
+		    $fields = get_fields();
+		    if ($fields) {
+		    	$blockName = str_replace("acf/", "", $block['blockName']);
+		    	$blockName = str_replace("-", "_", $blockName);
+			    $blocksDataArray[ $blockName ] = $fields;
+		    }
+		    acf_reset_meta( $block['attrs']['id'] );
+	    }
+	    return $blocksDataArray;
+    }
+	private function buildListingsBlock($postContent) {
+		$blocksArray = $this->getAcfBlockData($postContent);
+		if(array_key_exists(self::LISTINGS_FILTERS['NAME'], $blocksArray)) {
+			$listingsArray = $blocksArray[self::LISTINGS_FILTERS['NAME']];
+			if ( array_key_exists( self::LISTINGS_FILTERS['OVERRIDE'], $listingsArray ) &&
+			     $listingsArray[self::LISTINGS_FILTERS['OVERRIDE']] ) {
+				$blocksArray[self::LISTINGS_FILTERS['NAME']]
+				[self::LISTINGS_FILTERS['OVERRIDE_ARRAY']]
+				[self::LISTINGS_FILTERS['FILTERS_LIST']] =
+					$this->buildListingFilters( $listingsArray[self::LISTINGS_FILTERS['OVERRIDE_ARRAY']]
+					[self::LISTINGS_FILTERS['FILTERS_LIST']] );
+			}
+		}
+		return $blocksArray;
+	}
 
     private function showError($code, $message)
     {

@@ -192,8 +192,8 @@ class Tru_Fetcher {
 	}
 
 	private function define_post_types() {
-        $truFetcherPostTypes = new Tru_Fetcher_Post_Types();
-        $this->loader->add_action( 'init', $truFetcherPostTypes, "register_post_types" );
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/post_types/listings_post_type.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/post_types/filter_lists_post_type.php';
 	}
 
 	private function define_blocks() {
@@ -222,7 +222,7 @@ class Tru_Fetcher {
     }
 
     public function register_sidebars() {
-        $args = array(
+        $leftSidebar = array(
             'name'          =>  __( 'Left Sidebar' ),
             'id'            => "left-sidebar",
             'description'   => '',
@@ -232,7 +232,29 @@ class Tru_Fetcher {
             'before_title'  => '<h2 class="widgettitle">',
             'after_title'   => "</h2>\n",
         );
-        register_sidebar( $args );
+        register_sidebar( $leftSidebar );
+        $topBar = array(
+            'name'          =>  __( 'Top Bar' ),
+            'id'            => "top-bar",
+            'description'   => '',
+            'class'         => '',
+            'before_widget' => '<li id="%1$s" class="widget %2$s">',
+            'after_widget'  => "</li>\n",
+            'before_title'  => '<h2 class="widgettitle">',
+            'after_title'   => "</h2>\n",
+        );
+        register_sidebar( $topBar );
+        $footer = array(
+            'name'          =>  __( 'Footer' ),
+            'id'            => "footer",
+            'description'   => '',
+            'class'         => '',
+            'before_widget' => '<li id="%1$s" class="widget %2$s">',
+            'after_widget'  => "</li>\n",
+            'before_title'  => '<h2 class="widgettitle">',
+            'after_title'   => "</h2>\n",
+        );
+        register_sidebar( $footer );
     }
 
 	/**
