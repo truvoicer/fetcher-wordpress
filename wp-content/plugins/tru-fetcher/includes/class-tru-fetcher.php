@@ -197,7 +197,12 @@ class Tru_Fetcher {
 	}
 
 	private function define_blocks() {
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'blocks/listings.php';
+        $dir = new DirectoryIterator(plugin_dir_path( dirname( __FILE__ ) ) . 'blocks');
+        foreach ($dir as $fileinfo) {
+            if (!$fileinfo->isDot()) {
+                require_once($fileinfo->getRealPath() . '/acf-register.php');
+            }
+        }
     }
 
     private function define_menus() {
@@ -215,6 +220,7 @@ class Tru_Fetcher {
 
     private function define_widgets() {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/widgets/class-tru-fetcher-listings-widget.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/widgets/class-tru-fetcher-social-media-widget.php';
     }
 
     private function define_sidebars() {
@@ -222,39 +228,7 @@ class Tru_Fetcher {
     }
 
     public function register_sidebars() {
-        $leftSidebar = array(
-            'name'          =>  __( 'Left Sidebar' ),
-            'id'            => "left-sidebar",
-            'description'   => '',
-            'class'         => '',
-            'before_widget' => '<li id="%1$s" class="widget %2$s">',
-            'after_widget'  => "</li>\n",
-            'before_title'  => '<h2 class="widgettitle">',
-            'after_title'   => "</h2>\n",
-        );
-        register_sidebar( $leftSidebar );
-        $topBar = array(
-            'name'          =>  __( 'Top Bar' ),
-            'id'            => "top-bar",
-            'description'   => '',
-            'class'         => '',
-            'before_widget' => '<li id="%1$s" class="widget %2$s">',
-            'after_widget'  => "</li>\n",
-            'before_title'  => '<h2 class="widgettitle">',
-            'after_title'   => "</h2>\n",
-        );
-        register_sidebar( $topBar );
-        $footer = array(
-            'name'          =>  __( 'Footer' ),
-            'id'            => "footer",
-            'description'   => '',
-            'class'         => '',
-            'before_widget' => '<li id="%1$s" class="widget %2$s">',
-            'after_widget'  => "</li>\n",
-            'before_title'  => '<h2 class="widgettitle">',
-            'after_title'   => "</h2>\n",
-        );
-        register_sidebar( $footer );
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/sidebars/register-sidebars.php';
     }
 
 	/**

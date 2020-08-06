@@ -3,7 +3,7 @@
 class ApiPostResponse
 {
     public $post;
-    public $listings_block_data;
+    public $blocks_data;
     public $site_config;
 
     /**
@@ -25,17 +25,17 @@ class ApiPostResponse
     /**
      * @return mixed
      */
-    public function getListingsblockdata()
+    public function getBlocksData()
     {
-        return $this->listings_block_data;
+        return $this->blocks_data;
     }
 
     /**
-     * @param mixed $listings_block_data
+     * @param mixed $blocks_data
      */
-    public function setListingsblockdata($listings_block_data)
+    public function setBlocksData($blocks_data)
     {
-        $this->listings_block_data = $listings_block_data;
+        $this->blocks_data = $blocks_data;
     }
 
 	/**
