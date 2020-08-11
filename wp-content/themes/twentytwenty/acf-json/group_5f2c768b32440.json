@@ -1,54 +1,11 @@
 {
-    "key": "group_5f2c1d3c72bb9",
-    "title": "Hero Block",
+    "key": "group_5f2c768b32440",
+    "title": "Social Media Widget",
     "fields": [
         {
-            "key": "field_5f2c1d426eb49",
-            "label": "Hero Background Image",
-            "name": "hero_background_image",
-            "type": "image",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "return_format": "url",
-            "preview_size": "thumbnail",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": ""
-        },
-        {
-            "key": "field_5f2c1d6c6eb4a",
-            "label": "Hero Search",
-            "name": "hero_search",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 0,
-            "ui": 1,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
-            "key": "field_5f2c1d8b6eb4b",
-            "label": "Hero Title",
-            "name": "hero_title",
+            "key": "field_5f2c7d2b8b880",
+            "label": "Title",
+            "name": "title",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -65,9 +22,66 @@
             "maxlength": ""
         },
         {
-            "key": "field_5f2c1d966eb4c",
-            "label": "Hero Text",
-            "name": "hero_text",
+            "key": "field_5f2c769cc61ef",
+            "label": "Facebook",
+            "name": "facebook",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5f2c76b3c61f0",
+            "label": "Twitter",
+            "name": "twitter",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5f2c76bac61f1",
+            "label": "Instagram",
+            "name": "instagram",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5f2c76c8c61f2",
+            "label": "LinkedIn",
+            "name": "linkedin",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -87,9 +101,9 @@
     "location": [
         [
             {
-                "param": "block",
+                "param": "widget",
                 "operator": "==",
-                "value": "acf\/tru-fetcher-hero"
+                "value": "social_media_widget"
             }
         ]
     ],
@@ -101,5 +115,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1597167389
+    "modified": 1597167398
 }

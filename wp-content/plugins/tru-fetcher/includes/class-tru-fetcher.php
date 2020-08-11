@@ -192,7 +192,6 @@ class Tru_Fetcher {
 	}
 
 	private function define_post_types() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/post_types/listings_post_type.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/post_types/filter_lists_post_type.php';
 	}
 

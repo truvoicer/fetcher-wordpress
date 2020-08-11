@@ -1,57 +1,55 @@
 {
-    "key": "group_5f0c83b539a44",
-    "title": "Global Fields",
+    "key": "group_5f32cd1baa1c6",
+    "title": "Filter Lists Post Type",
     "fields": [
         {
-            "key": "field_5f0c83c0abe87",
-            "label": "Initial Search",
-            "name": "initial_search",
-            "type": "group",
+            "key": "field_5f32cd369eef6",
+            "label": "List Items",
+            "name": "list_items",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
-            "layout": "block",
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
             "sub_fields": [
                 {
-                    "key": "field_5f0c83eaabe88",
-                    "label": "Search Type",
-                    "name": "search_type",
-                    "type": "select",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "30",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "keywords": "Keywords",
-                        "location": "Location"
-                    },
-                    "default_value": false,
-                    "allow_null": 0,
-                    "multiple": 0,
-                    "ui": 1,
-                    "ajax": 0,
-                    "return_format": "value",
-                    "placeholder": ""
-                },
-                {
-                    "key": "field_5f0c841dabe89",
-                    "label": "Search Value",
-                    "name": "search_value",
+                    "key": "field_5f32cd5c9eef7",
+                    "label": "Name",
+                    "name": "name",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "70",
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f32cd649eef8",
+                    "label": "Label",
+                    "name": "label",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
                         "class": "",
                         "id": ""
                     },
@@ -69,7 +67,7 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "post"
+                "value": "lists_post_type"
             }
         ]
     ],
@@ -79,7 +77,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 0,
+    "active": 1,
     "description": "",
-    "modified": 1596726866
+    "modified": 1597167576
 }
