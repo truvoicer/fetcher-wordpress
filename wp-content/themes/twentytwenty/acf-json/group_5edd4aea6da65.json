@@ -18,7 +18,8 @@
             "choices": {
                 "events": "Events",
                 "retail": "Retail",
-                "games": "Games"
+                "games": "Games",
+                "real_estate": "Real Estate"
             },
             "default_value": false,
             "allow_null": 0,
@@ -64,9 +65,9 @@
             "sub_fields": [
                 {
                     "key": "field_5f0fa005aa06e",
-                    "label": "Search Type",
-                    "name": "search_type",
-                    "type": "select",
+                    "label": "Parameter Name",
+                    "name": "parameter_name",
+                    "type": "text",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -75,22 +76,16 @@
                         "class": "",
                         "id": ""
                     },
-                    "choices": {
-                        "query": "Query",
-                        "location": "Location"
-                    },
-                    "default_value": false,
-                    "allow_null": 0,
-                    "multiple": 0,
-                    "ui": 1,
-                    "ajax": 0,
-                    "return_format": "value",
-                    "placeholder": ""
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
                 },
                 {
                     "key": "field_5f0fa025aa06f",
-                    "label": "Search Value",
-                    "name": "search_value",
+                    "label": "Parameter Value",
+                    "name": "parameter_value",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
@@ -406,5 +401,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1597167394
+    "modified": 1597368843
 }
