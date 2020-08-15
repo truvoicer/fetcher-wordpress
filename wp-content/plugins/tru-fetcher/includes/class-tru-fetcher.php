@@ -84,6 +84,7 @@ class Tru_Fetcher {
 		$this->define_menus();
 		$this->define_sidebars();
 		$this->define_widgets();
+		$this->define_taxonomies();
 
 	}
 
@@ -192,43 +193,37 @@ class Tru_Fetcher {
 	}
 
 	private function define_post_types() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/post_types/filter_lists_post_type.php';
+		$this->directoryIncludes('includes/post-types', 'register-post-type.php');
 	}
 
 	private function define_blocks() {
-        $dir = new DirectoryIterator(plugin_dir_path( dirname( __FILE__ ) ) . 'blocks');
-        foreach ($dir as $fileinfo) {
-            if (!$fileinfo->isDot()) {
-                require_once($fileinfo->getRealPath() . '/acf-register.php');
-            }
-        }
+		$this->directoryIncludes('includes/blocks', 'acf-register.php');
     }
 
     private function define_menus() {
-	    $this->loader->add_action("init", $this, "register_nav_menus");
-    }
-
-    public function register_nav_menus() {
-        register_nav_menus(
-            array(
-                'sidebar-menu' => __( 'Sidebar Menu' ),
-                'extra-menu' => __( 'Extra Menu' )
-            )
-        );
+	    $this->directoryIncludes('includes/menus', 'register-menu.php');
     }
 
     private function define_widgets() {
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/widgets/class-tru-fetcher-listings-widget.php';
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/widgets/class-tru-fetcher-social-media-widget.php';
+	    $this->directoryIncludes('includes/widgets', 'register-widget.php');
     }
 
     private function define_sidebars() {
-	    $this->loader->add_action("init", $this, "register_sidebars");
+	    $this->directoryIncludes('includes/sidebars', 'register-sidebar.php');
     }
 
-    public function register_sidebars() {
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/sidebars/register-sidebars.php';
+    private function define_taxonomies() {
+	    $this->directoryIncludes('includes/taxonomies', 'register-taxonomy.php');
     }
+
+	private function directoryIncludes($pathName, $fileName) {
+		$dir = new DirectoryIterator(plugin_dir_path( dirname( __FILE__ ) ) . $pathName);
+		foreach ($dir as $fileinfo) {
+			if (!$fileinfo->isDot()) {
+				require_once($fileinfo->getRealPath() . '/'. $fileName);
+			}
+		}
+	}
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

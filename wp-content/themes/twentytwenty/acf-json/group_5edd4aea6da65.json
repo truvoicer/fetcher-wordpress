@@ -6,7 +6,7 @@
             "key": "field_5f0c1c43f892a",
             "label": "Listing Block Category",
             "name": "listing_block_category",
-            "type": "select",
+            "type": "taxonomy",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -15,19 +15,14 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "events": "Events",
-                "retail": "Retail",
-                "games": "Games",
-                "real_estate": "Real Estate"
-            },
-            "default_value": false,
+            "taxonomy": "listings_categories",
+            "field_type": "select",
             "allow_null": 0,
-            "multiple": 0,
-            "ui": 1,
-            "ajax": 0,
-            "return_format": "value",
-            "placeholder": ""
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "object",
+            "multiple": 0
         },
         {
             "key": "field_5edd4c2f16171",
@@ -401,5 +396,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1597368843
+    "modified": 1597527675
 }
