@@ -22,33 +22,62 @@
  */
 class Tru_Fetcher_Post_Types {
 
-    public function register_post_types()
-    {
-        $labels = array(
-            'name'                  => _x( 'Listings', 'Listings', 'text_domain' ),
-            'singular_name'         => _x( 'Listing', 'Listing', 'text_domain' ),
-            'menu_name'             => __( 'Listings', 'text_domain' ),
-            'name_admin_bar'        => __( 'Post Type', 'text_domain' ),
-        );
-        $args = array(
-            'label'                 => __( 'Listing', 'text_domain' ),
-            'labels'                => $labels,
-            'supports'              => array( 'title', 'editor' ),
-            'taxonomies'            => array( 'category', 'post_tag' ),
-            'hierarchical'          => false,
-            'public'                => true,
-            'show_ui'               => true,
-            'show_in_menu'          => true,
-            'menu_position'         => 5,
-            'show_in_admin_bar'     => true,
-            'show_in_nav_menus'     => true,
-            'can_export'            => true,
-            'has_archive'           => true,
-            'exclude_from_search'   => false,
-            'publicly_queryable'    => true,
-            'capability_type'       => 'page',
-        );
-        register_post_type( 'listing_post_type', $args );
-    }
+	private $parentMenuTitle = "Tru Fetcher";
+	private $parentMenuPageTitle = "Tru Fetcher";
+	private $parentMenuSlug = "tru-fetcher-main-menu";
+	private $parentMenuCapability = "manage_options";
+	private $postTypeSubmenuArray = [];
 
+
+	public function __construct() {
+	}
+
+	public function post_types_init() {
+		$this->define_post_types();
+		$this->define_admin_menus();
+	}
+
+	public function define_post_types() {
+		$this->directoryIncludes( 'includes/post-types', 'register-post-type.php' );
+	}
+
+	private function define_admin_menus() {
+		add_action( 'admin_menu', [ $this, 'add_admin_menus' ] );
+	}
+
+	public function add_admin_menus() {
+		add_menu_page(
+			$this->parentMenuPageTitle,
+			$this->parentMenuTitle,
+			$this->parentMenuCapability,
+			$this->parentMenuSlug,
+			'my_menu_function',
+			"",
+			2
+		);
+		foreach ($this->postTypeSubmenuArray as $submenu) {
+			add_submenu_page(
+				$this->parentMenuSlug,
+				$submenu["title"],
+				$submenu["title"],
+				'manage_options',
+				'edit.php?post_type=' . $submenu["name"]
+			);
+		}
+	}
+
+	private function directoryIncludes( $pathName, $fileName ) {
+		$dir = new DirectoryIterator( plugin_dir_path( dirname( __FILE__ ) ) . $pathName );
+		foreach ( $dir as $fileinfo ) {
+			if ( ! $fileinfo->isDot() ) {
+				$submenuArray = [
+					"name" => str_replace( "-", "_", $fileinfo->getFilename() ),
+					"slug" => $fileinfo->getFilename(),
+					"title" => ucwords(str_replace("-", " ", $fileinfo->getFilename()))
+				];
+				array_push($this->postTypeSubmenuArray, $submenuArray );
+				require_once( $fileinfo->getRealPath() . '/' . $fileName );
+			}
+		}
+	}
 }

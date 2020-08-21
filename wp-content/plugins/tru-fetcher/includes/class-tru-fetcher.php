@@ -74,6 +74,7 @@ class Tru_Fetcher {
 		}
 		$this->plugin_name = 'tru-fetcher';
 
+		$this->loadJwtAuthWhitelist();
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
@@ -186,6 +187,37 @@ class Tru_Fetcher {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 	}
+	private function loadJwtAuthWhitelist() {
+		add_filter( 'jwt_auth_whitelist', function ( $endpoints ) {
+			return array(
+				'/wp-json/wp/v2/public/*'
+			);
+		} );
+		add_filter(
+			'jwt_auth_valid_token_response',
+			function ( $response, $user, $token, $payload ) {
+				// Modify the response here.
+				$response = array(
+					'success'    => true,
+					'statusCode' => 200,
+					'code'       => 'jwt_auth_valid_token',
+					'message'    => __( 'Token is valid', 'jwt-auth' ),
+					'data'       => array(
+						'token'       => $token,
+						'id'          => $user->ID,
+						'email'       => $user->user_email,
+						'nicename'    => $user->user_nicename,
+						'firstName'   => $user->first_name,
+						'lastName'    => $user->last_name,
+						'displayName' => $user->display_name,
+					),
+				);
+				return $response;
+			},
+			10,
+			4
+		);
+	}
 
 	private function define_endpoints() {
         $truFetcherEndpoints = new Tru_Fetcher_Endpoints();
@@ -193,7 +225,8 @@ class Tru_Fetcher {
 	}
 
 	private function define_post_types() {
-		$this->directoryIncludes('includes/post-types', 'register-post-type.php');
+		$truFetcherPostTypes = new Tru_Fetcher_Post_Types();
+		$truFetcherPostTypes->post_types_init();
 	}
 
 	private function define_blocks() {

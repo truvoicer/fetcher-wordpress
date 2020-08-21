@@ -33,7 +33,7 @@ function TruFetcherListingsCategoryTaxonomy() {
 		'show_tagcloud'              => true,
 		'show_in_rest'               => true,
 	);
-	register_taxonomy( 'listings_categories', array( 'item_view_templates' ), $args );
+	register_taxonomy( 'listings_categories', array( 'item_view_templates', 'pages', 'posts' ), $args );
 
 }
 add_action( 'init', 'TruFetcherListingsCategoryTaxonomy', 0 );

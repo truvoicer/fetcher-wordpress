@@ -29,7 +29,7 @@ class Tru_Fetcher_Endpoints {
 		"FILTERS_LIST"   => "listings_filters",
 	];
 
-	private $namespace = "wp/v2";
+	private $namespace = "wp/v2/public";
 	private $apiPostResponse;
 	private $templatePostType = "item_view_templates";
 	private $listingsCategoriesTaxonomy = "listings_categories";
