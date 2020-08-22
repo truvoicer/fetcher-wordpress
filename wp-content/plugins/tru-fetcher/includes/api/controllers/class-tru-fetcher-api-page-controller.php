@@ -279,7 +279,7 @@ class Tru_Fetcher_Api_Page_Controller {
 			}
 			acf_reset_meta( $block['attrs']['id'] );
 		}
-
+		
 		return $blocksDataArray;
 	}
 
@@ -296,7 +296,6 @@ class Tru_Fetcher_Api_Page_Controller {
 					[ self::LISTINGS_FILTERS['FILTERS_LIST'] ] );
 			}
 		}
-
 		return $blocksArray;
 	}
 
