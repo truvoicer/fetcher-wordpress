@@ -1,6 +1,6 @@
 <?php
 
-class ApiPostResponse
+class Tru_Fetcher_Api_Post_Response
 {
     public $post;
     public $blocks_data;

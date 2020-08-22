@@ -20,7 +20,7 @@
  * @subpackage Tru_Fetcher/includes
  * @author     Michael <michael@local.com>
  */
-class Tru_Fetcher_Endpoints {
+class Tru_Fetcher_Api_Page_Controller {
 
 	const LISTINGS_FILTERS = [
 		"NAME"           => "tru_fetcher_listings",
@@ -35,30 +35,47 @@ class Tru_Fetcher_Endpoints {
 	private $listingsCategoriesTaxonomy = "listings_categories";
 
 	public function __construct() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/ApiPostResponse.php';
-		$this->apiPostResponse = new ApiPostResponse();
+	}
+
+	public function init() {
+		$this->load_dependencies();
+		$this->loadResponseObjects();
+		add_action( 'rest_api_init', [$this, "register_routes"] );
+	}
+
+	private function load_dependencies() {
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'response/ApiPostResponse.php';
+	}
+
+	private function loadResponseObjects() {
+		$this->apiPostResponse = new Tru_Fetcher_Api_Post_Response();
 	}
 
 	public function register_routes() {
 		register_rest_route( $this->namespace, '/template/item-view/(?<category_name>[\w-]+)', array(
 			'methods'  => WP_REST_Server::READABLE,
-			'callback' => [ $this, "getTemplate" ]
+			'callback' => [ $this, "getTemplate" ],
+			'permission_callback' => '__return_true'
 		) );
 		register_rest_route( $this->namespace, '/page/(?<page_name>[\w-]+)', array(
 			'methods'  => WP_REST_Server::READABLE,
-			'callback' => [ $this, "getPageBySlug" ]
+			'callback' => [ $this, "getPageBySlug" ],
+			'permission_callback' => '__return_true'
 		) );
 		register_rest_route( $this->namespace, '/menu/(?<menu_name>[\w-]+)', array(
 			'methods'  => WP_REST_Server::READABLE,
-			'callback' => [ $this, "getMenuByName" ]
+			'callback' => [ $this, "getMenuByName" ],
+			'permission_callback' => '__return_true'
 		) );
 		register_rest_route( $this->namespace, '/sidebar/(?<sidebar_name>[\w-]+)', array(
 			'methods'  => WP_REST_Server::READABLE,
-			'callback' => [ $this, "getSidebar" ]
+			'callback' => [ $this, "getSidebar" ],
+			'permission_callback' => '__return_true'
 		) );
 		register_rest_route( $this->namespace, '/site/config', array(
 			'methods'  => WP_REST_Server::READABLE,
-			'callback' => [ $this, "getSiteConfig" ]
+			'callback' => [ $this, "getSiteConfig" ],
+			'permission_callback' => '__return_true'
 		) );
 	}
 

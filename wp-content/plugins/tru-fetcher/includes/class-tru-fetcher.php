@@ -79,7 +79,7 @@ class Tru_Fetcher {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-		$this->define_endpoints();
+		$this->loadApiControllers();
 		$this->define_post_types();
 		$this->define_blocks();
 		$this->define_menus();
@@ -124,7 +124,7 @@ class Tru_Fetcher {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-tru-fetcher-admin.php';
 
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-tru-fetcher-endpoints.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/api/class-tru-fetcher-api.php';
 
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-tru-fetcher-post-types.php';
 
@@ -219,9 +219,9 @@ class Tru_Fetcher {
 		);
 	}
 
-	private function define_endpoints() {
-        $truFetcherEndpoints = new Tru_Fetcher_Endpoints();
-        $this->loader->add_action( 'rest_api_init', $truFetcherEndpoints, "register_routes" );
+	private function loadApiControllers() {
+        $truFetcherEndpoints = new Tru_Fetcher_Api();
+        $truFetcherEndpoints->loadApiControllers();
 	}
 
 	private function define_post_types() {
