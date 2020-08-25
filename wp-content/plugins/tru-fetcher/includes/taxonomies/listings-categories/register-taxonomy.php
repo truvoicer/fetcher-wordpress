@@ -32,6 +32,9 @@ function TruFetcherListingsCategoryTaxonomy() {
 		'show_in_nav_menus'          => true,
 		'show_tagcloud'              => true,
 		'show_in_rest'               => true,
+		'show_in_graphql' => true,
+		'graphql_single_name' => 'listingsCategory',
+		'graphql_plural_name' => 'listingsCategories',
 	);
 	register_taxonomy( 'listings_categories', array( 'item_view_templates', 'pages', 'posts' ), $args );
 

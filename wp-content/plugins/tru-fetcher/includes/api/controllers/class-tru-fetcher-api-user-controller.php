@@ -44,14 +44,41 @@ class Tru_Fetcher_Api_User_Controller {
 	}
 
 	public function register_routes() {
-		register_rest_route( $this->namespace, '/create-user', array(
+		register_rest_route( $this->namespace, '/create', array(
 			'methods'  => WP_REST_Server::CREATABLE,
 			'callback' => [ $this, "createUser" ],
+			'permission_callback' => '__return_true'
+		) );
+		register_rest_route( $this->namespace, '/update', array(
+			'methods'  => WP_REST_Server::CREATABLE,
+			'callback' => [ $this, "updateUser" ],
 			'permission_callback' => '__return_true'
 		) );
 	}
 
 	public function createUser($request) {
+		$username = $request["username"];
+		$email = $request["email"];
+		$password = $request["password"];
+
+		$createUser = wp_create_user($username, $password, $email);
+		if (is_wp_error($createUser)) {
+			return $this->showError($createUser->get_error_code(), $createUser->get_error_message());
+		}
+		wp_new_user_notification($createUser);
+
+		$getUserData = [
+			"username" => $username,
+			"email" => $email
+		];
+		return $this->sendResponse(
+			$this->buildResponseObject(self::STATUS_SUCCESS,
+				sprintf("Confirmation email has been sent to (%s). Click on the confirmation link in the email to complete registration.", $email),
+				$getUserData)
+		);
+	}
+
+	public function updateUser($request) {
 		$username = $request["username"];
 		$email = $request["email"];
 		$password = $request["password"];

@@ -79,6 +79,7 @@ class Tru_Fetcher {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+		$this->loadGraphQl();
 		$this->loadApiControllers();
 		$this->define_post_types();
 		$this->define_blocks();
@@ -125,6 +126,8 @@ class Tru_Fetcher {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-tru-fetcher-admin.php';
 
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/api/class-tru-fetcher-api.php';
+
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/graphql/class-tru-fetcher-graphql.php';
 
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-tru-fetcher-post-types.php';
 
@@ -187,6 +190,7 @@ class Tru_Fetcher {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 	}
+
 	private function loadJwtAuthWhitelist() {
 		add_filter( 'jwt_auth_whitelist', function ( $endpoints ) {
 			return array(
@@ -217,6 +221,11 @@ class Tru_Fetcher {
 			10,
 			4
 		);
+	}
+
+	private function loadGraphQl() {
+//		$truFetcherEndpoints = new Tru_Fetcher_GraphQl();
+//		$truFetcherEndpoints->init();
 	}
 
 	private function loadApiControllers() {

@@ -160,11 +160,15 @@ class Tru_Fetcher_Api_Page_Controller {
 
 		foreach ( $getMenu as $item ) {
 			if ( (int) $item->menu_item_parent === 0 ) {
-				$menuArray[ $i ]["menu_item"] = $this->getPostFromMenuItem( $item );
+				$getPost = $this->getPostFromMenuItem( $item );
+				$getPost->blocks_data = $this->buildListingsBlock( $getPost->post_content );
+				$menuArray[ $i ]["menu_item"] = $getPost;
 			}
 			foreach ( $getMenu as $subItem ) {
 				if ( (int) $subItem->menu_item_parent == (int) $item->ID ) {
-					$menuArray[ $i ]["menu_sub_items"][] = $this->getPostFromMenuItem( $subItem );
+					$getPost = $this->getPostFromMenuItem( $subItem );
+					$getPost->blocks_data = $this->buildListingsBlock( $getPost->post_content );
+					$menuArray[ $i ]["menu_sub_items"][] = $getPost;
 				}
 			}
 			$i ++;

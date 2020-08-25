@@ -12,7 +12,6 @@ function register_filter_lists_post_type()
 		'labels'                => $labels,
 		'supports'              => array( 'title' ),
 		'taxonomies'            => array( ),
-		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => false,
@@ -24,6 +23,10 @@ function register_filter_lists_post_type()
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
+		'show_in_graphql' => true,
+		'hierarchical' => true,
+		'graphql_single_name' => 'filterList',
+		'graphql_plural_name' => 'filterLists',
 	);
 	register_post_type( 'filter_lists', $args );
 }

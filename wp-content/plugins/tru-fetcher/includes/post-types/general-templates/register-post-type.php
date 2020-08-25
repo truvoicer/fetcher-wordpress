@@ -11,7 +11,6 @@ function TruFetcherGeneralTemplate()
 		'label'                 => __( 'General Templates', 'text_domain' ),
 		'labels'                => $labels,
         'supports'              => array( 'title', 'editor', 'thumbnail', 'comments', 'trackbacks', 'revisions', 'custom-fields', 'page-attributes', 'post-formats' ),
-		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => false,
@@ -24,6 +23,10 @@ function TruFetcherGeneralTemplate()
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
+		'show_in_graphql' => true,
+		'hierarchical' => true,
+		'graphql_single_name' => 'generalTemplate',
+		'graphql_plural_name' => 'generalTemplates',
 	);
 	register_post_type( 'general_templates', $args );
 }

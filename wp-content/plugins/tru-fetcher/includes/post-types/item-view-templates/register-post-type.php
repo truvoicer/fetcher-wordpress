@@ -12,7 +12,6 @@ function TruFetcherItemViewTemplate()
 		'labels'                => $labels,
         'supports'              => array( 'title', 'editor', 'thumbnail', 'comments', 'trackbacks', 'revisions', 'custom-fields', 'page-attributes', 'post-formats' ),
         'taxonomies'            => array( 'listings_categories' ),
-		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => false,
@@ -25,6 +24,10 @@ function TruFetcherItemViewTemplate()
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
+		'show_in_graphql' => true,
+		'hierarchical' => true,
+		'graphql_single_name' => 'itemViewTemplate',
+		'graphql_plural_name' => 'itemViewTemplates',
 	);
 	register_post_type( 'item_view_templates', $args );
 }
