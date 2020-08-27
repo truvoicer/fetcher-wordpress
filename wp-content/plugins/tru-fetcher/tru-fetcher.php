@@ -43,7 +43,8 @@ define( 'TRU_FETCHER_VERSION', '1.0.0' );
  */
 function activate_tru_fetcher() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-tru-fetcher-activator.php';
-	Tru_Fetcher_Activator::activate();
+	$activator = new Tru_Fetcher_Activator();
+	$activator->activate();
 }
 
 /**

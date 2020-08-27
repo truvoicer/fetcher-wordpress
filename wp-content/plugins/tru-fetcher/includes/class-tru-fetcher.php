@@ -35,7 +35,7 @@ class Tru_Fetcher {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Tru_Fetcher_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Tru_Fetcher_Loader $loader Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -44,7 +44,7 @@ class Tru_Fetcher {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 * @var      string $plugin_name The string used to uniquely identify this plugin.
 	 */
 	protected $plugin_name;
 
@@ -53,7 +53,7 @@ class Tru_Fetcher {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
+	 * @var      string $version The current version of the plugin.
 	 */
 	protected $version;
 
@@ -79,7 +79,6 @@ class Tru_Fetcher {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-		$this->loadGraphQl();
 		$this->loadApiControllers();
 		$this->define_post_types();
 		$this->define_blocks();
@@ -125,11 +124,11 @@ class Tru_Fetcher {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-tru-fetcher-admin.php';
 
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/api/class-tru-fetcher-api.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/api/class-tru-fetcher-api.php';
 
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/graphql/class-tru-fetcher-graphql.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/graphql/class-tru-fetcher-graphql.php';
 
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-tru-fetcher-post-types.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-tru-fetcher-post-types.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -207,30 +206,52 @@ class Tru_Fetcher {
 					'code'       => 'jwt_auth_valid_token',
 					'message'    => __( 'Token is valid', 'jwt-auth' ),
 					'data'       => array(
-						'token'       => $token,
-						'id'          => $user->ID,
-						'email'       => $user->user_email,
-						'nicename'    => $user->user_nicename,
-						'firstName'   => $user->first_name,
-						'lastName'    => $user->last_name,
-						'displayName' => $user->display_name,
+						'token'         => $token,
+						'id'            => $user->ID,
+						'user_email'    => $user->user_email,
+						'user_nicename' => $user->user_nicename,
+						'first_name'    => $user->first_name,
+						'last_name'     => $user->last_name,
+						'display_name'  => $user->display_name,
+						'nickname'      => $user->nickname,
 					),
 				);
+
 				return $response;
 			},
 			10,
 			4
 		);
-	}
+		add_filter(
+			'jwt_auth_valid_credential_response',
+			function ( $response, $user ) {
+				$response = array(
+					'success'    => true,
+					'statusCode' => 200,
+					'code'       => 'jwt_auth_valid_credential',
+					'message'    => __( 'Credential is valid', 'jwt-auth' ),
+					'data'       => array(
+						'token'         => $response["data"]["token"],
+						'id'            => $user->ID,
+						'user_email'    => $user->user_email,
+						'user_nicename' => $user->user_nicename,
+						'first_name'    => $user->first_name,
+						'last_name'     => $user->last_name,
+						'display_name'  => $user->display_name,
+						'nickname'      => $user->nickname,
+					),
+				);
 
-	private function loadGraphQl() {
-//		$truFetcherEndpoints = new Tru_Fetcher_GraphQl();
-//		$truFetcherEndpoints->init();
+				return $response;
+			},
+			10,
+			2
+		);
 	}
 
 	private function loadApiControllers() {
-        $truFetcherEndpoints = new Tru_Fetcher_Api();
-        $truFetcherEndpoints->loadApiControllers();
+		$truFetcherEndpoints = new Tru_Fetcher_Api();
+		$truFetcherEndpoints->loadApiControllers();
 	}
 
 	private function define_post_types() {
@@ -239,30 +260,30 @@ class Tru_Fetcher {
 	}
 
 	private function define_blocks() {
-		$this->directoryIncludes('includes/blocks', 'acf-register.php');
-    }
+		$this->directoryIncludes( 'includes/blocks', 'acf-register.php' );
+	}
 
-    private function define_menus() {
-	    $this->directoryIncludes('includes/menus', 'register-menu.php');
-    }
+	private function define_menus() {
+		$this->directoryIncludes( 'includes/menus', 'register-menu.php' );
+	}
 
-    private function define_widgets() {
-	    $this->directoryIncludes('includes/widgets', 'register-widget.php');
-    }
+	private function define_widgets() {
+		$this->directoryIncludes( 'includes/widgets', 'register-widget.php' );
+	}
 
-    private function define_sidebars() {
-	    $this->directoryIncludes('includes/sidebars', 'register-sidebar.php');
-    }
+	private function define_sidebars() {
+		$this->directoryIncludes( 'includes/sidebars', 'register-sidebar.php' );
+	}
 
-    private function define_taxonomies() {
-	    $this->directoryIncludes('includes/taxonomies', 'register-taxonomy.php');
-    }
+	private function define_taxonomies() {
+		$this->directoryIncludes( 'includes/taxonomies', 'register-taxonomy.php' );
+	}
 
-	private function directoryIncludes($pathName, $fileName) {
-		$dir = new DirectoryIterator(plugin_dir_path( dirname( __FILE__ ) ) . $pathName);
-		foreach ($dir as $fileinfo) {
-			if (!$fileinfo->isDot()) {
-				require_once($fileinfo->getRealPath() . '/'. $fileName);
+	private function directoryIncludes( $pathName, $fileName ) {
+		$dir = new DirectoryIterator( plugin_dir_path( dirname( __FILE__ ) ) . $pathName );
+		foreach ( $dir as $fileinfo ) {
+			if ( ! $fileinfo->isDot() ) {
+				require_once( $fileinfo->getRealPath() . '/' . $fileName );
 			}
 		}
 	}
@@ -280,8 +301,8 @@ class Tru_Fetcher {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_plugin_name() {
 		return $this->plugin_name;
@@ -290,8 +311,8 @@ class Tru_Fetcher {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since     1.0.0
 	 * @return    Tru_Fetcher_Loader    Orchestrates the hooks of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_loader() {
 		return $this->loader;
@@ -300,8 +321,8 @@ class Tru_Fetcher {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_version() {
 		return $this->version;

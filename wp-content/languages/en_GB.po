@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.5.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-08-09 07:30:43+0000\n"
+"PO-Revision-Date: 2020-08-25 15:08:10+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -86,6 +86,22 @@ msgstr ","
 #: wp-includes/class-wp-locale.php:208
 msgid "number_format_decimal_point"
 msgstr "."
+
+#: wp-includes/block-patterns/text-three-columns-buttons.php:11
+msgid "Chapter Three"
+msgstr "Chapter Three"
+
+#: wp-includes/block-patterns/text-three-columns-buttons.php:11
+msgid "Chapter Two"
+msgstr "Chapter Two"
+
+#: wp-includes/block-patterns/text-three-columns-buttons.php:11
+msgid "Chapter One"
+msgstr "Chapter One"
+
+#: wp-includes/block-patterns/large-header-button.php:10
+msgid "Read now"
+msgstr "Read now"
 
 #: wp-includes/block-patterns/quote.php:10
 msgid "Pencil drawing of Don Quixote"
@@ -351,7 +367,7 @@ msgstr "Sorry, you are not allowed to manage network plugins."
 
 #. translators: 1. The REST API route being registered. 2. The argument name.
 #. 3. The suggested function name.
-#: wp-includes/rest-api.php:97
+#: wp-includes/rest-api.php:98
 msgid "The REST API route definition for %1$s is missing the required %2$s argument. For REST API routes that are intended to be public, use %3$s as the permission callback."
 msgstr "The REST API route definition for %1$s is missing the required %2$s argument. For REST API routes that are intended to be public, use %3$s as the permission callback."
 
@@ -464,54 +480,54 @@ msgctxt "unit symbol"
 msgid "TB"
 msgstr "TB"
 
-#: wp-includes/general-template.php:4446
+#: wp-includes/general-template.php:4447
 msgctxt "admin color scheme"
 msgid "Modern"
 msgstr "Modern"
 
 #. translators: 1: Title prefix. 2: Title.
-#: wp-includes/general-template.php:1722
+#: wp-includes/general-template.php:1723
 msgctxt "archive title"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
 
 #. translators: %s: Taxonomy singular name.
-#: wp-includes/general-template.php:1703
+#: wp-includes/general-template.php:1704
 msgctxt "taxonomy term archive title prefix"
 msgid "%s:"
 msgstr "%s:"
 
-#: wp-includes/general-template.php:1695
+#: wp-includes/general-template.php:1696
 msgctxt "post type archive title prefix"
 msgid "Archives:"
 msgstr "Archives:"
 
-#: wp-includes/general-template.php:1672
+#: wp-includes/general-template.php:1673
 msgctxt "date archive title prefix"
 msgid "Day:"
 msgstr "Day:"
 
-#: wp-includes/general-template.php:1669
+#: wp-includes/general-template.php:1670
 msgctxt "date archive title prefix"
 msgid "Month:"
 msgstr "Month:"
 
-#: wp-includes/general-template.php:1666
+#: wp-includes/general-template.php:1667
 msgctxt "date archive title prefix"
 msgid "Year:"
 msgstr "Year:"
 
-#: wp-includes/general-template.php:1663
+#: wp-includes/general-template.php:1664
 msgctxt "author archive title prefix"
 msgid "Author:"
 msgstr "Author:"
 
-#: wp-includes/general-template.php:1660
+#: wp-includes/general-template.php:1661
 msgctxt "tag archive title prefix"
 msgid "Tag:"
 msgstr "Tag:"
 
-#: wp-includes/general-template.php:1657
+#: wp-includes/general-template.php:1658
 msgctxt "category archive title prefix"
 msgid "Category:"
 msgstr "Category:"
@@ -546,11 +562,11 @@ msgstr "Pattern title must be a string."
 msgid "Pattern name must be a string."
 msgstr "Pattern name must be a string."
 
-#: wp-includes/media.php:4236
+#: wp-includes/media.php:4241
 msgid "Attachment details"
 msgstr "Attachment details"
 
-#: wp-includes/media.php:4182 wp-includes/media.php:4204
+#: wp-includes/media.php:4187 wp-includes/media.php:4209
 msgid "Add media"
 msgstr "Add media"
 
@@ -568,77 +584,77 @@ msgid "File URL:"
 msgstr "File URL:"
 
 #. translators: %s is the name of a JSON field expecting a valid uuid.
-#: wp-includes/rest-api.php:1768
+#: wp-includes/rest-api.php:1769
 msgid "%s is not a valid UUID."
 msgstr "%s is not a valid UUID."
 
-#: wp-includes/rest-api.php:1744
+#: wp-includes/rest-api.php:1745
 msgid "Invalid hex color."
 msgstr "Invalid hex colour."
 
 #. translators: 1: Parameter, 2: Pattern.
-#: wp-includes/rest-api.php:1731
+#: wp-includes/rest-api.php:1732
 msgid "%1$s does not match pattern %2$s."
 msgstr "%1$s does not match pattern %2$s."
 
 #. translators: 1: Parameter, 2: Number of characters.
-#: wp-includes/rest-api.php:1720
+#: wp-includes/rest-api.php:1721
 msgid "%1$s must be at most %2$s character long."
 msgid_plural "%1$s must be at most %2$s characters long."
 msgstr[0] "%1$s must be at most %2$s character long."
 msgstr[1] "%1$s must be at most %2$s characters long."
 
 #. translators: 1: Parameter, 2: Number of characters.
-#: wp-includes/rest-api.php:1708
+#: wp-includes/rest-api.php:1709
 msgid "%1$s must be at least %2$s character long."
 msgid_plural "%1$s must be at least %2$s characters long."
 msgstr[0] "%1$s must be at least %2$s character long."
 msgstr[1] "%1$s must be at least %2$s characters long."
 
 #. translators: 1: Property of an object, 2: Parameter.
-#: wp-includes/rest-api.php:1632 wp-includes/rest-api.php:1639
+#: wp-includes/rest-api.php:1633 wp-includes/rest-api.php:1640
 msgid "%1$s is a required property of %2$s."
 msgstr "%1$s is a required property of %2$s."
 
 #. translators: 1: Parameter
-#: wp-includes/rest-api.php:1616 wp-includes/rest-api.php:1868
+#: wp-includes/rest-api.php:1617 wp-includes/rest-api.php:1869
 msgid "%1$s has duplicate items."
 msgstr "%1$s has duplicate items."
 
 #. translators: 1: Parameter, 2: Number.
-#: wp-includes/rest-api.php:1611
+#: wp-includes/rest-api.php:1612
 msgid "%1$s must contain at most %2$s items."
 msgstr "%1$s must contain at most %2$s items."
 
 #. translators: 1: Parameter, 2: Number.
-#: wp-includes/rest-api.php:1606
+#: wp-includes/rest-api.php:1607
 msgid "%1$s must contain at least %2$s items."
 msgstr "%1$s must contain at least %2$s items."
 
 #. translators: 1. Parameter 2. The list of allowed types.
 #. translators: 1. Parameter. 2. The list of allowed types.
-#: wp-includes/rest-api.php:1582 wp-includes/rest-api.php:1852
+#: wp-includes/rest-api.php:1583 wp-includes/rest-api.php:1853
 msgid "The \"type\" schema keyword for %1$s can only be one of the built-in types: %2$l."
 msgstr "The \"type\" schema keyword for %1$s can only be one of the built-in types: %2$l."
 
 #. translators: 1. Parameter
-#: wp-includes/rest-api.php:1564 wp-includes/rest-api.php:1835
+#: wp-includes/rest-api.php:1565 wp-includes/rest-api.php:1836
 msgid "The \"type\" schema keyword for %s is required."
 msgstr "The \"type\" schema keyword for %s is required."
 
-#: wp-includes/rest-api.php:1527
+#: wp-includes/rest-api.php:1528
 msgid "Cannot stabilize objects. Convert the object to an array first."
 msgstr "Cannot stabilise objects. Convert the object to an array first."
 
 #. translators: 1. Parameter. 2. List of allowed types.
-#: wp-includes/rest-api.php:1465
+#: wp-includes/rest-api.php:1466
 msgid "The \"type\" schema keyword for %1$s can only contain the built-in types: %2$l."
 msgstr "The \"type\" schema keyword for %1$s can only contain the built-in types: %2$l."
 
 #. translators: Developer debugging message. 1: PHP function name, 2:
 #. Explanatory message.
 #. translators: 1: Theme name. 2: Theme slug.
-#: wp-includes/rest-api.php:636 wp-admin/includes/class-wp-debug-data.php:1055
+#: wp-includes/rest-api.php:637 wp-admin/includes/class-wp-debug-data.php:1055
 #: wp-admin/includes/class-wp-debug-data.php:1074
 #: wp-admin/includes/class-wp-debug-data.php:1171
 #: wp-admin/includes/class-wp-debug-data.php:1336
@@ -702,56 +718,56 @@ msgstr "This type of file cannot be edited."
 msgid "Unable to get meta information for file."
 msgstr "Unable to get meta information for file."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:302
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:307
 msgid "Limit result set to blocks matching the search term."
 msgstr "Limit result set to blocks matching the search term."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:273
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:279
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:278
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:284
 msgid "The date when the block was last updated, in fuzzy human readable format."
 msgstr "The date when the block was last updated, in fuzzy human readable format."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:267
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:272
 msgid "The block icon."
 msgstr "The block icon."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:262
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:267
 msgid "The WordPress.org username of the block author."
 msgstr "The WordPress.org username of the block author."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:257
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:262
 msgid "The number of blocks published by the same author."
 msgstr "The number of blocks published by the same author."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:252
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:257
 msgid "The average rating of blocks published by the same author."
 msgstr "The average rating of blocks published by the same author."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:247
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:252
 msgid "The number sites that have activated this block."
 msgstr "The number of sites that have activated this block."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:242
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:247
 msgid "The number of ratings."
 msgstr "The number of ratings."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:237
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:242
 msgid "The star rating of the block."
 msgstr "The star rating of the block."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:232
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:237
 msgid "The block slug."
 msgstr "The block slug."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:227
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:232
 msgid "A short description of the block, in human readable format."
 msgstr "A short description of the block, in human readable format."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:222
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:227
 msgid "The block title, in human readable format."
 msgstr "The block title, in human readable format."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:217
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:222
 msgid "The block name, in namespace/block-name format."
 msgstr "The block name, in namespace/block-name format."
 
@@ -1281,7 +1297,7 @@ msgstr "Check your email for the confirmation link, then visit the <a href=\"%s\
 msgid "Password protected"
 msgstr "Password protected"
 
-#: wp-includes/rest-api.php:50
+#: wp-includes/rest-api.php:51
 msgid "Namespace must not start or end with a slash."
 msgstr "Namespace must not start or end with a slash."
 
@@ -1301,7 +1317,7 @@ msgstr "Sorry, the post could not be deleted."
 msgid "Sorry, the post could not be updated."
 msgstr "Sorry, the post could not be updated."
 
-#: wp-includes/media.php:4283 wp-includes/js/dist/block-library.js:23701
+#: wp-includes/media.php:4288 wp-includes/js/dist/block-library.js:23701
 msgid "Select poster image"
 msgstr "Select poster image"
 
@@ -1334,7 +1350,7 @@ msgstr "The post status %1$s is not registered, so it may not be reliable to che
 msgid "In reply to %s."
 msgstr "In reply to %s."
 
-#: wp-includes/general-template.php:2364
+#: wp-includes/general-template.php:2365
 msgid "Previous and next months"
 msgstr "Previous and next months"
 
@@ -1551,11 +1567,11 @@ msgstr "Unknown email address. Check again or try your username."
 msgid "Unknown username. Check again or try your email address."
 msgstr "Unknown username. Check again or try your email address."
 
-#: wp-includes/media.php:4308
+#: wp-includes/media.php:4313
 msgid "Media list"
 msgstr "Media list"
 
-#: wp-includes/media.php:4307
+#: wp-includes/media.php:4312
 msgid "Filter media"
 msgstr "Filter media"
 
@@ -1698,19 +1714,19 @@ msgstr "Not enough data to create this user."
 msgid "Sorry, marking a user as spam is only supported on Multisite."
 msgstr "Sorry, marking a user as spam is only supported on Multisite."
 
-#: wp-includes/media.php:4746
+#: wp-includes/media.php:4751
 msgid "User&#8217;s media data."
 msgstr "User&#8217;s media data."
 
-#: wp-includes/media.php:4233
+#: wp-includes/media.php:4238
 msgid "No media items found. Try a different search."
 msgstr "No media items found. Try a different search."
 
-#: wp-includes/media.php:4231
+#: wp-includes/media.php:4236
 msgid "Number of media items displayed: %d. Scroll the page for more results."
 msgstr "Number of media items displayed: %d. Scroll the page for more results."
 
-#: wp-includes/media.php:4230
+#: wp-includes/media.php:4235
 msgid "Number of media items found: %d"
 msgstr "Number of media items found: %d"
 
@@ -2018,7 +2034,7 @@ msgid "[%s] Login Details"
 msgstr "[%s] Login Details"
 
 #: wp-includes/media-template.php:523 wp-includes/media-template.php:644
-#: wp-includes/media.php:4221 wp-admin/includes/meta-boxes.php:337
+#: wp-includes/media.php:4226 wp-admin/includes/meta-boxes.php:337
 #: wp-admin/includes/meta-boxes.php:441 wp-admin/includes/media.php:1710
 #: wp-admin/includes/class-wp-media-list-table.php:177
 #: wp-admin/includes/class-wp-comments-list-table.php:374
@@ -2028,7 +2044,7 @@ msgid "Move to Trash"
 msgstr "Move to Bin"
 
 #: wp-includes/media-template.php:521 wp-includes/media-template.php:642
-#: wp-includes/media.php:4222
+#: wp-includes/media.php:4227
 msgid "Restore from Trash"
 msgstr "Restore from Bin"
 
@@ -2089,7 +2105,7 @@ msgstr "posts"
 msgid "A calendar of your site’s posts."
 msgstr "A calendar of your site’s posts."
 
-#: wp-includes/media.php:4247
+#: wp-includes/media.php:4252
 msgid "Edit gallery"
 msgstr "Edit gallery"
 
@@ -2286,7 +2302,7 @@ msgid "Could not retrieve site data."
 msgstr "Could not retrieve site data."
 
 #. translators: %s: rest_api_init
-#: wp-includes/rest-api.php:58
+#: wp-includes/rest-api.php:59
 msgid "REST API routes must be registered on the %s action."
 msgstr "REST API routes must be registered on the %s action."
 
@@ -2469,7 +2485,7 @@ msgstr "Sorry, you are not allowed to view autosaves of this post."
 msgid "Start writing or type / to choose a block"
 msgstr "Start writing or type / to choose a block"
 
-#: wp-includes/media.php:4259 wp-includes/js/dist/block-library.js:5701
+#: wp-includes/media.php:4264 wp-includes/js/dist/block-library.js:5701
 #: wp-includes/js/dist/block-library.js:5702
 msgid "Edit image"
 msgstr "Edit image"
@@ -2519,7 +2535,7 @@ msgstr "Copied!"
 msgid "Submit for Review"
 msgstr "Submit for Review"
 
-#: wp-includes/media.php:4257 wp-includes/js/dist/block-library.js:8171
+#: wp-includes/media.php:4262 wp-includes/js/dist/block-library.js:8171
 msgid "Replace image"
 msgstr "Replace image"
 
@@ -3072,7 +3088,7 @@ msgstr "User ID"
 msgid "WordPress User"
 msgstr "WordPress User"
 
-#: wp-includes/media.php:4689
+#: wp-includes/media.php:4694
 msgid "WordPress Media"
 msgstr "WordPress Media"
 
@@ -3243,7 +3259,7 @@ msgstr "Limit result set to users who are considered authors."
 msgid "Sorry, you are not allowed to query users by this parameter."
 msgstr "Sorry, you are not allowed to query users by this parameter."
 
-#: wp-includes/media.php:4214
+#: wp-includes/media.php:4219
 #: wp-admin/includes/class-wp-media-list-table.php:153
 msgctxt "media items"
 msgid "Mine"
@@ -3319,7 +3335,7 @@ msgid "Installed"
 msgstr "Installed"
 
 #. translators: %s: Property of an object.
-#: wp-includes/rest-api.php:1653
+#: wp-includes/rest-api.php:1654
 msgid "%1$s is not a valid property of Object."
 msgstr "%1$s is not a valid property of Object."
 
@@ -3974,7 +3990,7 @@ msgstr ""
 msgid "User cannot be added to this site."
 msgstr "User cannot be added to this site."
 
-#: wp-includes/load.php:1493
+#: wp-includes/load.php:1495
 msgid "Scrape nonce check failed. Please try again."
 msgstr "Scrape nonce check failed. Please try again."
 
@@ -4048,7 +4064,7 @@ msgstr "Invalid URL."
 msgid "Time to add some links! Click &#8220;%s&#8221; to start putting pages, categories, and custom links in your menu. Add as many things as you&#8217;d like."
 msgstr "Time to add some links! Click &#8220;%s&#8221; to start putting pages, categories, and custom links in your menu. Add as many things as you&#8217;d like."
 
-#: wp-includes/media.php:4262
+#: wp-includes/media.php:4267
 #: wp-includes/customize/class-wp-customize-media-control.php:252
 msgid "Choose image"
 msgstr "Choose image"
@@ -4389,7 +4405,7 @@ msgctxt "label for button in the audio widget"
 msgid "Add Audio"
 msgstr "Add Audio"
 
-#: wp-includes/media.php:3779
+#: wp-includes/media.php:3784
 msgid "(no author)"
 msgstr "(no author)"
 
@@ -4624,22 +4640,22 @@ msgid "Displays an audio player."
 msgstr "Displays an audio player."
 
 #. translators: 1: Parameter, 2: Maximum number.
-#: wp-includes/rest-api.php:1789
+#: wp-includes/rest-api.php:1790
 msgid "%1$s must be less than or equal to %2$d"
 msgstr "%1$s must be less than or equal to %2$d"
 
 #. translators: 1: Parameter, 2: Maximum number.
-#: wp-includes/rest-api.php:1786
+#: wp-includes/rest-api.php:1787
 msgid "%1$s must be less than %2$d"
 msgstr "%1$s must be less than %2$d"
 
 #. translators: 1: Parameter, 2: Minimum number.
-#: wp-includes/rest-api.php:1781
+#: wp-includes/rest-api.php:1782
 msgid "%1$s must be greater than or equal to %2$d"
 msgstr "%1$s must be greater than or equal to %2$d"
 
 #. translators: 1: Parameter, 2: Minimum number.
-#: wp-includes/rest-api.php:1778
+#: wp-includes/rest-api.php:1779
 msgid "%1$s must be greater than %2$d"
 msgstr "%1$s must be greater than %2$d"
 
@@ -4716,7 +4732,7 @@ msgstr "Featured image"
 msgid "%1$s is deprecated. The callback from %2$s is used instead."
 msgstr "%1$s is deprecated. The callback from %2$s is used instead."
 
-#: wp-includes/media.php:4218
+#: wp-includes/media.php:4223
 msgid ""
 "You are about to permanently delete these items from your site.\n"
 "This action cannot be undone.\n"
@@ -4726,7 +4742,7 @@ msgstr ""
 "This action cannot be undone.\n"
 " 'Cancel' to stop, 'OK' to delete."
 
-#: wp-includes/media.php:4217
+#: wp-includes/media.php:4222
 msgid ""
 "You are about to permanently delete this item from your site.\n"
 "This action cannot be undone.\n"
@@ -4737,7 +4753,7 @@ msgstr ""
 " 'Cancel' to stop, 'OK' to delete."
 
 #. translators: 1: Suggested width number, 2: Suggested height number.
-#: wp-includes/media-template.php:296 wp-includes/media.php:4269
+#: wp-includes/media-template.php:296 wp-includes/media.php:4274
 msgid "Suggested image dimensions: %1$s by %2$s pixels."
 msgstr "Suggested image dimensions: %1$s by %2$s pixels."
 
@@ -5077,7 +5093,7 @@ msgid "Invalid slug."
 msgstr "Invalid slug."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:717
-#: wp-includes/rest-api.php:1756 wp-includes/user.php:3585
+#: wp-includes/rest-api.php:1757 wp-includes/user.php:3585
 #: wp-admin/network/site-new.php:96
 msgid "Invalid email address."
 msgstr "Invalid email address."
@@ -5095,7 +5111,7 @@ msgstr "Invalid JSONP callback function."
 msgid "Invalid page template."
 msgstr "Invalid page template."
 
-#: wp-includes/script-loader.php:1153 wp-includes/rest-api.php:1750
+#: wp-includes/script-loader.php:1153 wp-includes/rest-api.php:1751
 #: wp-includes/post.php:3793 wp-admin/includes/post.php:188
 msgid "Invalid date."
 msgstr "Invalid date."
@@ -5548,42 +5564,42 @@ msgid "Item selected."
 msgstr "Item selected."
 
 #. translators: 1: Parameter, 2: Minimum number, 3: Maximum number.
-#: wp-includes/rest-api.php:1810
+#: wp-includes/rest-api.php:1811
 msgid "%1$s must be between %2$d (inclusive) and %3$d (inclusive)"
 msgstr "%1$s must be between %2$d (inclusive) and %3$d (inclusive)"
 
 #. translators: 1: Parameter, 2: Minimum number, 3: Maximum number.
-#: wp-includes/rest-api.php:1805
+#: wp-includes/rest-api.php:1806
 msgid "%1$s must be between %2$d (exclusive) and %3$d (inclusive)"
 msgstr "%1$s must be between %2$d (exclusive) and %3$d (inclusive)"
 
 #. translators: 1: Parameter, 2: Minimum number, 3: Maximum number.
-#: wp-includes/rest-api.php:1800
+#: wp-includes/rest-api.php:1801
 msgid "%1$s must be between %2$d (inclusive) and %3$d (exclusive)"
 msgstr "%1$s must be between %2$d (inclusive) and %3$d (exclusive)"
 
 #. translators: 1: Parameter, 2: Minimum number, 3: Maximum number.
-#: wp-includes/rest-api.php:1795
+#: wp-includes/rest-api.php:1796
 msgid "%1$s must be between %2$d (exclusive) and %3$d (exclusive)"
 msgstr "%1$s must be between %2$d (exclusive) and %3$d (exclusive)"
 
 #. translators: %s: IP address.
-#: wp-includes/rest-api.php:1762
+#: wp-includes/rest-api.php:1763
 msgid "%s is not a valid IP address."
 msgstr "%s is not a valid IP address."
 
 #. translators: 1: Parameter, 2: List of types.
 #. translators: 1: Parameter, 2: Type name.
-#: wp-includes/rest-api.php:1572 wp-includes/rest-api.php:1590
-#: wp-includes/rest-api.php:1623 wp-includes/rest-api.php:1669
-#: wp-includes/rest-api.php:1684 wp-includes/rest-api.php:1689
-#: wp-includes/rest-api.php:1694 wp-includes/rest-api.php:1700
+#: wp-includes/rest-api.php:1573 wp-includes/rest-api.php:1591
+#: wp-includes/rest-api.php:1624 wp-includes/rest-api.php:1670
+#: wp-includes/rest-api.php:1685 wp-includes/rest-api.php:1690
+#: wp-includes/rest-api.php:1695 wp-includes/rest-api.php:1701
 msgid "%1$s is not of type %2$s."
 msgstr "%1$s is not of type %2$s."
 
 #. translators: 1: Parameter, 2: List of valid values.
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1363
-#: wp-includes/rest-api.php:1678
+#: wp-includes/rest-api.php:1679
 msgid "%1$s is not one of %2$s."
 msgstr "%1$s is not one of %2$s."
 
@@ -6423,7 +6439,7 @@ msgstr "A city in the same timezone as you."
 msgid "Site title."
 msgstr "Site title."
 
-#: wp-includes/media.php:4229
+#: wp-includes/media.php:4234
 msgid "Search media items..."
 msgstr "Search media items..."
 
@@ -6988,7 +7004,7 @@ msgstr "Link selected."
 msgid "%s is required to strip image meta."
 msgstr "%s is required to strip image meta."
 
-#: wp-includes/media.php:4232
+#: wp-includes/media.php:4237
 msgid "No media items found."
 msgstr "No media items found."
 
@@ -7062,11 +7078,11 @@ msgstr "Unregistering a built-in taxonomy is not allowed."
 msgid "(Untitled)"
 msgstr "(Untitled)"
 
-#: wp-includes/rest-api.php:43
+#: wp-includes/rest-api.php:44
 msgid "Route must be specified."
 msgstr "Route must be specified."
 
-#: wp-includes/rest-api.php:40
+#: wp-includes/rest-api.php:41
 msgid "Routes must be namespaced with plugin or theme name and version."
 msgstr "Routes must be namespaced with plugin or theme name and version."
 
@@ -7115,7 +7131,7 @@ msgstr "<strong>Error</strong>: invalid username, email address or incorrect pas
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Term name, 4: Taxonomy
 #. singular name.
-#: wp-includes/general-template.php:3106
+#: wp-includes/general-template.php:3107
 msgid "%1$s %2$s %3$s %4$s Feed"
 msgstr "%1$s %2$s %3$s %4$s Feed"
 
@@ -7259,7 +7275,7 @@ msgid "Please see <a href=\"%s\">Debugging in WordPress</a> for more information
 msgstr "Please see <a href=\"%s\">Debugging in WordPress</a> for more information."
 
 #. translators: 1: $table_prefix, 2: wp-config.php
-#: wp-includes/load.php:542
+#: wp-includes/load.php:544
 msgid "<strong>Error</strong>: %1$s in %2$s can only contain numbers, letters, and underscores."
 msgstr "<strong>Error</strong>: %1$s in %2$s can only contain numbers, letters and underscores."
 
@@ -7550,7 +7566,7 @@ msgstr "Invalid shortcode name: %1$s. Do not use spaces or reserved characters: 
 msgid "Invalid shortcode name: Empty name given."
 msgstr "Invalid shortcode name: Empty name given."
 
-#: wp-includes/rest-api.php:999
+#: wp-includes/rest-api.php:1000
 msgid "Cookie nonce is invalid"
 msgstr "Cookie nonce is invalid"
 
@@ -7558,18 +7574,18 @@ msgstr "Cookie nonce is invalid"
 #. message.
 #. translators: Developer debugging message. 1: PHP function name, 2: WordPress
 #. version number, 3: Explanatory message.
-#: wp-includes/rest-api.php:607 wp-includes/rest-api.php:632
+#: wp-includes/rest-api.php:608 wp-includes/rest-api.php:633
 msgid "%1$s (since %2$s; %3$s)"
 msgstr "%1$s (since %2$s; %3$s)"
 
 #. translators: 1: Function name, 2: WordPress version number.
-#: wp-includes/rest-api.php:586 wp-includes/rest-api.php:610
+#: wp-includes/rest-api.php:587 wp-includes/rest-api.php:611
 msgid "%1$s (since %2$s; no alternative available)"
 msgstr "%1$s (since %2$s; no alternative available)"
 
 #. translators: 1: Function name, 2: WordPress version number, 3: New function
 #. name.
-#: wp-includes/rest-api.php:583
+#: wp-includes/rest-api.php:584
 msgid "%1$s (since %2$s; use %3$s instead)"
 msgstr "%1$s (since %2$s; use %3$s instead)"
 
@@ -7659,7 +7675,7 @@ msgid "Usernames can only contain lowercase letters (a-z) and numbers."
 msgstr "Usernames can only contain lowercase letters (a-z) and numbers."
 
 #. translators: %s: Playlist item title.
-#: wp-includes/media.php:2409 wp-includes/media.php:2426
+#: wp-includes/media.php:2414 wp-includes/media.php:2431
 msgctxt "playlist item title"
 msgid "&#8220;%s&#8221;"
 msgstr "&#8220;%s&#8221;"
@@ -7787,7 +7803,7 @@ msgid "Older comments"
 msgstr "Older Comments"
 
 #. translators: Post calendar label. %s: Date.
-#: wp-includes/general-template.php:2337
+#: wp-includes/general-template.php:2338
 msgid "Posts published on %s"
 msgstr "Posts published on %s"
 
@@ -8558,7 +8574,7 @@ msgstr "Could not split shared term."
 msgid "Customizer"
 msgstr "Customiser"
 
-#: wp-includes/media.php:4196
+#: wp-includes/media.php:4201
 msgid "Drag and drop to reorder media files."
 msgstr "Drag and drop to reorder media files."
 
@@ -8833,7 +8849,7 @@ msgstr "Previous"
 msgid "Edit Selection"
 msgstr "Edit Selection"
 
-#: wp-includes/media.php:4215
+#: wp-includes/media.php:4220
 msgctxt "noun"
 msgid "Trash"
 msgstr "Bin"
@@ -8897,52 +8913,52 @@ msgstr "Reply to %s"
 msgid "The following values do not describe a valid date: year %1$s, month %2$s, day %3$s."
 msgstr "The following values do not describe a valid date: year %1$s, month %2$s, day %3$s."
 
-#: wp-includes/general-template.php:1675
+#: wp-includes/general-template.php:1676
 msgctxt "post format archive title"
 msgid "Asides"
 msgstr "Asides"
 
-#: wp-includes/general-template.php:1671 wp-includes/general-template.php:2335
+#: wp-includes/general-template.php:1672 wp-includes/general-template.php:2336
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr "j F Y"
 
-#: wp-includes/general-template.php:1679
+#: wp-includes/general-template.php:1680
 msgctxt "post format archive title"
 msgid "Images"
 msgstr "Images"
 
-#: wp-includes/general-template.php:1677
+#: wp-includes/general-template.php:1678
 msgctxt "post format archive title"
 msgid "Galleries"
 msgstr "Galleries"
 
-#: wp-includes/general-template.php:1683
+#: wp-includes/general-template.php:1684
 msgctxt "post format archive title"
 msgid "Quotes"
 msgstr "Quotes"
 
-#: wp-includes/general-template.php:1681
+#: wp-includes/general-template.php:1682
 msgctxt "post format archive title"
 msgid "Videos"
 msgstr "Videos"
 
-#: wp-includes/general-template.php:1685
+#: wp-includes/general-template.php:1686
 msgctxt "post format archive title"
 msgid "Links"
 msgstr "Links"
 
-#: wp-includes/general-template.php:1687
+#: wp-includes/general-template.php:1688
 msgctxt "post format archive title"
 msgid "Statuses"
 msgstr "Statuses"
 
-#: wp-includes/general-template.php:1691
+#: wp-includes/general-template.php:1692
 msgctxt "post format archive title"
 msgid "Chats"
 msgstr "Chats"
 
-#: wp-includes/general-template.php:1689
+#: wp-includes/general-template.php:1690
 msgctxt "post format archive title"
 msgid "Audio"
 msgstr "Audio"
@@ -9031,7 +9047,7 @@ msgstr "Add New"
 msgid "<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new."
 msgstr "<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new."
 
-#: wp-includes/media.php:4219
+#: wp-includes/media.php:4224
 msgid ""
 "You are about to trash these items.\n"
 "  'Cancel' to stop, 'OK' to delete."
@@ -9043,7 +9059,7 @@ msgstr ""
 msgid "Press return or enter to open this panel"
 msgstr "Press return or enter to open this panel"
 
-#: wp-includes/media.php:4220
+#: wp-includes/media.php:4225
 msgid "Bulk select"
 msgstr "Bulk select"
 
@@ -9062,30 +9078,30 @@ msgstr "(no label)"
 msgid "This site is no longer available."
 msgstr "This site is no longer available."
 
-#: wp-includes/media.php:4228
+#: wp-includes/media.php:4233
 msgid "Search media"
 msgstr "Search media"
 
-#: wp-includes/media.php:4226
+#: wp-includes/media.php:4231
 #: wp-admin/includes/class-wp-media-list-table.php:269
 msgid "Filter by type"
 msgstr "Filter by type"
 
-#: wp-includes/media.php:4225 wp-admin/includes/class-wp-list-table.php:611
+#: wp-includes/media.php:4230 wp-admin/includes/class-wp-list-table.php:611
 msgid "Filter by date"
 msgstr "Filter by date"
 
-#: wp-includes/media.php:4213
+#: wp-includes/media.php:4218
 #: wp-admin/includes/class-wp-media-list-table.php:148
 msgid "Unattached"
 msgstr "Unattached"
 
-#: wp-includes/media.php:4210 wp-admin/includes/media.php:2807
+#: wp-includes/media.php:4215 wp-admin/includes/media.php:2807
 #: wp-admin/includes/class-wp-list-table.php:613
 msgid "All dates"
 msgstr "All dates"
 
-#: wp-includes/media.php:2779
+#: wp-includes/media.php:2784
 msgid "Bitrate Mode"
 msgstr "Bitrate Mode"
 
@@ -9162,7 +9178,7 @@ msgstr "Read more..."
 msgid "Your browser does not support direct access to the clipboard. Please use keyboard shortcuts or your browser&#8217;s edit menu instead."
 msgstr "Your browser does not support direct access to the clipboard. Please use keyboard shortcuts or your browser&#8217;s edit menu instead."
 
-#: wp-includes/media.php:2778
+#: wp-includes/media.php:2783
 msgid "Bitrate"
 msgstr "Bitrate"
 
@@ -9215,56 +9231,56 @@ msgstr "<strong>Error</strong>: cookies are blocked or not supported by your bro
 msgid "<strong>Error</strong>: Cookies are blocked due to unexpected output. For help, please see <a href=\"%1$s\">this documentation</a> or try the <a href=\"%2$s\">support forums</a>."
 msgstr "<strong>Error</strong>: cookies are blocked due to unexpected output. For help, please see <a href=\"%1$s\">this documentation</a> or try the <a href=\"%2$s\">support forums</a>."
 
-#: wp-includes/media.php:4294
+#: wp-includes/media.php:4299
 msgid "Add to Audio Playlist"
 msgstr "Add to Audio Playlist"
 
-#: wp-includes/media.php:4293
+#: wp-includes/media.php:4298
 msgid "Add to audio playlist"
 msgstr "Add to audio playlist"
 
-#: wp-includes/media.php:4292
+#: wp-includes/media.php:4297
 msgid "Update audio playlist"
 msgstr "Update audio playlist"
 
-#: wp-includes/media.php:4291
+#: wp-includes/media.php:4296
 msgid "Insert audio playlist"
 msgstr "Insert audio playlist"
 
-#: wp-includes/media.php:4290
+#: wp-includes/media.php:4295
 msgid "&#8592; Cancel audio playlist"
 msgstr "&#8592; Cancel audio playlist"
 
-#: wp-includes/media.php:4289
+#: wp-includes/media.php:4294
 msgid "Edit audio playlist"
 msgstr "Edit audio playlist"
 
-#: wp-includes/media.php:4270
+#: wp-includes/media.php:4275
 msgid "There has been an error cropping your image."
 msgstr "There has been an error cropping your image."
 
-#: wp-includes/media.php:2776
+#: wp-includes/media.php:2781
 msgctxt "video or audio"
 msgid "Length"
 msgstr "Length"
 
-#: wp-includes/media.php:2775
+#: wp-includes/media.php:2780
 #: wp-includes/customize/class-wp-customize-date-time-control.php:151
 #: wp-includes/js/dist/components.js:35689 wp-admin/includes/template.php:827
 msgid "Year"
 msgstr "Year"
 
-#: wp-includes/media.php:2774
+#: wp-includes/media.php:2779
 msgid "Genre"
 msgstr "Genre"
 
 #: wp-includes/media-template.php:471 wp-includes/media-template.php:676
-#: wp-includes/media.php:2770
+#: wp-includes/media.php:2775
 msgid "Album"
 msgstr "Album"
 
 #: wp-includes/media-template.php:470 wp-includes/media-template.php:675
-#: wp-includes/media.php:2769
+#: wp-includes/media.php:2774
 msgid "Artist"
 msgstr "Artist"
 
@@ -9357,7 +9373,7 @@ msgstr "Auto"
 msgid "Tracks (subtitles, captions, descriptions, chapters, or metadata)"
 msgstr "Tracks (subtitles, captions, descriptions, chapters, or metadata)"
 
-#: wp-includes/media.php:4267
+#: wp-includes/media.php:4272
 msgid "Cropping&hellip;"
 msgstr "Cropping&hellip;"
 
@@ -9614,100 +9630,100 @@ msgstr "The query argument of %s must have a placeholder."
 msgid "Invalid menu ID."
 msgstr "Invalid menu ID."
 
-#: wp-includes/media.php:4304
+#: wp-includes/media.php:4309
 msgid "Add to video Playlist"
 msgstr "Add to video playlist"
 
-#: wp-includes/media.php:4303
+#: wp-includes/media.php:4308
 msgid "Add to video playlist"
 msgstr "Add to video playlist"
 
-#: wp-includes/media.php:4302
+#: wp-includes/media.php:4307
 msgid "Update video playlist"
 msgstr "Update video playlist"
 
-#: wp-includes/media.php:4301
+#: wp-includes/media.php:4306
 msgid "Insert video playlist"
 msgstr "Insert video playlist"
 
-#: wp-includes/media.php:4300
+#: wp-includes/media.php:4305
 msgid "&#8592; Cancel video playlist"
 msgstr "&#8592; Cancel video playlist"
 
-#: wp-includes/media.php:4299
+#: wp-includes/media.php:4304
 msgid "Edit video playlist"
 msgstr "Edit video playlist"
 
-#: wp-includes/media.php:4298
+#: wp-includes/media.php:4303
 msgid "Create video playlist"
 msgstr "Create video playlist"
 
-#: wp-includes/media.php:4297
+#: wp-includes/media.php:4302
 msgid "Drag and drop to reorder videos."
 msgstr "Drag and drop to reorder videos."
 
-#: wp-includes/media.php:4288
+#: wp-includes/media.php:4293
 msgid "Create audio playlist"
 msgstr "Create audio playlist"
 
-#: wp-includes/media.php:4287
+#: wp-includes/media.php:4292
 msgid "Drag and drop to reorder tracks."
 msgstr "Drag and drop to reorder tracks."
 
-#: wp-includes/media.php:4284
+#: wp-includes/media.php:4289
 msgid "Add subtitles"
 msgstr "Add subtitles"
 
-#: wp-includes/media.php:4281
+#: wp-includes/media.php:4286
 msgid "Add video source"
 msgstr "Add video source"
 
-#: wp-includes/media.php:4280
+#: wp-includes/media.php:4285
 msgid "Replace video"
 msgstr "Replace video"
 
-#: wp-includes/media.php:4279
+#: wp-includes/media.php:4284
 msgid "Video details"
 msgstr "Video details"
 
-#: wp-includes/media.php:4275
+#: wp-includes/media.php:4280
 msgid "Add audio source"
 msgstr "Add audio source"
 
-#: wp-includes/media.php:4274
+#: wp-includes/media.php:4279
 msgid "Replace audio"
 msgstr "Replace audio"
 
-#: wp-includes/media.php:4273
+#: wp-includes/media.php:4278
 msgid "Audio details"
 msgstr "Audio details"
 
-#: wp-includes/media.php:4266
+#: wp-includes/media.php:4271
 msgid "Crop your image"
 msgstr "Crop your image"
 
-#: wp-includes/media.php:4265
+#: wp-includes/media.php:4270
 msgid "Crop image"
 msgstr "Crop image"
 
-#: wp-includes/media.php:4264
+#: wp-includes/media.php:4269
 msgid "Skip cropping"
 msgstr "Skip cropping"
 
-#: wp-includes/media.php:4263
+#: wp-includes/media.php:4268
 msgid "Select and crop"
 msgstr "Select and crop"
 
-#: wp-includes/media.php:4258 wp-includes/media.php:4276
-#: wp-includes/media.php:4282
+#: wp-includes/media.php:4263 wp-includes/media.php:4281
+#: wp-includes/media.php:4287
 msgid "Cancel edit"
 msgstr "Cancel edit"
 
-#: wp-includes/media.php:4207
+#: wp-includes/media.php:4212
 msgid "Create a new video playlist"
 msgstr "Create a new video playlist"
 
-#: wp-includes/media.php:4206
+#: wp-includes/media.php:4211
 msgid "Create a new playlist"
 msgstr "Create a new playlist"
 
@@ -9754,7 +9770,7 @@ msgid "Show Tracklist"
 msgstr "Show Tracklist"
 
 #: wp-includes/class-wp-customize-section.php:365
-#: wp-includes/class-wp-customize-widgets.php:821 wp-includes/media.php:4189
+#: wp-includes/class-wp-customize-widgets.php:821 wp-includes/media.php:4194
 #: wp-includes/class-wp-customize-panel.php:369
 #: wp-includes/customize/class-wp-customize-themes-panel.php:70
 #: wp-includes/customize/class-wp-customize-nav-menus-panel.php:72
@@ -9764,7 +9780,7 @@ msgstr "Show Tracklist"
 msgid "Back"
 msgstr "Back"
 
-#: wp-includes/media.php:4256
+#: wp-includes/media.php:4261
 msgid "Image details"
 msgstr "Image details"
 
@@ -9841,7 +9857,7 @@ msgstr "Match case"
 msgid "Find and replace"
 msgstr "Find and replace"
 
-#: wp-includes/media-template.php:1181 wp-includes/media.php:4187
+#: wp-includes/media-template.php:1181 wp-includes/media.php:4192
 #: wp-includes/js/dist/block-editor.js:34391
 #: wp-includes/js/dist/block-library.js:23711
 msgid "Replace"
@@ -10075,22 +10091,22 @@ msgstr "Column group"
 msgid "Could not find the specified string."
 msgstr "Could not find the specified string."
 
-#: wp-includes/general-template.php:4518
+#: wp-includes/general-template.php:4519
 msgctxt "admin color scheme"
 msgid "Coffee"
 msgstr "Coffee"
 
-#: wp-includes/general-template.php:4506
+#: wp-includes/general-template.php:4507
 msgctxt "admin color scheme"
 msgid "Ocean"
 msgstr "Ocean"
 
-#: wp-includes/general-template.php:4494
+#: wp-includes/general-template.php:4495
 msgctxt "admin color scheme"
 msgid "Ectoplasm"
 msgstr "Ectoplasm"
 
-#: wp-includes/general-template.php:4482
+#: wp-includes/general-template.php:4483
 msgctxt "admin color scheme"
 msgid "Sunrise"
 msgstr "Sunrise"
@@ -10160,17 +10176,17 @@ msgstr "no-subset"
 msgid "Use commas instead of %s to separate excluded terms."
 msgstr "Use commas instead of %s to separate excluded terms."
 
-#: wp-includes/general-template.php:4470
+#: wp-includes/general-template.php:4471
 msgctxt "admin color scheme"
 msgid "Midnight"
 msgstr "Midnight"
 
-#: wp-includes/general-template.php:4434
+#: wp-includes/general-template.php:4435
 msgctxt "admin color scheme"
 msgid "Light"
 msgstr "Light"
 
-#: wp-includes/general-template.php:4422
+#: wp-includes/general-template.php:4423
 msgctxt "admin color scheme"
 msgid "Default"
 msgstr "Default"
@@ -10330,7 +10346,7 @@ msgstr "g:i a"
 #. Post edited time.
 #. translators: 1: Post edited date, 2: Post edited time.
 #: wp-includes/script-loader.php:158 wp-includes/script-loader.php:350
-#: wp-includes/media.php:3765 wp-includes/class-wp-locale.php:363
+#: wp-includes/media.php:3770 wp-includes/class-wp-locale.php:363
 #: wp-admin/includes/class-wp-privacy-policy-content.php:379
 #: wp-admin/includes/schema.php:426 wp-admin/includes/media.php:1668
 #: wp-admin/includes/ajax-actions.php:1564
@@ -10435,11 +10451,11 @@ msgstr "Invalid user ID."
 msgid "Random Order"
 msgstr "Random Order"
 
-#: wp-includes/media.php:4239 wp-includes/js/dist/block-editor.js:35124
+#: wp-includes/media.php:4244 wp-includes/js/dist/block-editor.js:35124
 msgid "Insert from URL"
 msgstr "Insert from URL"
 
-#: wp-includes/media.php:4195
+#: wp-includes/media.php:4200
 msgid "%d selected"
 msgstr "%d selected"
 
@@ -10448,7 +10464,7 @@ msgctxt "Links widget"
 msgid "Random"
 msgstr "Random"
 
-#: wp-includes/media-template.php:1430 wp-includes/media.php:4211
+#: wp-includes/media-template.php:1430 wp-includes/media.php:4216
 #: wp-admin/includes/class-wp-themes-list-table.php:93
 #: wp-admin/includes/class-wp-list-table.php:335
 #: wp-admin/includes/ajax-actions.php:2180
@@ -10456,7 +10472,7 @@ msgstr "Random"
 msgid "No items found."
 msgstr "No items found."
 
-#: wp-includes/media.php:4253
+#: wp-includes/media.php:4258
 msgid "Reverse order"
 msgstr "Reverse order"
 
@@ -10465,7 +10481,7 @@ msgid "Deselect"
 msgstr "Deselect"
 
 #: wp-includes/media-template.php:526 wp-includes/media-template.php:647
-#: wp-includes/media.php:4223 wp-admin/includes/meta-boxes.php:335
+#: wp-includes/media.php:4228 wp-admin/includes/meta-boxes.php:335
 #: wp-admin/includes/meta-boxes.php:444
 #: wp-admin/includes/class-wp-media-list-table.php:175
 #: wp-admin/includes/class-wp-media-list-table.php:180
@@ -10486,7 +10502,7 @@ msgstr "Dismiss Errors"
 msgid "Uploading"
 msgstr "Uploading"
 
-#: wp-includes/media.php:3562
+#: wp-includes/media.php:3567
 msgid "No editor could be selected."
 msgstr "No editor could be selected."
 
@@ -10549,12 +10565,12 @@ msgstr "Audio"
 msgid "Uploaded to this post"
 msgstr "Uploaded to this post"
 
-#: wp-includes/media.php:4209
+#: wp-includes/media.php:4214
 #: wp-admin/includes/class-wp-media-list-table.php:125
 msgid "All media items"
 msgstr "All media items"
 
-#: wp-includes/media.php:4208
+#: wp-includes/media.php:4213
 msgid "&#8592; Return to library"
 msgstr "&#8592; Return to library"
 
@@ -10582,7 +10598,7 @@ msgid "Attachment Details"
 msgstr "Attachment Details"
 
 #: wp-includes/media-template.php:811 wp-includes/media-template.php:891
-#: wp-includes/media-template.php:1082 wp-includes/media.php:3837
+#: wp-includes/media-template.php:1082 wp-includes/media.php:3842
 #: wp-includes/js/dist/components.js:35981
 #: wp-includes/js/dist/block-editor.js:18472
 #: wp-admin/includes/class-custom-background.php:597
@@ -10590,11 +10606,11 @@ msgstr "Attachment Details"
 msgid "Large"
 msgstr "Large"
 
-#: wp-includes/media.php:4248
+#: wp-includes/media.php:4253
 msgid "&#8592; Cancel gallery"
 msgstr "&#8592; Cancel gallery"
 
-#: wp-includes/media.php:4200
+#: wp-includes/media.php:4205
 msgid "Upload images"
 msgstr "Upload images"
 
@@ -10610,11 +10626,11 @@ msgstr "Attachment Display Settings"
 msgid "WordPress &rsaquo; Success"
 msgstr "WordPress &rsaquo; Success"
 
-#: wp-includes/media.php:4199
+#: wp-includes/media.php:4204
 msgid "Upload files"
 msgstr "Upload files"
 
-#: wp-includes/media.php:4249 wp-admin/includes/media.php:2643
+#: wp-includes/media.php:4254 wp-admin/includes/media.php:2643
 msgid "Insert gallery"
 msgstr "Insert gallery"
 
@@ -10624,11 +10640,11 @@ msgstr "Insert gallery"
 msgid "Drop files to upload"
 msgstr "Drop files to upload"
 
-#: wp-includes/media.php:4246
+#: wp-includes/media.php:4251
 msgid "Create gallery"
 msgstr "Create gallery"
 
-#: wp-includes/media.php:4203 wp-includes/js/dist/block-editor.js:35166
+#: wp-includes/media.php:4208 wp-includes/js/dist/block-editor.js:35166
 #: wp-admin/includes/media.php:21 wp-admin/upload.php:79
 #: wp-admin/upload.php:216
 msgid "Media Library"
@@ -10707,7 +10723,7 @@ msgstr "Attachment Page"
 msgid "Link To"
 msgstr "Link To"
 
-#: wp-includes/media.php:4250
+#: wp-includes/media.php:4255
 msgid "Update gallery"
 msgstr "Update gallery"
 
@@ -10778,7 +10794,7 @@ msgstr "Could not insert term relationship into the database."
 msgid "Clear"
 msgstr "Clear"
 
-#: wp-includes/media.php:4251 wp-includes/media.php:4252
+#: wp-includes/media.php:4256 wp-includes/media.php:4257
 msgid "Add to gallery"
 msgstr "Add to gallery"
 
@@ -10786,7 +10802,7 @@ msgstr "Add to gallery"
 msgid "Insert into post"
 msgstr "Insert into post"
 
-#: wp-includes/media.php:4205
+#: wp-includes/media.php:4210
 msgid "Create a new gallery"
 msgstr "Create a new gallery"
 
@@ -10836,7 +10852,7 @@ msgid "Display post date?"
 msgstr "Display post date?"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Post type name.
-#: wp-includes/general-template.php:3112
+#: wp-includes/general-template.php:3113
 msgid "%1$s %2$s %3$s Feed"
 msgstr "%1$s %2$s %3$s Feed"
 
@@ -11003,7 +11019,7 @@ msgid "Allowed Files"
 msgstr "Allowed Files"
 
 #: wp-includes/media-template.php:559
-#: wp-includes/class-wp-customize-widgets.php:777 wp-includes/media.php:4188
+#: wp-includes/class-wp-customize-widgets.php:777 wp-includes/media.php:4193
 #: wp-includes/customize/class-wp-customize-nav-menu-item-control.php:158
 #: wp-includes/customize/class-wp-customize-media-control.php:228
 #: wp-includes/customize/class-wp-customize-media-control.php:238
@@ -11283,12 +11299,12 @@ msgstr "Invalid author ID."
 msgid "Sorry, you are not allowed to edit posts in this post type."
 msgstr "Sorry, you are not allowed to edit posts in this post type."
 
-#: wp-includes/general-template.php:1186 wp-includes/general-template.php:1668
+#: wp-includes/general-template.php:1186 wp-includes/general-template.php:1669
 msgctxt "monthly archives date format"
 msgid "F Y"
 msgstr "F Y"
 
-#: wp-includes/general-template.php:1183 wp-includes/general-template.php:1665
+#: wp-includes/general-template.php:1183 wp-includes/general-template.php:1666
 msgctxt "yearly archives date format"
 msgid "Y"
 msgstr "Y"
@@ -11425,7 +11441,7 @@ msgstr "<strong>Error</strong>: please type your comment text."
 msgid "Documentation"
 msgstr "Documentation"
 
-#: wp-includes/general-template.php:4324 wp-includes/formatting.php:3872
+#: wp-includes/general-template.php:4325 wp-includes/formatting.php:3872
 #: wp-admin/themes.php:249
 msgid "&hellip;"
 msgstr "&hellip;"
@@ -11492,7 +11508,7 @@ msgstr "This file is not an image. Please try another."
 msgid "This is larger than the maximum size. Please try another."
 msgstr "This is larger than the maximum size. Please try another."
 
-#: wp-includes/general-template.php:4458
+#: wp-includes/general-template.php:4459
 msgctxt "admin color scheme"
 msgid "Blue"
 msgstr "Blue"
@@ -12148,7 +12164,7 @@ msgstr ""
 msgid "Sorry, that site already exists!"
 msgstr "Sorry, that site already exists!"
 
-#: wp-includes/load.php:656
+#: wp-includes/load.php:658
 msgid "The site you have requested is not installed properly. Please contact the system administrator."
 msgstr "The site you have requested is not installed properly. Please contact the system administrator."
 
@@ -12237,11 +12253,11 @@ msgstr "Must be at least 4 characters, letters and numbers only. It cannot be ch
 msgid "Page %s"
 msgstr "Page %s"
 
-#: wp-includes/load.php:232
+#: wp-includes/load.php:234
 msgid "Briefly unavailable for scheduled maintenance. Check back in a minute."
 msgstr "Briefly unavailable for scheduled maintenance. Try again in a minute."
 
-#: wp-includes/load.php:233
+#: wp-includes/load.php:235
 msgid "Maintenance"
 msgstr "Maintenance"
 
@@ -13750,64 +13766,64 @@ msgstr "User has blocked requests through HTTP."
 msgid "Gray"
 msgstr "Grey"
 
-#: wp-includes/general-template.php:4221
+#: wp-includes/general-template.php:4222
 msgid "Next &raquo;"
 msgstr "Next &raquo;"
 
-#: wp-includes/general-template.php:4220
+#: wp-includes/general-template.php:4221
 msgid "&laquo; Previous"
 msgstr "&laquo; Previous"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Search query.
-#: wp-includes/general-template.php:3110
+#: wp-includes/general-template.php:3111
 msgid "%1$s %2$s Search Results for &#8220;%3$s&#8221; Feed"
 msgstr "%1$s %2$s Search Results for &#8220;%3$s&#8221; Feed"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Author name.
-#: wp-includes/general-template.php:3108
+#: wp-includes/general-template.php:3109
 msgid "%1$s %2$s Posts by %3$s Feed"
 msgstr "%1$s %2$s Posts by %3$s Feed"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Tag name.
-#: wp-includes/general-template.php:3104
+#: wp-includes/general-template.php:3105
 msgid "%1$s %2$s %3$s Tag Feed"
 msgstr "%1$s %2$s %3$s Tag Feed"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Category name.
-#: wp-includes/general-template.php:3102
+#: wp-includes/general-template.php:3103
 msgid "%1$s %2$s %3$s Category Feed"
 msgstr "%1$s %2$s %3$s Category Feed"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Post title.
-#: wp-includes/general-template.php:3100
+#: wp-includes/general-template.php:3101
 msgid "%1$s %2$s %3$s Comments Feed"
 msgstr "%1$s %2$s %3$s Comments Feed"
 
 #. translators: 1: Blog title, 2: Separator (raquo).
-#: wp-includes/general-template.php:3060
+#: wp-includes/general-template.php:3061
 msgid "%1$s %2$s Comments Feed"
 msgstr "%1$s %2$s Comments Feed"
 
 #. translators: 1: Blog title, 2: Separator (raquo).
-#: wp-includes/general-template.php:3058
+#: wp-includes/general-template.php:3059
 msgid "%1$s %2$s Feed"
 msgstr "%1$s %2$s Feed"
 
 #. translators: Separator between blog name and feed type in feed links.
-#: wp-includes/general-template.php:3056 wp-includes/general-template.php:3098
+#: wp-includes/general-template.php:3057 wp-includes/general-template.php:3099
 msgctxt "feed link"
 msgid "&raquo;"
 msgstr "&raquo;"
 
 #. translators: Calendar caption: 1: Month name, 2: 4-digit year.
-#: wp-includes/general-template.php:2265
+#: wp-includes/general-template.php:2266
 msgctxt "calendar caption"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
 
 #. translators: 1: Month, 2: Year.
 #. translators: 1: Month name, 2: 4-digit year.
-#: wp-includes/media.php:4118 wp-includes/general-template.php:2021
+#: wp-includes/media.php:4123 wp-includes/general-template.php:2022
 #: wp-admin/includes/class-wp-list-table.php:628
 msgid "%1$s %2$d"
 msgstr "%1$s %2$d"
@@ -14557,7 +14573,7 @@ msgstr "Help"
 #: wp-includes/script-loader.php:1062
 #: wp-includes/widgets/class-wp-widget-recent-posts.php:113
 #: wp-includes/blocks/rss.php:31 wp-includes/blocks/latest-comments.php:31
-#: wp-includes/blocks/latest-posts.php:93 wp-includes/media.php:3796
+#: wp-includes/blocks/latest-posts.php:93 wp-includes/media.php:3801
 #: wp-includes/js/dist/editor.js:11111 wp-includes/js/dist/editor.js:13760
 #: wp-includes/js/dist/edit-post.js:7395
 #: wp-includes/js/dist/block-library.js:17386 wp-admin/includes/revision.php:59
@@ -14578,7 +14594,7 @@ msgstr "Edit Media"
 msgid "New Page"
 msgstr "New Page"
 
-#: wp-includes/media.php:4184 wp-includes/js/dist/editor.js:7528
+#: wp-includes/media.php:4189 wp-includes/js/dist/editor.js:7528
 #: wp-includes/js/dist/block-editor.js:35624
 #: wp-includes/js/dist/block-library.js:23711
 #: wp-admin/includes/template.php:1940 wp-admin/theme-editor.php:238
@@ -14669,8 +14685,8 @@ msgstr "Version"
 
 #: wp-includes/admin-bar.php:1064 wp-includes/admin-bar.php:1065
 #: wp-includes/blocks/search.php:25 wp-includes/blocks/search.php:26
-#: wp-includes/blocks/search.php:44 wp-includes/media.php:4183
-#: wp-includes/media.php:4227 wp-includes/class-wp-editor.php:1856
+#: wp-includes/blocks/search.php:44 wp-includes/media.php:4188
+#: wp-includes/media.php:4232 wp-includes/class-wp-editor.php:1856
 #: wp-includes/js/dist/block-library.js:20289
 #: wp-includes/js/dist/block-library.js:20290
 #: wp-includes/js/dist/block-library.js:20337
@@ -14709,7 +14725,7 @@ msgid "Add or remove tags"
 msgstr "Add or remove tags"
 
 #: wp-login.php:723 wp-includes/script-loader.php:1060
-#: wp-includes/media.php:4186 wp-includes/js/dist/editor.js:9795
+#: wp-includes/media.php:4191 wp-includes/js/dist/editor.js:9795
 #: wp-admin/includes/class-wp-plugins-list-table.php:611
 #: wp-admin/includes/meta-boxes.php:370 wp-admin/includes/meta-boxes.php:371
 #: wp-admin/includes/meta-boxes.php:452 wp-admin/includes/meta-boxes.php:453
@@ -14749,7 +14765,7 @@ msgid "Image URL"
 msgstr "Image URL"
 
 #. translators: Default privacy policy heading.
-#: wp-includes/media.php:4180 wp-includes/media.php:4745
+#: wp-includes/media.php:4185 wp-includes/media.php:4750
 #: wp-includes/class-wp-editor.php:1229
 #: wp-includes/js/dist/block-editor.js:35051 wp-includes/js/dist/blocks.js:5982
 #: wp-includes/js/dist/core-data.js:2063
@@ -14784,7 +14800,7 @@ msgid "Size"
 msgstr "Size"
 
 #: wp-includes/media-template.php:812 wp-includes/media-template.php:892
-#: wp-includes/media-template.php:1083 wp-includes/media.php:3838
+#: wp-includes/media-template.php:1083 wp-includes/media.php:3843
 #: wp-includes/js/dist/block-editor.js:18475
 #: wp-admin/includes/class-custom-background.php:598
 #: wp-admin/includes/media.php:1145 wp-admin/edit-form-blocks.php:220
@@ -14792,7 +14808,7 @@ msgid "Full Size"
 msgstr "Full Size"
 
 #: wp-includes/media-template.php:810 wp-includes/media-template.php:890
-#: wp-includes/media-template.php:1081 wp-includes/media.php:3836
+#: wp-includes/media-template.php:1081 wp-includes/media.php:3841
 #: wp-includes/js/dist/components.js:35978
 #: wp-includes/js/dist/block-editor.js:18469
 #: wp-admin/includes/class-custom-background.php:596
@@ -14851,7 +14867,7 @@ msgid "File &#8220;%s&#8221; doesn&#8217;t exist?"
 msgstr "File &#8220;%s&#8221; doesn&#8217;t exist?"
 
 #: wp-includes/media-template.php:809 wp-includes/media-template.php:889
-#: wp-includes/media-template.php:1080 wp-includes/media.php:3835
+#: wp-includes/media-template.php:1080 wp-includes/media.php:3840
 #: wp-includes/js/dist/block-editor.js:18466
 #: wp-admin/includes/class-custom-background.php:595
 #: wp-admin/includes/image-edit.php:234 wp-admin/includes/media.php:1142
@@ -14884,7 +14900,7 @@ msgstr "Username"
 
 #: wp-includes/widgets/class-wp-widget-archives.php:30
 #: wp-includes/widgets/class-wp-widget-archives.php:43
-#: wp-includes/blocks/archives.php:35 wp-includes/general-template.php:1652
+#: wp-includes/blocks/archives.php:35 wp-includes/general-template.php:1653
 #: wp-includes/theme-compat/sidebar.php:119
 #: wp-includes/js/dist/block-library.js:9281 wp-admin/includes/file.php:26
 msgid "Archives"
@@ -14942,7 +14958,7 @@ msgstr "Tags"
 msgid "Content"
 msgstr "Content"
 
-#: wp-includes/script-loader.php:1106 wp-includes/media.php:4185
+#: wp-includes/script-loader.php:1106 wp-includes/media.php:4190
 #: wp-includes/class-wp-editor.php:1178 wp-includes/class-wp-editor.php:1881
 #: wp-includes/js/dist/editor.js:11267
 #: wp-includes/js/dist/block-editor.js:35100
@@ -15176,7 +15192,7 @@ msgstr "Publish"
 msgid "Comments"
 msgstr "Comments"
 
-#: wp-includes/class-wp-customize-widgets.php:775 wp-includes/media.php:4224
+#: wp-includes/class-wp-customize-widgets.php:775 wp-includes/media.php:4229
 #: wp-includes/class-wp-editor.php:1386
 #: wp-includes/js/dist/block-editor.js:34667
 #: wp-includes/js/dist/block-editor.js:34832
@@ -15205,7 +15221,7 @@ msgstr "Search Results for &#8220;%s&#8221;"
 #. translators: %s: Duration.
 #. translators: %s: Human-readable time difference.
 #: wp-includes/script-loader.php:343
-#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:135
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:140
 #: wp-admin/includes/class-wp-privacy-requests-table.php:388
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:734
 #: wp-admin/includes/revision.php:243 wp-admin/includes/revision.php:286
@@ -15268,8 +15284,8 @@ msgstr "Comment"
 #: wp-includes/widgets/class-wp-widget-media-image.php:113
 #: wp-includes/media-template.php:792 wp-includes/media-template.php:1018
 #: wp-includes/media-template.php:1141 wp-includes/media-template.php:1215
-#: wp-includes/media-template.php:1306 wp-includes/media.php:4181
-#: wp-includes/media.php:4738
+#: wp-includes/media-template.php:1306 wp-includes/media.php:4186
+#: wp-includes/media.php:4743
 #: wp-includes/customize/class-wp-customize-nav-menu-item-control.php:94
 #: wp-includes/class-wp-editor.php:1261 wp-includes/class-wp-editor.php:1840
 #: wp-includes/class-wp-customize-nav-menus.php:1257

@@ -57,7 +57,7 @@ class Tru_Fetcher_Api_Page_Controller {
 			'callback' => [ $this, "getTemplate" ],
 			'permission_callback' => '__return_true'
 		) );
-		register_rest_route( $this->namespace, '/page/(?<page_name>[\w-]+)', array(
+		register_rest_route( $this->namespace, '/page', array(
 			'methods'  => WP_REST_Server::READABLE,
 			'callback' => [ $this, "getPageBySlug" ],
 			'permission_callback' => '__return_true'
@@ -211,7 +211,7 @@ class Tru_Fetcher_Api_Page_Controller {
 	}
 
 	public function getPageBySlug( $request ) {
-		$pageName = (string) $request['page_name'];
+		$pageName = (string) $request->get_param("page");
 		if ( ! isset( $pageName ) ) {
 			return $this->showError( 'request_missing_parameters', "Page name doesn't exist in request" );
 		}
@@ -219,16 +219,10 @@ class Tru_Fetcher_Api_Page_Controller {
 			$pageId  = get_option( "page_on_front" );
 			$getPage = get_post( $pageId );
 		} else {
-			$getPage = get_posts(
-				array(
-					'name'        => $pageName,
-					'post_type'   => 'page',
-					'numberposts' => 1
-				)
-			)[0];
+			$getPage = get_page_by_path($request->get_param("page"));
 		}
 		$this->apiPostResponse = $this->buildApiResponse( $getPage );
-//        return;
+
 		// Return the product as a response.
 		return rest_ensure_response( $this->apiPostResponse );
 	}
