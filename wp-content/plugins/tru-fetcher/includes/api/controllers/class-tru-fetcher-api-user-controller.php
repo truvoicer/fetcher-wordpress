@@ -65,6 +65,11 @@ class Tru_Fetcher_Api_User_Controller {
 			'callback'            => [ $this, "getSavedItemList" ],
 			'permission_callback' => '__return_true'
 		) );
+		register_rest_route( $this->namespace, '/saved-items-list-by-user', array(
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => [ $this, "getSavedItemListByUser" ],
+			'permission_callback' => '__return_true'
+		) );
 	}
 
 	public function createUser( $request ) {
@@ -158,6 +163,24 @@ class Tru_Fetcher_Api_User_Controller {
 			$str .= sprintf("'%s',", $string);
 		}
 		return rtrim($str, ',');
+	}
+
+	public function getSavedItemListByUser($request) {
+		$data                  = [];
+		$data["user_id"] = $request["user_id"];
+
+		$dbClass = new Tru_Fetcher_Database();
+		$where = "user_id=%s";
+		$getList = $dbClass->getResults(
+			Tru_Fetcher_Database::SAVED_ITEMS_TABLE_NAME,
+			$where,
+			$data["user_id"]
+		);
+		return $this->sendResponse(
+			$this->buildResponseObject( self::STATUS_SUCCESS,
+				"",
+				$getList )
+		);
 	}
 
 	public function getSavedItemList($request) {

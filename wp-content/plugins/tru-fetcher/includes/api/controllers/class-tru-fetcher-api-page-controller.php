@@ -101,7 +101,9 @@ class Tru_Fetcher_Api_Page_Controller {
 			$array[ $widgetInstanceName ] = $widgetData;
 			if ( $widgetInstanceName === "nav_menu" ) {
 				if ( array_key_exists( "nav_menu", $widgetData ) ) {
-					$array[ $widgetInstanceName ]["menu_items"] = $this->getMenu( $widgetData['nav_menu'] );
+					$menuObject = wp_get_nav_menu_object($widgetData['nav_menu']);
+					$array[ $widgetInstanceName ]["menu_slug"] = $menuObject->slug;
+					$array[ $widgetInstanceName ]["menu_items"] = $this->getMenu( $menuObject );
 				}
 			}
 			if ( $widgetInstanceName === "social_media_widget" ) {
@@ -144,13 +146,18 @@ class Tru_Fetcher_Api_Page_Controller {
 	}
 
 	public function getPostFromMenuItem( $menuItem ) {
+		$post = [];
 		$postId = get_post_meta( (int) $menuItem->ID, "_menu_item_object_id" )[0];
-
-		return get_post( (int) $postId );
+		$getpost = get_post( (int) $postId );
+		$post["post_title"] = $getpost->post_title;
+		$post["post_name"] = $getpost->post_name;
+		$post["post_content"] = $getpost->post_content;
+		return $post;
 	}
 
 	public function getMenu( $menu ) {
 		$getMenu = wp_get_nav_menu_items( $menu );
+
 		if ( ! $getMenu ) {
 			return $this->showError( 'menu_not_found', "Menu doesn't exist." );
 		}
@@ -161,13 +168,21 @@ class Tru_Fetcher_Api_Page_Controller {
 		foreach ( $getMenu as $item ) {
 			if ( (int) $item->menu_item_parent === 0 ) {
 				$getPost = $this->getPostFromMenuItem( $item );
-				$getPost->blocks_data = $this->buildListingsBlock( $getPost->post_content );
+				$getBlocksData = $this->buildListingsBlock( $getPost["post_content"] );
+				if (isset($getBlocksData["tru_fetcher_user_area"])) {
+					$getPost["blocks_data"]["tru_fetcher_user_area"] = $getBlocksData["tru_fetcher_user_area"];
+				}
+				unset($getPost["post_content"]);
 				$menuArray[ $i ]["menu_item"] = $getPost;
 			}
 			foreach ( $getMenu as $subItem ) {
 				if ( (int) $subItem->menu_item_parent == (int) $item->ID ) {
 					$getPost = $this->getPostFromMenuItem( $subItem );
-					$getPost->blocks_data = $this->buildListingsBlock( $getPost->post_content );
+					$getBlocksData = $this->buildListingsBlock( $getPost["post_content"] );
+					if (isset($getBlocksData["tru_fetcher_user_area"])) {
+						$getPost["blocks_data"]["tru_fetcher_user_area"] = $getBlocksData["tru_fetcher_user_area"];
+					}
+					unset($getPost["post_content"]);
 					$menuArray[ $i ]["menu_sub_items"][] = $getPost;
 				}
 			}
