@@ -27,8 +27,19 @@ class Tru_Fetcher_Api {
 	}
 
 	public function loadDependencies() {
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'api/auth/class-tru-fetcher-api-auth-jwt.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'api/controllers/class-tru-fetcher-api-page-controller.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'api/controllers/class-tru-fetcher-api-user-controller.php';
+	}
+
+	public function init() {
+		$this->loadApiAuth();
+		$this->loadApiControllers();
+	}
+
+	private function loadApiAuth() {
+		$truFetcherAuth = new Tru_Fetcher_Api_Auth_Jwt();
+		$truFetcherAuth->init();
 	}
 
 	public function loadApiControllers() {

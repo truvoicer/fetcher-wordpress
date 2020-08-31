@@ -146,12 +146,23 @@ class Tru_Fetcher_Api_Page_Controller {
 	}
 
 	public function getPostFromMenuItem( $menuItem ) {
-		$post = [];
-		$postId = get_post_meta( (int) $menuItem->ID, "_menu_item_object_id" )[0];
-		$getpost = get_post( (int) $postId );
-		$post["post_title"] = $getpost->post_title;
-		$post["post_name"] = $getpost->post_name;
-		$post["post_content"] = $getpost->post_content;
+		$getPost = get_post( (int) get_post_meta( (int) $menuItem->ID, "_menu_item_object_id" )[0] );
+		$pageUrl = rtrim(str_replace(get_site_url(), "", get_page_link($getPost)), "/");
+		if ($getPost->ID === (int) get_option( 'page_on_front' )) {
+			$pageUrl = str_replace(get_site_url(), "", get_page_link($getPost));
+		}
+		$post = new stdClass();
+		$post->isfront = (int) get_option( 'page_on_front' );
+		$post->post_title = $getPost->post_title;
+		$post->post_name = $getPost->post_name;
+		$post->post_content = $getPost->post_content;
+		$post->post_url = $pageUrl;
+		$getBlocksData = $this->buildListingsBlock( $getPost->post_content );
+		if (isset($getBlocksData["tru_fetcher_user_area"])) {
+			$post->blocks_data = new stdClass();
+			$post->blocks_data->tru_fetcher_user_area = $getBlocksData["tru_fetcher_user_area"];
+		}
+		unset($post->post_content);
 		return $post;
 	}
 
@@ -167,23 +178,11 @@ class Tru_Fetcher_Api_Page_Controller {
 
 		foreach ( $getMenu as $item ) {
 			if ( (int) $item->menu_item_parent === 0 ) {
-				$getPost = $this->getPostFromMenuItem( $item );
-				$getBlocksData = $this->buildListingsBlock( $getPost["post_content"] );
-				if (isset($getBlocksData["tru_fetcher_user_area"])) {
-					$getPost["blocks_data"]["tru_fetcher_user_area"] = $getBlocksData["tru_fetcher_user_area"];
-				}
-				unset($getPost["post_content"]);
-				$menuArray[ $i ]["menu_item"] = $getPost;
+				$menuArray[ $i ]["menu_item"] = $this->getPostFromMenuItem( $item );
 			}
 			foreach ( $getMenu as $subItem ) {
 				if ( (int) $subItem->menu_item_parent == (int) $item->ID ) {
-					$getPost = $this->getPostFromMenuItem( $subItem );
-					$getBlocksData = $this->buildListingsBlock( $getPost["post_content"] );
-					if (isset($getBlocksData["tru_fetcher_user_area"])) {
-						$getPost["blocks_data"]["tru_fetcher_user_area"] = $getBlocksData["tru_fetcher_user_area"];
-					}
-					unset($getPost["post_content"]);
-					$menuArray[ $i ]["menu_sub_items"][] = $getPost;
+					$menuArray[ $i ]["menu_sub_items"][] = $this->getPostFromMenuItem( $subItem );
 				}
 			}
 			$i ++;

@@ -74,12 +74,11 @@ class Tru_Fetcher {
 		}
 		$this->plugin_name = 'tru-fetcher';
 
-		$this->loadJwtAuthWhitelist();
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-		$this->loadApiControllers();
+		$this->loadApi();
 		$this->define_post_types();
 		$this->define_blocks();
 		$this->define_menus();
@@ -126,7 +125,7 @@ class Tru_Fetcher {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/api/class-tru-fetcher-api.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/graphql/class-tru-fetcher-graphql.php';
+//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/graphql/class-tru-fetcher-graphql.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-tru-fetcher-post-types.php';
 
@@ -190,68 +189,9 @@ class Tru_Fetcher {
 
 	}
 
-	private function loadJwtAuthWhitelist() {
-		add_filter( 'jwt_auth_whitelist', function ( $endpoints ) {
-			return array(
-				'/wp-json/wp/v2/public/*'
-			);
-		} );
-		add_filter(
-			'jwt_auth_valid_token_response',
-			function ( $response, $user, $token, $payload ) {
-				// Modify the response here.
-				$response = array(
-					'success'    => true,
-					'statusCode' => 200,
-					'code'       => 'jwt_auth_valid_token',
-					'message'    => __( 'Token is valid', 'jwt-auth' ),
-					'data'       => array(
-						'token'         => $token,
-						'id'            => $user->ID,
-						'user_email'    => $user->user_email,
-						'user_nicename' => $user->user_nicename,
-						'first_name'    => $user->first_name,
-						'last_name'     => $user->last_name,
-						'display_name'  => $user->display_name,
-						'nickname'      => $user->nickname,
-					),
-				);
-
-				return $response;
-			},
-			10,
-			4
-		);
-		add_filter(
-			'jwt_auth_valid_credential_response',
-			function ( $response, $user ) {
-				$response = array(
-					'success'    => true,
-					'statusCode' => 200,
-					'code'       => 'jwt_auth_valid_credential',
-					'message'    => __( 'Credential is valid', 'jwt-auth' ),
-					'data'       => array(
-						'token'         => $response["data"]["token"],
-						'id'            => $user->ID,
-						'user_email'    => $user->user_email,
-						'user_nicename' => $user->user_nicename,
-						'first_name'    => $user->first_name,
-						'last_name'     => $user->last_name,
-						'display_name'  => $user->display_name,
-						'nickname'      => $user->nickname,
-					),
-				);
-
-				return $response;
-			},
-			10,
-			2
-		);
-	}
-
-	private function loadApiControllers() {
+	private function loadApi() {
 		$truFetcherEndpoints = new Tru_Fetcher_Api();
-		$truFetcherEndpoints->loadApiControllers();
+		$truFetcherEndpoints->init();
 	}
 
 	private function define_post_types() {
