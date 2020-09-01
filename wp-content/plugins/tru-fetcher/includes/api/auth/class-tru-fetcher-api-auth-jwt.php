@@ -27,8 +27,8 @@ class Tru_Fetcher_Api_Auth_Jwt {
 	];
 
 	const API_HEADERS = [
-		"google"   => 'X_GOOGLE_AUTH_KEY',
-		"facebook" => 'X_FACEBOOK_AUTH_KEY',
+		"google"   => 'X-GOOGLE-AUTH-KEY',
+		"facebook" => 'X-FACEBOOK-AUTH-KEY',
 	];
 
 	private $googleValidateUrl = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s";
@@ -47,13 +47,24 @@ class Tru_Fetcher_Api_Auth_Jwt {
 		return json_decode( $config );
 	}
 
+	private function getHeader($key) {
+		$getHeaders = ( new WP_REST_Server() )->get_headers( $_SERVER );
+		$headerKey = strtoupper(WP_REST_Request::canonicalize_header_name($key));
+
+		if ( ! array_key_exists( $headerKey, $getHeaders ) ||  $getHeaders[$headerKey] === "" || $getHeaders[$headerKey] === null) {
+			return new WP_Error( 'jwt_auth_custom_auth_failed', sprintf('Invalid [%s] header.', $key) );
+		}
+
+		return $getHeaders[$headerKey];
+	}
+
 	private function configureHeaders() {
 		add_filter(
 			'jwt_auth_cors_allow_headers',
 			function ( $headers ) {
 				// Modify the headers here.
 				foreach ( self::API_HEADERS as $header ) {
-					$headers .= sprintf( " ,%s", $header );
+					$headers .= sprintf( ", %s", $header );
 				}
 
 				return $headers;
@@ -84,13 +95,8 @@ class Tru_Fetcher_Api_Auth_Jwt {
 	}
 
 	private function validateGoogleToken( $username, $password ) {
-		$getHeaders = ( new WP_REST_Server() )->get_headers( $_SERVER );
-
-		if ( ! array_key_exists( self::API_HEADERS["google"], $getHeaders ) ) {
-			return new WP_Error( 'jwt_auth_custom_auth_failed', __( 'Invalid Google auth header.', 'jwt-auth' ) );
-		}
-
-		$validateKey = file_get_contents( sprintf( $this->googleValidateUrl, $getHeaders[ self::API_HEADERS["google"] ] ) );
+		$token = $password;
+		$validateKey = file_get_contents( sprintf( $this->googleValidateUrl, $token ) );
 		if ( ! $validateKey ) {
 			return new WP_Error( 'jwt_auth_custom_auth_failed', __( 'Validation failed, invalid Google auth key.', 'jwt-auth' ) );
 		}
@@ -114,12 +120,7 @@ class Tru_Fetcher_Api_Auth_Jwt {
 	}
 
 	private function validateFacebookToken( $username, $password ) {
-		$getHeaders = ( new WP_REST_Server() )->get_headers( $_SERVER );
-
-		if ( ! array_key_exists( self::API_HEADERS["facebook"], $getHeaders ) ) {
-			return new WP_Error( 'jwt_auth_custom_auth_failed', __( 'Invalid Facebook auth header.', 'jwt-auth' ) );
-		}
-
+		$token = $password;
 		$config = $this->getConfig();
 		try {
 			$fb = new \Facebook\Facebook( [
@@ -131,12 +132,12 @@ class Tru_Fetcher_Api_Auth_Jwt {
 			$oAuth2Client = $fb->getOAuth2Client();
 
 			// Get the access token metadata from /debug_token
-			$tokenMetadata = $oAuth2Client->debugToken( $getHeaders[ self::API_HEADERS["facebook"] ] );
+			$tokenMetadata = $oAuth2Client->debugToken( $token );
 			if ( ! $tokenMetadata->getIsValid() ) {
 				return new WP_Error( 'jwt_auth_custom_auth_failed', $tokenMetadata->getErrorMessage() );
 			}
 
-			$getFbUser = $fb->get( '/me?fields=id,name,first_name,last_name,email,picture', $getHeaders[ self::API_HEADERS["facebook"] ] );
+			$getFbUser = $fb->get( '/me?fields=id,name,first_name,last_name,email,picture', $token );
 			if ( ! array_key_exists( "email", $getFbUser->getDecodedBody() ) ) {
 				return new WP_Error( 'jwt_auth_custom_auth_failed', __( 'Error pulling email address from facebook.', 'jwt-auth' ) );
 			}
