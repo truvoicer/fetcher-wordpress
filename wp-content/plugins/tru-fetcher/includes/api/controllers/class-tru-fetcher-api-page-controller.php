@@ -29,6 +29,8 @@ class Tru_Fetcher_Api_Page_Controller {
 		"FILTERS_LIST"   => "listings_filters",
 	];
 
+	private $listingsClass;
+
 	private $namespace = "wp/v2/public";
 	private $apiPostResponse;
 	private $templatePostType = "item_view_templates";
@@ -40,11 +42,13 @@ class Tru_Fetcher_Api_Page_Controller {
 	public function init() {
 		$this->load_dependencies();
 		$this->loadResponseObjects();
+		$this->listingsClass = new Tru_Fetcher_Listings();
 		add_action( 'rest_api_init', [$this, "register_routes"] );
 	}
 
 	private function load_dependencies() {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'response/ApiPostResponse.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . '../listings/class-tru-fetcher-listings.php';
 	}
 
 	private function loadResponseObjects() {
@@ -118,22 +122,6 @@ class Tru_Fetcher_Api_Page_Controller {
 		return rest_ensure_response( $sidebarArray );
 	}
 
-	private function buildListingFilters( $listingFiltersArray ) {
-		return array_map( function ( $widgetItem ) {
-			if ( $widgetItem['type'] == "list" ) {
-				$selectedList       = $widgetItem['list'];
-				$widgetItem['list'] = false;
-				if ( $selectedList ) {
-					$widgetItem['list'] = get_field( "list_items", $selectedList->ID );
-				}
-
-				return $widgetItem;
-			}
-
-			return $widgetItem;
-		}, $listingFiltersArray );
-	}
-
 	public function getMenuByName( $request ) {
 		$menuName = (string) $request["menu_name"];
 		if ( ! isset( $menuName ) ) {
@@ -157,7 +145,7 @@ class Tru_Fetcher_Api_Page_Controller {
 		$post->post_name = $getPost->post_name;
 		$post->post_content = $getPost->post_content;
 		$post->post_url = $pageUrl;
-		$getBlocksData = $this->buildListingsBlock( $getPost->post_content );
+		$getBlocksData = $this->listingsClass->buildListingsBlock( parse_blocks($getPost->post_content), false );
 		if (isset($getBlocksData["tru_fetcher_user_area"])) {
 			$post->blocks_data = new stdClass();
 			$post->blocks_data->tru_fetcher_user_area = $getBlocksData["tru_fetcher_user_area"];
@@ -243,7 +231,7 @@ class Tru_Fetcher_Api_Page_Controller {
 
 	private function buildApiResponse( $page ) {
 		//Blocks data must be set first
-		$blocksData = $this->buildListingsBlock( $page->post_content );
+		$blocksData = $this->listingsClass->buildListingsBlock( parse_blocks($page->post_content), false );
 		$pageObject = $this->buildPageObject( $page );
 		$this->apiPostResponse->setPost( $pageObject );
 		$this->apiPostResponse->setSiteConfig( $this->getSiteConfig() );
@@ -275,41 +263,6 @@ class Tru_Fetcher_Api_Page_Controller {
 		];
 	}
 
-	private function getAcfBlockData( $postContent ) {
-		$blocks          = parse_blocks( $postContent );
-		$blocksDataArray = array();
-		foreach ( $blocks as $block ) {
-			if ( ! array_key_exists( "data", $block['attrs'] ) ) {
-				continue;
-			}
-			acf_setup_meta( $block['attrs']['data'], $block['attrs']['id'], true );
-			$fields = get_fields();
-			if ( $fields ) {
-				$blockName                     = str_replace( "acf/", "", $block['blockName'] );
-				$blockName                     = str_replace( "-", "_", $blockName );
-				$blocksDataArray[ $blockName ] = $fields;
-			}
-			acf_reset_meta( $block['attrs']['id'] );
-		}
-		
-		return $blocksDataArray;
-	}
-
-	private function buildListingsBlock( $postContent ) {
-		$blocksArray = $this->getAcfBlockData( $postContent );
-		if ( array_key_exists( self::LISTINGS_FILTERS['NAME'], $blocksArray ) ) {
-			$listingsArray = $blocksArray[ self::LISTINGS_FILTERS['NAME'] ];
-			if ( array_key_exists( self::LISTINGS_FILTERS['OVERRIDE'], $listingsArray ) &&
-			     $listingsArray[ self::LISTINGS_FILTERS['OVERRIDE'] ] ) {
-				$blocksArray[ self::LISTINGS_FILTERS['NAME'] ]
-				[ self::LISTINGS_FILTERS['OVERRIDE_ARRAY'] ]
-				[ self::LISTINGS_FILTERS['FILTERS_LIST'] ] =
-					$this->buildListingFilters( $listingsArray[ self::LISTINGS_FILTERS['OVERRIDE_ARRAY'] ]
-					[ self::LISTINGS_FILTERS['FILTERS_LIST'] ] );
-			}
-		}
-		return $blocksArray;
-	}
 
 	private function showError( $code, $message ) {
 		return new WP_Error( $code,

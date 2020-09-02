@@ -22,67 +22,36 @@
  */
 class Tru_Fetcher_GraphQl {
 
+	private $listingsClass;
+
 	public function __construct() {
+		$this->loadDependencies();
+		$this->listingsClass = new Tru_Fetcher_Listings();
+	}
+
+	private function loadDependencies() {
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'listings/class-tru-fetcher-listings.php';
 	}
 
 	public function init() {
-		add_action( 'graphql_register_types', [$this, "registerTypes"] );
-		add_action( 'graphql_register_types', [$this, "registerSidebarField"] );
+		add_filter( 'graphql_resolve_field', function( $result, $source, $args, $context, $info, $type_name, $field_key, $field, $field_resolver ) {
+			if ( $field_key === 'blocksJSON' ) {
+				if (is_array($result)) {
+					return json_encode($result);
+				}
+				$blocksObject = json_decode($result);
+				$blocksJson = $this->listingsClass->buildListingsBlock($blocksObject, true);
+				return $blocksJson;
+			}
+			return $result;
+		}, 10, 9 );
 	}
 
 	public function registerTypes() {
-		register_graphql_object_type( 'Widgets', [
-			'description' => __( "Site sidebar widget", 'your-textdomain' ),
-			'fields' => [
-				'name' => [
-					'type' => "String",
-					'description' => __( 'Sidebar widgets', 'your-textdomain' ),
-				],
-			],
-		] );
-		register_graphql_object_type( 'Sidebar', [
-			'description' => __( "Site sidebar", 'your-textdomain' ),
-			'fields' => [
-				'name' => [
-					'type' => "String",
-					'description' => __( 'Sidebar name', 'your-textdomain' ),
-				],
-				'widgets' => [
-					'type'        => [
-						'list_of' => 'String',
-					],
-					'description' => __( 'Sidebar widgets', 'your-textdomain' ),
-				],
-			],
-		] );
+
 	}
 
 	public function registerSidebarField() {
-		register_graphql_field(
-			'RootQuery',
-			'Sidebar',
-			[
-				'type'        => 'Sidebar',
-				'description' => 'a sidebar',
-				'args'        => [
-					'slug' => [
-						'type' => [
-							'non_null' => 'String',
-						],
-					],
-				],
-				'resolve' => function ( $source, array $args, $context, $info )  {
 
-					foreach (wp_get_sidebars_widgets() as $key => $sidebar) {
-						if ($key == $args['slug']) {
-							return [
-								"name" => $key,
-								'widgets' => $sidebar,
-							];
-						}
-					}
-				},
-			]
-		);
 	}
 }
