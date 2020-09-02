@@ -210,7 +210,7 @@ class Tru_Fetcher {
 	}
 
 	private function define_menus() {
-		$this->directoryIncludes( 'includes/menus', 'register-menu.php' );
+		$this->directoryIncludes( 'includes/menus/register', 'register-menu.php' );
 	}
 
 	private function define_widgets() {
@@ -218,7 +218,7 @@ class Tru_Fetcher {
 	}
 
 	private function define_sidebars() {
-		$this->directoryIncludes( 'includes/sidebars', 'register-sidebar.php' );
+		$this->directoryIncludes( 'includes/sidebars/register', 'register-sidebar.php' );
 	}
 
 	private function define_taxonomies() {

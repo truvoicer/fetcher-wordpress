@@ -30,6 +30,8 @@ class Tru_Fetcher_Api_Page_Controller {
 	];
 
 	private $listingsClass;
+	private $sidebarClass;
+	private $menuClass;
 
 	private $namespace = "wp/v2/public";
 	private $apiPostResponse;
@@ -43,12 +45,16 @@ class Tru_Fetcher_Api_Page_Controller {
 		$this->load_dependencies();
 		$this->loadResponseObjects();
 		$this->listingsClass = new Tru_Fetcher_Listings();
+		$this->sidebarClass = new Tru_Fetcher_Sidebars();
+		$this->menuClass = new Tru_Fetcher_Menu();
 		add_action( 'rest_api_init', [$this, "register_routes"] );
 	}
 
 	private function load_dependencies() {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'response/ApiPostResponse.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . '../listings/class-tru-fetcher-listings.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . '../sidebars/class-tru-fetcher-sidebars.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . '../menus/class-tru-fetcher-menu.php';
 	}
 
 	private function loadResponseObjects() {
@@ -85,41 +91,11 @@ class Tru_Fetcher_Api_Page_Controller {
 
 	public function getSidebar( $request ) {
 		$sidebarName = (string) $request["sidebar_name"];
-
-		if ( ! isset( $sidebarName ) ) {
-			return $this->showError( 'request_missing_parameters', "Sidebar name doesn't exist in request" );
+		$getSidebar = $this->sidebarClass->getSidebar($sidebarName);
+		if (!$getSidebar) {
+			return $this->showError("sidebar_error", "Error fetching sidebar");
 		}
-		$sidebarWidgets = wp_get_sidebars_widgets();
-		if ( ! array_key_exists( $sidebarName, $sidebarWidgets ) ) {
-			return $this->showError( 'sidebar_invalid', "Sidebar doesn't exist." );
-		}
-
-		$sidebarArray = [];
-		$sidebarArray = array_map( function ( $item ) {
-			$array              = [];
-			$instanceNumber     = substr( $item, strpos( $item, "-" ) + 1 );
-			$widgetInstanceName = str_replace( substr( $item, strpos( $item, "-" ) ), "", $item );
-
-			$widget_instances             = get_option( 'widget_' . $widgetInstanceName );
-			$widgetData                   = $widget_instances[ $instanceNumber ];
-			$array[ $widgetInstanceName ] = $widgetData;
-			if ( $widgetInstanceName === "nav_menu" ) {
-				if ( array_key_exists( "nav_menu", $widgetData ) ) {
-					$menuObject = wp_get_nav_menu_object($widgetData['nav_menu']);
-					$array[ $widgetInstanceName ]["menu_slug"] = $menuObject->slug;
-					$array[ $widgetInstanceName ]["menu_items"] = $this->getMenu( $menuObject );
-				}
-			}
-			if ( $widgetInstanceName === "social_media_widget" ) {
-				$widgetFields                 = get_fields( 'widget_' . $item );
-				$array[ $widgetInstanceName ] = $widgetFields;
-			}
-
-			return $array;
-
-		}, $sidebarWidgets[ $sidebarName ] );
-
-		return rest_ensure_response( $sidebarArray );
+		return rest_ensure_response( $getSidebar );
 	}
 
 	public function getMenuByName( $request ) {
@@ -128,55 +104,9 @@ class Tru_Fetcher_Api_Page_Controller {
 			return $this->showError( 'request_missing_parameters', "Menu name doesn't exist in request" );
 		}
 
-		$menuArray = $this->getMenu( $menuName );
+		$menuArray = $this->menuClass->getMenu( $menuName );
 
 		return rest_ensure_response( $menuArray );
-	}
-
-	public function getPostFromMenuItem( $menuItem ) {
-		$getPost = get_post( (int) get_post_meta( (int) $menuItem->ID, "_menu_item_object_id" )[0] );
-		$pageUrl = rtrim(str_replace(get_site_url(), "", get_page_link($getPost)), "/");
-		if ($getPost->ID === (int) get_option( 'page_on_front' )) {
-			$pageUrl = str_replace(get_site_url(), "", get_page_link($getPost));
-		}
-		$post = new stdClass();
-		$post->isfront = (int) get_option( 'page_on_front' );
-		$post->post_title = $getPost->post_title;
-		$post->post_name = $getPost->post_name;
-		$post->post_content = $getPost->post_content;
-		$post->post_url = $pageUrl;
-		$getBlocksData = $this->listingsClass->buildListingsBlock( parse_blocks($getPost->post_content), false );
-		if (isset($getBlocksData["tru_fetcher_user_area"])) {
-			$post->blocks_data = new stdClass();
-			$post->blocks_data->tru_fetcher_user_area = $getBlocksData["tru_fetcher_user_area"];
-		}
-		unset($post->post_content);
-		return $post;
-	}
-
-	public function getMenu( $menu ) {
-		$getMenu = wp_get_nav_menu_items( $menu );
-
-		if ( ! $getMenu ) {
-			return $this->showError( 'menu_not_found', "Menu doesn't exist." );
-		}
-
-		$menuArray = [];
-		$i         = 0;
-
-		foreach ( $getMenu as $item ) {
-			if ( (int) $item->menu_item_parent === 0 ) {
-				$menuArray[ $i ]["menu_item"] = $this->getPostFromMenuItem( $item );
-			}
-			foreach ( $getMenu as $subItem ) {
-				if ( (int) $subItem->menu_item_parent == (int) $item->ID ) {
-					$menuArray[ $i ]["menu_sub_items"][] = $this->getPostFromMenuItem( $subItem );
-				}
-			}
-			$i ++;
-		}
-
-		return $menuArray;
 	}
 
 	public function getTemplate( $request ) {
