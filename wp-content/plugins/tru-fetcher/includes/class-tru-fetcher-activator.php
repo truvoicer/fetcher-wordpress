@@ -31,6 +31,7 @@ class Tru_Fetcher_Activator {
 
 	public function activate() {
 		$this->dbClass->createSavedItemsTable();
+		$this->dbClass->createRatingsTable();
 		$this->dbClass->updateVersion();
 	}
 }

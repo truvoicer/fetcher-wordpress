@@ -55,19 +55,24 @@ class Tru_Fetcher_Api_User_Controller {
 			'callback'            => [ $this, "updateUser" ],
 			'permission_callback' => '__return_true'
 		) );
-		register_rest_route( $this->namespace, '/save-item', array(
+		register_rest_route( $this->namespace, '/item/save', array(
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => [ $this, "saveItem" ],
 			'permission_callback' => '__return_true'
 		) );
-		register_rest_route( $this->namespace, '/saved-items-list', array(
+		register_rest_route( $this->namespace, '/item/rating/save', array(
 			'methods'             => WP_REST_Server::CREATABLE,
-			'callback'            => [ $this, "getSavedItemList" ],
+			'callback'            => [ $this, "saveItemRating" ],
 			'permission_callback' => '__return_true'
 		) );
-		register_rest_route( $this->namespace, '/saved-items-list-by-user', array(
+		register_rest_route( $this->namespace, '/item/list', array(
 			'methods'             => WP_REST_Server::CREATABLE,
-			'callback'            => [ $this, "getSavedItemListByUser" ],
+			'callback'            => [ $this, "getItemListData" ],
+			'permission_callback' => '__return_true'
+		) );
+		register_rest_route( $this->namespace, '/item/list-by-user', array(
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => [ $this, "getItemListDataByUser" ],
 			'permission_callback' => '__return_true'
 		) );
 	}
@@ -128,7 +133,7 @@ class Tru_Fetcher_Api_User_Controller {
 		);
 	}
 
-	public function saveItem( $request ) {
+	private function getUserItemRequestData( $request) {
 		$date                  = new DateTime();
 		$data                  = [];
 		$data["provider_name"] = $request["provider_name"];
@@ -136,12 +141,15 @@ class Tru_Fetcher_Api_User_Controller {
 		$data["category"]      = $request["category"];
 		$data["item_id"]       = $request["item_id"];
 		$data["date_created"]  = $date->format( "Y-m-d H:i:s" );
+		return $data;
+	}
+
+	public function saveItem( $request ) {
+		$data = $this->getUserItemRequestData($request);
 
 		$dbClass = new Tru_Fetcher_Database();
-		$where = "provider_name=%s AND category=%s AND item_id=%s";
-		$getItem = $dbClass->getRow(
+		$getItem = $dbClass->getUserItemRow(
 			Tru_Fetcher_Database::SAVED_ITEMS_TABLE_NAME,
-			$where,
 			$data["provider_name"], $data["category"], $data["item_id"]
 		);
 		if ($getItem === null) {
@@ -157,25 +165,53 @@ class Tru_Fetcher_Api_User_Controller {
 		);
 	}
 
-	private function getStringCount($array, $string) {
-		$str = "";
-		foreach ($array as $value) {
-			$str .= sprintf("'%s',", $string);
+	public function saveItemRating( $request ) {
+		$data = $this->getUserItemRequestData($request);
+		$data["rating"]       = $request["rating"];
+		$updateData = [
+			"rating" => $data["rating"]
+		];
+
+		$dbClass = new Tru_Fetcher_Database();
+		$getItem = $dbClass->getUserItemRow(
+			Tru_Fetcher_Database::RATINGS_TABLE_NAME,
+			$data["provider_name"], $data["category"], $data["item_id"]
+		);
+
+		if ($getItem === null) {
+			$dbClass->insertData( Tru_Fetcher_Database::RATINGS_TABLE_NAME, $data );
+		} else {
+			$dbClass->updateData(Tru_Fetcher_Database::RATINGS_TABLE_NAME, $updateData, "item_id=%s", [$data["item_id"]]);
 		}
-		return rtrim($str, ',');
+
+		return $this->sendResponse(
+			$this->buildResponseObject( self::STATUS_SUCCESS,
+				"",
+				true )
+		);
 	}
 
-	public function getSavedItemListByUser($request) {
-		$data                  = [];
+	private function getStringCount( $array, $string ) {
+		$str = "";
+		foreach ( $array as $value ) {
+			$str .= sprintf( "'%s',", $string );
+		}
+
+		return rtrim( $str, ',' );
+	}
+
+	public function getItemListDataByUser( $request ) {
+		$data            = [];
 		$data["user_id"] = $request["user_id"];
 
 		$dbClass = new Tru_Fetcher_Database();
-		$where = "user_id=%s";
+		$where   = "user_id=%s";
 		$getList = $dbClass->getResults(
 			Tru_Fetcher_Database::SAVED_ITEMS_TABLE_NAME,
 			$where,
 			$data["user_id"]
 		);
+
 		return $this->sendResponse(
 			$this->buildResponseObject( self::STATUS_SUCCESS,
 				"",
@@ -183,24 +219,34 @@ class Tru_Fetcher_Api_User_Controller {
 		);
 	}
 
-	public function getSavedItemList($request) {
+	public function getItemListData( $request ) {
 		$data                  = [];
 		$data["provider_name"] = $request["provider_name"];
 		$data["category"]      = $request["category"];
 		$data["id_list"]       = $request["id_list"];
 
-		$dbClass = new Tru_Fetcher_Database();
-		$placeholders = "(" . $this->getStringCount($request["id_list"], "%s") . ")";
-		$where = "provider_name=%s AND category=%s AND item_id IN $placeholders";
-		$getItem = $dbClass->getResults(
+		$dbClass      = new Tru_Fetcher_Database();
+		$placeholders = "(" . $this->getStringCount( $request["id_list"], "%s" ) . ")";
+		$where        = "provider_name=%s AND category=%s AND item_id IN $placeholders";
+		$getSavedItems      = $dbClass->getResults(
 			Tru_Fetcher_Database::SAVED_ITEMS_TABLE_NAME,
 			$where,
 			$data["provider_name"], $data["category"], ...$data["id_list"]
 		);
+		$getRatings     = $dbClass->getResults(
+			Tru_Fetcher_Database::RATINGS_TABLE_NAME,
+			$where,
+			$data["provider_name"], $data["category"], ...$data["id_list"]
+		);
+
 		return $this->sendResponse(
 			$this->buildResponseObject( self::STATUS_SUCCESS,
 				"",
-				$getItem )
+				[
+					"saved_items" => $getSavedItems,
+					"item_ratings"   => $getRatings
+				]
+			)
 		);
 	}
 

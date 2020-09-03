@@ -307,21 +307,21 @@ msgstr "One Reply to &ldquo;%s&rdquo;"
 msgid "Page"
 msgstr "Page"
 
-#: 404.php:21
-msgid "Oops! That page can&rsquo;t be found."
-msgstr "Oops! That page can&rsquo;t be found."
-
-#: 404.php:24
-msgid "It looks like nothing was found at this location. Maybe try a search?"
-msgstr "It looks like nothing was found at this location. Maybe try a search?"
+#: archive.php:50 index.php:54 search.php:51
+msgid "Next page"
+msgstr "Next page"
 
 #: archive.php:49 index.php:53 search.php:50
 msgid "Previous page"
 msgstr "Previous page"
 
-#: archive.php:50 index.php:54 search.php:51
-msgid "Next page"
-msgstr "Next page"
+#: 404.php:24
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr "It looks like nothing was found at this location. Maybe try a search?"
+
+#: 404.php:21
+msgid "Oops! That page can&rsquo;t be found."
+msgstr "Oops! That page can&rsquo;t be found."
 
 #. Author of the theme
 msgid "the WordPress team"

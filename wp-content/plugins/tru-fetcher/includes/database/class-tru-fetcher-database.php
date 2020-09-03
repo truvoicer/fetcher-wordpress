@@ -24,6 +24,7 @@ class Tru_Fetcher_Database {
 
 	const DB_VERSION = "1.0";
 	const SAVED_ITEMS_TABLE_NAME = 'tru_fetcher_saved_items';
+	const RATINGS_TABLE_NAME = 'tru_fetcher_ratings';
 
 	private $tablePrefix;
 	private $charsetCollate;
@@ -54,6 +55,22 @@ class Tru_Fetcher_Database {
 		$this->createTable($sql);
 	}
 
+	public function createRatingsTable() {
+		$tableName = $this->tablePrefix . self::RATINGS_TABLE_NAME;
+		$sql = "CREATE TABLE $tableName (
+		  id mediumint(9) NOT NULL AUTO_INCREMENT,
+		  user_id bigint(20) unsigned NOT NULL DEFAULT 0,
+		  provider_name varchar(255) NOT NULL,
+		  category varchar(255) NOT NULL,
+		  item_id varchar(255) NOT NULL,
+		  rating tinyint(1) DEFAULT 0,
+		  date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+		  PRIMARY KEY  (id)
+		) $this->charsetCollate;";
+
+		$this->createTable($sql);
+	}
+
 	public function getRow($tableName, $where, ...$parameters) {
 		global $wpdb;
 		$query = "SELECT * FROM $this->tablePrefix$tableName WHERE $where";
@@ -64,6 +81,15 @@ class Tru_Fetcher_Database {
 		global $wpdb;
 		$query = "SELECT * FROM $this->tablePrefix$tableName WHERE $where";
 		return $wpdb->get_results($wpdb->prepare($query, $parameters));
+	}
+
+	public function getUserItemRow($tableName, $providerName, $category, $itemId) {
+		$where = "provider_name=%s AND category=%s AND item_id=%s";
+		return $this->getRow(
+			$tableName,
+			$where,
+			$providerName, $category, $itemId
+		);
 	}
 
 	public function insertData($tableName, $data, $format = null) {
