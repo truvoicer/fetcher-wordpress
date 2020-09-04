@@ -83,13 +83,22 @@ class Tru_Fetcher_Database {
 		return $wpdb->get_results($wpdb->prepare($query, $parameters));
 	}
 
-	public function getUserItemRow($tableName, $providerName, $category, $itemId) {
-		$where = "provider_name=%s AND category=%s AND item_id=%s";
+	public function getUserItemRow($tableName, $providerName, $category, $itemId, $userId) {
+		$where = "provider_name=%s AND category=%s AND item_id=%s AND user_id=%s";
 		return $this->getRow(
 			$tableName,
 			$where,
-			$providerName, $category, $itemId
+			$providerName, $category, $itemId, $userId
 		);
+	}
+
+	public function getTotal($tableName, $field, $where, $parameters) {
+		global $wpdb;
+		$query = "SELECT SUM($field) AS $field,
+				(SELECT count(id) FROM $this->tablePrefix$tableName WHERE item_id=%s) AS total_users_rated
+				FROM $this->tablePrefix$tableName 
+				WHERE $where";
+		return $wpdb->get_row($wpdb->prepare($query, $parameters));
 	}
 
 	public function insertData($tableName, $data, $format = null) {
@@ -99,7 +108,7 @@ class Tru_Fetcher_Database {
 
 	public function updateData($tableName, $data, $where, $format = null, $where_format = null) {
 		global $wpdb;
-		return $wpdb->update( $this->tablePrefix . $tableName, $data, $where, $format = null, $where_format = null );
+		return $wpdb->update( $this->tablePrefix . $tableName, $data, $where, $format, $where_format );
 	}
 
 	public function delete($tableName, $where, $parameters) {

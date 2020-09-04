@@ -23,6 +23,7 @@
 class Tru_Fetcher_Api_User_Controller {
 
 	const STATUS_SUCCESS = "success";
+	const MAX_RATING = 5;
 	private $namespace = "wp/v2/public/users";
 	private $apiUserResponse;
 
@@ -175,13 +176,18 @@ class Tru_Fetcher_Api_User_Controller {
 		$dbClass = new Tru_Fetcher_Database();
 		$getItem = $dbClass->getUserItemRow(
 			Tru_Fetcher_Database::RATINGS_TABLE_NAME,
-			$data["provider_name"], $data["category"], $data["item_id"]
+			$data["provider_name"], $data["category"], $data["item_id"], $data["user_id"]
 		);
-
 		if ($getItem === null) {
 			$dbClass->insertData( Tru_Fetcher_Database::RATINGS_TABLE_NAME, $data );
 		} else {
-			$dbClass->updateData(Tru_Fetcher_Database::RATINGS_TABLE_NAME, $updateData, "item_id=%s", [$data["item_id"]]);
+			 $dbClass->updateData(
+				Tru_Fetcher_Database::RATINGS_TABLE_NAME,
+				["rating" => "%d"],
+				["item_id" => "%s", "user_id" => "%d"],
+				[(int)$data["rating"]],
+				['"'.$data["item_id"].'"', $data["user_id"]]
+			);
 		}
 
 		return $this->sendResponse(
@@ -220,23 +226,17 @@ class Tru_Fetcher_Api_User_Controller {
 	}
 
 	public function getItemListData( $request ) {
-		$data                  = [];
-		$data["provider_name"] = $request["provider_name"];
-		$data["category"]      = $request["category"];
-		$data["id_list"]       = $request["id_list"];
-
-		$dbClass      = new Tru_Fetcher_Database();
-		$placeholders = "(" . $this->getStringCount( $request["id_list"], "%s" ) . ")";
-		$where        = "provider_name=%s AND category=%s AND item_id IN $placeholders";
-		$getSavedItems      = $dbClass->getResults(
-			Tru_Fetcher_Database::SAVED_ITEMS_TABLE_NAME,
-			$where,
-			$data["provider_name"], $data["category"], ...$data["id_list"]
+		$getSavedItems  = $this->getSavedItemsData(
+			$request["provider_name"],
+			$request["category"],
+			$request["id_list"],
+			$request["user_id"]
 		);
-		$getRatings     = $dbClass->getResults(
-			Tru_Fetcher_Database::RATINGS_TABLE_NAME,
-			$where,
-			$data["provider_name"], $data["category"], ...$data["id_list"]
+		$getRatings = $this->getRatingsData(
+			$request["provider_name"],
+			$request["category"],
+			$request["id_list"],
+			$request["user_id"]
 		);
 
 		return $this->sendResponse(
@@ -248,6 +248,58 @@ class Tru_Fetcher_Api_User_Controller {
 				]
 			)
 		);
+	}
+	private function getSavedItemsData($providerName, $category, $idList, $user_id) {
+		$dbClass      = new Tru_Fetcher_Database();
+		$placeholders = "(" . $this->getStringCount( $idList, "%s" ) . ")";
+		$where        = "provider_name=%s AND category=%s AND user_id=%s AND item_id IN $placeholders";
+
+		return $dbClass->getResults(
+			Tru_Fetcher_Database::SAVED_ITEMS_TABLE_NAME,
+			$where,
+			$providerName, $category, $user_id, ...$idList
+		);
+	}
+	private function getRatingsData($providerName, $category, $idList, $user_id) {
+		$dbClass      = new Tru_Fetcher_Database();
+		$placeholders = "(" . $this->getStringCount( $idList, "%s" ) . ")";
+		$where        = "provider_name=%s AND category=%s AND user_id=%s AND item_id IN $placeholders";
+		$getRatings     = $dbClass->getResults(
+			Tru_Fetcher_Database::RATINGS_TABLE_NAME,
+			$where,
+			$providerName, $category, $user_id, ...$idList
+		);
+		$getRatings = array_map(function ($item) {
+			$overallRating = $this->getItemOverallRating($item);
+			if ($overallRating !== null) {
+				$item->overall_rating = $overallRating["overall_rating"];
+				$item->total_users_rated = $overallRating["total_users_rated"];
+			}
+			return $item;
+		}, $getRatings);
+
+		return $getRatings;
+	}
+
+	private function getItemOverallRating($data) {
+		$dbClass      = new Tru_Fetcher_Database();
+		$where        = "provider_name=%s AND category=%s AND item_id=%s";
+		$getTotal     = $dbClass->getTotal(
+			Tru_Fetcher_Database::RATINGS_TABLE_NAME,
+			"rating",
+			$where,
+			[$data->item_id, $data->provider_name, $data->category, $data->item_id]
+		);
+		if ($getTotal === null || !isset($getTotal->rating) || !isset($getTotal->total_users_rated)) {
+			return null;
+		}
+		$maxUserRatingCount = (int)$getTotal->total_users_rated * self::MAX_RATING;
+		$calculateRating = ((int)$getTotal->rating * self::MAX_RATING) / $maxUserRatingCount;
+		$roundUpToInteger = ceil($calculateRating);
+		return [
+			"overall_rating" => $roundUpToInteger,
+			"total_users_rated" => (int)$getTotal->total_users_rated
+		];
 	}
 
 	private function buildResponseObject( $status, $message, $data ) {
