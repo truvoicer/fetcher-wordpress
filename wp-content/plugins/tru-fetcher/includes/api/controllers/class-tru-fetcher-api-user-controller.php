@@ -151,7 +151,7 @@ class Tru_Fetcher_Api_User_Controller {
 		$dbClass = new Tru_Fetcher_Database();
 		$getItem = $dbClass->getUserItemRow(
 			Tru_Fetcher_Database::SAVED_ITEMS_TABLE_NAME,
-			$data["provider_name"], $data["category"], $data["item_id"]
+			$data["provider_name"], $data["category"], $data["item_id"], $data["user_id"]
 		);
 		if ($getItem === null) {
 			$dbClass->insertData( Tru_Fetcher_Database::SAVED_ITEMS_TABLE_NAME, $data );
@@ -262,22 +262,36 @@ class Tru_Fetcher_Api_User_Controller {
 	}
 	private function getRatingsData($providerName, $category, $idList, $user_id) {
 		$dbClass      = new Tru_Fetcher_Database();
-		$placeholders = "(" . $this->getStringCount( $idList, "%s" ) . ")";
-		$where        = "provider_name=%s AND category=%s AND user_id=%s AND item_id IN $placeholders";
-		$getRatings     = $dbClass->getResults(
-			Tru_Fetcher_Database::RATINGS_TABLE_NAME,
-			$where,
-			$providerName, $category, $user_id, ...$idList
-		);
-		$getRatings = array_map(function ($item) {
-			$overallRating = $this->getItemOverallRating($item);
-			if ($overallRating !== null) {
-				$item->overall_rating = $overallRating["overall_rating"];
-				$item->total_users_rated = $overallRating["total_users_rated"];
+		$getRatings = array_map(function ($item) use($dbClass, $providerName, $category, $user_id) {
+			$rating = null;
+			$getItemRating     = $dbClass->getRow(
+				Tru_Fetcher_Database::RATINGS_TABLE_NAME,
+				"provider_name=%s AND category=%s AND user_id=%s AND item_id=%s",
+				$providerName, $category, $user_id, $item
+			);
+			if ($getItemRating === null) {
+				$getItemRating     = $dbClass->getRow(
+					Tru_Fetcher_Database::RATINGS_TABLE_NAME,
+					"provider_name=%s AND category=%s AND item_id=%s",
+					$providerName, $category, $item
+				);
+			} else {
+				$rating = $getItemRating->rating;
 			}
-			return $item;
-		}, $getRatings);
+			if ($getItemRating === null) {
+				return null;
+			}
 
+			$overallRating = $this->getItemOverallRating($getItemRating);
+			if ($overallRating !== null) {
+				$getItemRating->overall_rating = $overallRating["overall_rating"];
+				$getItemRating->total_users_rated = $overallRating["total_users_rated"];
+			}
+
+			$getItemRating->rating = $rating;
+			$getItemRating->user_id = $user_id;
+			return  $getItemRating;
+		}, $idList);
 		return $getRatings;
 	}
 
