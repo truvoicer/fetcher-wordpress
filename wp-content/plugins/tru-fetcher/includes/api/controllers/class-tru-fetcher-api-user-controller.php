@@ -169,9 +169,6 @@ class Tru_Fetcher_Api_User_Controller {
 	public function saveItemRating( $request ) {
 		$data = $this->getUserItemRequestData($request);
 		$data["rating"]       = $request["rating"];
-		$updateData = [
-			"rating" => $data["rating"]
-		];
 
 		$dbClass = new Tru_Fetcher_Database();
 		$getItem = $dbClass->getUserItemRow(
@@ -190,10 +187,17 @@ class Tru_Fetcher_Api_User_Controller {
 			);
 		}
 
+		$getRatings = $this->getRatingsData(
+			$request["provider_name"],
+			$request["category"],
+			[$data["item_id"]],
+			$request["user_id"]
+		);
+
 		return $this->sendResponse(
 			$this->buildResponseObject( self::STATUS_SUCCESS,
 				"",
-				true )
+				$getRatings )
 		);
 	}
 
@@ -262,7 +266,8 @@ class Tru_Fetcher_Api_User_Controller {
 	}
 	private function getRatingsData($providerName, $category, $idList, $user_id) {
 		$dbClass      = new Tru_Fetcher_Database();
-		$getRatings = array_map(function ($item) use($dbClass, $providerName, $category, $user_id) {
+		$getRatings = [];
+		foreach ($idList as $item) {
 			$rating = null;
 			$getItemRating     = $dbClass->getRow(
 				Tru_Fetcher_Database::RATINGS_TABLE_NAME,
@@ -278,20 +283,18 @@ class Tru_Fetcher_Api_User_Controller {
 			} else {
 				$rating = $getItemRating->rating;
 			}
-			if ($getItemRating === null) {
-				return null;
-			}
+			if ($getItemRating !== null) {
+				$overallRating = $this->getItemOverallRating($getItemRating);
+				if ($overallRating !== null) {
+					$getItemRating->overall_rating = $overallRating["overall_rating"];
+					$getItemRating->total_users_rated = $overallRating["total_users_rated"];
+				}
 
-			$overallRating = $this->getItemOverallRating($getItemRating);
-			if ($overallRating !== null) {
-				$getItemRating->overall_rating = $overallRating["overall_rating"];
-				$getItemRating->total_users_rated = $overallRating["total_users_rated"];
+				$getItemRating->rating = $rating;
+				$getItemRating->user_id = $user_id;
+				array_push($getRatings, $getItemRating);
 			}
-
-			$getItemRating->rating = $rating;
-			$getItemRating->user_id = $user_id;
-			return  $getItemRating;
-		}, $idList);
+		}
 		return $getRatings;
 	}
 
