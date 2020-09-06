@@ -70,6 +70,7 @@ class Tru_Fetcher_Menu {
 		$post->post_name = $getPost->post_name;
 		$post->post_content = $getPost->post_content;
 		$post->post_url = $pageUrl;
+		$post->post_type = get_field("page_type", $getPost->ID);
 		$getBlocksData = $this->listingsClass->buildListingsBlock( parse_blocks($getPost->post_content), false );
 		if (isset($getBlocksData["tru_fetcher_user_area"])) {
 			$post->blocks_data = new stdClass();
