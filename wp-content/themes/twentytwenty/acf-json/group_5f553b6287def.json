@@ -20,6 +20,7 @@
                 "general": "General Page",
                 "login": "Login Page",
                 "register": "Register Page",
+                "logout": "Logout Page",
                 "user_account": "User Account Page"
             },
             "default_value": "general",
@@ -50,5 +51,5 @@
     "description": "",
     "show_in_graphql": 0,
     "graphql_field_name": "page_options",
-    "modified": 1599421532
+    "modified": 1599439431
 }

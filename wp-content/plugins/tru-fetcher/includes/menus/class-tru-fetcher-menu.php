@@ -41,18 +41,29 @@ class Tru_Fetcher_Menu {
 		}
 
 		$menuArray = [];
-		$i         = 0;
-
 		foreach ( $getMenu as $item ) {
+		    $menuItems = [];
+		    $menuItem = null;
 			if ( (int) $item->menu_item_parent === 0 ) {
-				$menuArray[ $i ]["menu_item"] = $this->getPostFromMenuItem( $item );
+				$menuItem = $this->getPostFromMenuItem( $item );
 			}
+			$subItems = [];
 			foreach ( $getMenu as $subItem ) {
 				if ( (int) $subItem->menu_item_parent == (int) $item->ID ) {
-					$menuArray[ $i ]["menu_sub_items"][] = $this->getPostFromMenuItem( $subItem );
+					array_push($subItems, $this->getPostFromMenuItem( $subItem ));
 				}
 			}
-			$i ++;
+
+            if ($menuItem !== null) {
+                $menuItems["menu_item"] = $menuItem;
+            }
+
+            if (count($subItems) > 0) {
+                $menuItems["menu_sub_items"] = $subItems;
+            }
+            if (count($menuItems) > 0) {
+                array_push($menuArray, $menuItems);
+            }
 		}
 
 		return $menuArray;
@@ -66,6 +77,7 @@ class Tru_Fetcher_Menu {
 		}
 		$post = new stdClass();
 		$post->isfront = (int) get_option( 'page_on_front' );
+		$post->menu_title = $menuItem->title;
 		$post->post_title = $getPost->post_title;
 		$post->post_name = $getPost->post_name;
 		$post->post_content = $getPost->post_content;
