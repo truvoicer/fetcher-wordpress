@@ -31,6 +31,8 @@ class Tru_Fetcher_Api_Auth_Jwt {
 		"facebook" => 'X-FACEBOOK-AUTH-KEY',
 	];
 
+	const AUTH_TYPE_META_KEY = "auth_type";
+
 	private $googleValidateUrl = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s";
 
 	public function init() {
@@ -72,7 +74,7 @@ class Tru_Fetcher_Api_Auth_Jwt {
 		);
 	}
 
-	private function createUser( $email, $firstName = null, $lastName = null, $picture = null ) {
+	private function createUser( $authType, $email, $firstName = null, $lastName = null, $picture = null ) {
 		$createUser = wp_create_user( $email, wp_generate_password( 16, true ), $email );
 		if ( is_wp_error( $createUser ) ) {
 			return new WP_Error( 'jwt_auth_custom_auth_failed', __( 'Error creating new user.', 'jwt-auth' ) );
@@ -86,6 +88,7 @@ class Tru_Fetcher_Api_Auth_Jwt {
 			"last_name"     => $lastName,
 		];
 		wp_update_user( $userData );
+		update_user_meta($createUser, self::AUTH_TYPE_META_KEY, $authType);
 		$getUser = get_userdata( $createUser );
 		if ( is_wp_error( $getUser ) ) {
 			return new WP_Error( 'jwt_auth_custom_auth_failed', __( 'Error retrieving new user.', 'jwt-auth' ) );
@@ -106,6 +109,7 @@ class Tru_Fetcher_Api_Auth_Jwt {
 
 		if ( ! $getUser ) {
 			$getUser = $this->createUser(
+				"google",
 				$validateObject->email,
 				$validateObject->given_name,
 				$validateObject->family_name,
@@ -144,6 +148,7 @@ class Tru_Fetcher_Api_Auth_Jwt {
 			$getUser = get_user_by_email( $getFbUser->getDecodedBody()["email"] );
 			if ( ! $getUser ) {
 				$getUser = $this->createUser(
+					"facebook",
 					$getFbUser->getDecodedBody()["email"],
 					( array_key_exists( "first_name", $getFbUser->getDecodedBody() ) ) ? $getFbUser->getDecodedBody()["first_name"] : null,
 					( array_key_exists( "first_name", $getFbUser->getDecodedBody() ) ) ? $getFbUser->getDecodedBody()["last_name"] : null,
@@ -188,6 +193,7 @@ class Tru_Fetcher_Api_Auth_Jwt {
 		add_filter(
 			'jwt_auth_valid_token_response',
 			function ( $response, $user, $token, $payload ) {
+				$authType = get_user_meta($user->ID, self::AUTH_TYPE_META_KEY, true);
 				// Modify the response here.
 				$response = array(
 					'success'    => true,
@@ -196,6 +202,7 @@ class Tru_Fetcher_Api_Auth_Jwt {
 					'message'    => __( 'Token is valid', 'jwt-auth' ),
 					'data'       => array(
 						'token'         => $token,
+						'auth_type'     => $authType,
 						'id'            => $user->ID,
 						'user_email'    => $user->user_email,
 						'user_nicename' => $user->user_nicename,
@@ -217,6 +224,7 @@ class Tru_Fetcher_Api_Auth_Jwt {
 		add_filter(
 			'jwt_auth_valid_credential_response',
 			function ( $response, $user ) {
+				$authType = get_user_meta($user->ID, self::AUTH_TYPE_META_KEY, true);
 				$response = array(
 					'success'    => true,
 					'statusCode' => 200,
@@ -224,6 +232,7 @@ class Tru_Fetcher_Api_Auth_Jwt {
 					'message'    => __( 'Credential is valid', 'jwt-auth' ),
 					'data'       => array(
 						'token'         => $response["data"]["token"],
+						'auth_type'     => $authType,
 						'id'            => $user->ID,
 						'user_email'    => $user->user_email,
 						'user_nicename' => $user->user_nicename,

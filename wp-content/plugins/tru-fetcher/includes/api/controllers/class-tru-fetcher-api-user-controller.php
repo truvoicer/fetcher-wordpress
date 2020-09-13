@@ -24,6 +24,11 @@ class Tru_Fetcher_Api_User_Controller {
 
 	const STATUS_SUCCESS = "success";
 	const MAX_RATING = 5;
+
+	const AUTH_TYPES = ["google", "facebook", "wordpress"];
+	const AUTH_TYPE_META_KEY = "auth_type";
+	const AUTH_TYPE_META_VALUE = "wordpress";
+
 	private $namespace = "wp/v2/public/users";
 	private $apiUserResponse;
 
@@ -88,6 +93,7 @@ class Tru_Fetcher_Api_User_Controller {
 			return $this->showError( $createUser->get_error_code(), $createUser->get_error_message() );
 		}
 		wp_new_user_notification( $createUser );
+		update_user_meta($createUser, self::AUTH_TYPE_META_KEY, self::AUTH_TYPE_META_VALUE);
 
 		$getUserData = [
 			"username" => $username,
@@ -111,20 +117,25 @@ class Tru_Fetcher_Api_User_Controller {
 		$userData["first_name"]    = $request["first_name"];
 		$userData["last_name"]     = $request["last_name"];
 
-		$authenticateUser = wp_authenticate( $userData["user_email"], $request["current_password"] );
-		if ( is_wp_error( $authenticateUser ) ) {
-			return $this->showError( $authenticateUser->get_error_code(), $authenticateUser->get_error_message() );
-		}
-
-		if ( isset( $request["change_password"] ) && $request["change_password"] ) {
-			if ( $request["confirm_password"] === $request["new_password"] ) {
-				$userData["user_pass"] = $request["new_password"];
+		if ($request["auth_type"] === self::AUTH_TYPE_META_VALUE) {
+			$authenticateUser = wp_authenticate( $userData["user_email"], $request["current_password"] );
+			if ( is_wp_error( $authenticateUser ) ) {
+				return $this->showError( $authenticateUser->get_error_code(), $authenticateUser->get_error_message() );
 			}
+
+			if ( isset( $request["change_password"] ) && $request["change_password"] ) {
+				if ( $request["confirm_password"] === $request["new_password"] ) {
+					$userData["user_pass"] = $request["new_password"];
+				}
+			}
+		}
+		if (!in_array($request["auth_type"], self::AUTH_TYPES)) {
+			return $this->showError( "auth_type_invalid", "Invalid authentication type in request." );
 		}
 
 		$updateUser = wp_update_user( $userData );
 		if ( is_wp_error( $updateUser ) ) {
-			return $this->showError( $authenticateUser->get_error_code(), $authenticateUser->get_error_message() );
+			return $this->showError( $updateUser->get_error_code(), $updateUser->get_error_message() );
 		}
 
 		return $this->sendResponse(
