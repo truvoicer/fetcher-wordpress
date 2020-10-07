@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast Duplicate Post - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-07-11 12:11:51+0000\n"
+"PO-Revision-Date: 2020-09-24 11:39:43+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,14 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: en_GB\n"
 "Project-Id-Version: Plugins - Yoast Duplicate Post - Stable (latest release)\n"
+
+#: duplicate-post-admin.php:289
+msgid "Subscribe"
+msgstr "Subscribe"
+
+#: duplicate-post-admin.php:222
+msgid "Compatibility with WP 5.5 + various fixes"
+msgstr "Compatibility with WP 5.5 + various fixes"
 
 #: duplicate-post-options.php:775
 msgid "Update notice"
@@ -27,41 +35,36 @@ msgid "%s Duplicate Post settings"
 msgstr "%s Duplicate Post settings"
 
 #. translators: %s: Post title.
-#: duplicate-post-admin.php:466
+#: duplicate-post-admin.php:475
 msgid "New draft of &#8220;%s&#8221;"
 msgstr "New draft of &#8220;%s&#8221;"
 
-#: duplicate-post-admin.php:461
+#: duplicate-post-admin.php:470
 msgctxt "verb"
 msgid "Clone"
 msgstr "Clone"
 
 #. translators: $s: link to edit or view the original item
-#: duplicate-post-admin.php:426
+#: duplicate-post-admin.php:435
 msgid "The original item this was copied from is: <span class=\"duplicate_post_original_item_title_span\">%s</span>"
 msgstr "The original item this was copied from is: <span class=\"duplicate_post_original_item_title_span\">%s</span>"
 
-#: duplicate-post-admin.php:359
+#: duplicate-post-admin.php:368
 msgid "The original item this was copied from is: <span class=\"duplicate_post_original_item_title_span\"></span>"
 msgstr "The original item this was copied from is: <span class=\"duplicate_post_original_item_title_span\"></span>"
 
-#: duplicate-post-admin.php:355 duplicate-post-admin.php:420
+#: duplicate-post-admin.php:364 duplicate-post-admin.php:429
 msgid "Delete reference to original item."
 msgstr "Delete reference to original item."
 
-#: duplicate-post-admin.php:269
+#: duplicate-post-admin.php:278
 msgid "Email Address"
 msgstr "Email Address"
 
 #. translators: %1$s: Yoast
-#: duplicate-post-admin.php:266
+#: duplicate-post-admin.php:275
 msgid "If you want to stay up to date about all the exciting developments around Duplicate Post, subscribe to the %1$s newsletter!"
 msgstr "If you want to stay up to date about all the exciting developments around Duplicate Post, subscribe to the %1$s newsletter!"
-
-#. translators: %s: Yoast
-#: duplicate-post-admin.php:213
-msgid "First release from %s + accessibility improvements + deprecated filter"
-msgstr "First release from %s + accessibility improvements + deprecated filter"
 
 #. Author URI of the plugin
 msgid "https://yoast.com"
@@ -80,16 +83,16 @@ msgid "Yoast Duplicate Post"
 msgstr "Yoast Duplicate Post"
 
 #. translators: %s: Post title.
-#: duplicate-post-admin.php:459
+#: duplicate-post-admin.php:468
 msgid "Clone &#8220;%s&#8221;"
 msgstr "Clone &#8220;%s&#8221;"
 
 #. translators: Original item link (to view or edit) or title.
-#: duplicate-post-admin.php:384
+#: duplicate-post-admin.php:393
 msgid "Original: %s"
 msgstr "Original: %s"
 
-#: duplicate-post-admin.php:321
+#: duplicate-post-admin.php:330
 msgid "Original item"
 msgstr "Original item"
 
@@ -121,7 +124,7 @@ msgstr "Show original item:"
 msgid "Settings sections"
 msgstr "Settings sections"
 
-#: duplicate-post-admin.php:890
+#: duplicate-post-admin.php:899
 msgid "Documentation for Duplicate Post"
 msgstr "Documentation for Duplicate Post"
 
@@ -142,20 +145,20 @@ msgstr "Preview &#8220;%s&#8221;"
 msgid "Edit &#8220;%s&#8221;"
 msgstr "Edit &#8220;%s&#8221;"
 
+#. translators: %1$s: Yoast, %2$s: version number
+#: duplicate-post-admin.php:221
+msgid "What's new in %1$s Duplicate Post version %2$s:"
+msgstr "What's new in %1$s Duplicate Post version %2$s:"
+
 #: duplicate-post-options.php:702
 msgid "now works on Edit screen too - check this option to use with Gutenberg enabled"
 msgstr "now works on Edit screen too - check this option to use with Gutenberg enabled"
 
-#. translators: %1$s: Yoast, %2$s: version number
-#: duplicate-post-admin.php:211
-msgid "What's new in %1$s Duplicate Post version %2$s:"
-msgstr "What's new in %1$s Duplicate Post version %2$s:"
-
-#: duplicate-post-admin.php:512
+#: duplicate-post-admin.php:521
 msgid "Current user is not allowed to copy posts."
 msgstr "Current user is not allowed to copy posts."
 
-#: duplicate-post-admin.php:215
+#: duplicate-post-admin.php:224
 msgid "Serving the WordPress community since November 2007."
 msgstr "Serving the WordPress community since November 2007."
 
@@ -163,7 +166,7 @@ msgstr "Serving the WordPress community since November 2007."
 msgid "you probably want this unchecked, unless you have very special requirements"
 msgstr "you probably want this unchecked, unless you have very special requirements"
 
-#: duplicate-post-admin.php:890
+#: duplicate-post-admin.php:899
 msgid "Documentation"
 msgstr "Documentation"
 
@@ -201,7 +204,7 @@ msgid "Featured Image"
 msgstr "Featured Image"
 
 #. translators: %s: number
-#: duplicate-post-admin.php:901
+#: duplicate-post-admin.php:910
 msgid "%s item copied."
 msgid_plural "%s items copied."
 msgstr[0] "%s item copied."
@@ -295,11 +298,11 @@ msgstr "Permissions"
 msgid "What to copy"
 msgstr "What to copy"
 
-#: duplicate-post-admin.php:775
+#: duplicate-post-admin.php:784
 msgid "Copy features for this post type are not enabled in options page"
 msgstr "Copy features for this post type are not enabled in options page"
 
-#: duplicate-post-admin.php:218
+#: duplicate-post-admin.php:227
 msgid "Dismiss this notice."
 msgstr "Dismiss this notice."
 
@@ -371,23 +374,23 @@ msgstr "Do not copy these fields"
 msgid "Duplicate Post"
 msgstr "Duplicate Post"
 
-#: duplicate-post-admin.php:556
+#: duplicate-post-admin.php:565
 msgid "Copy creation failed, could not find original:"
 msgstr "Copy creation failed, could not find original:"
 
-#: duplicate-post-admin.php:516
+#: duplicate-post-admin.php:525
 msgid "No post to duplicate has been supplied!"
 msgstr "No post to duplicate has been supplied!"
 
-#: duplicate-post-admin.php:468
+#: duplicate-post-admin.php:477
 msgid "New Draft"
 msgstr "New Draft"
 
-#: duplicate-post-admin.php:485 duplicate-post-common.php:78
+#: duplicate-post-admin.php:494 duplicate-post-common.php:78
 #: duplicate-post-common.php:170 duplicate-post-common.php:182
 msgid "Copy to a new draft"
 msgstr "Copy to a new draft"
 
-#: duplicate-post-admin.php:925
+#: duplicate-post-admin.php:939
 msgid "Clone"
 msgstr "Clone"
