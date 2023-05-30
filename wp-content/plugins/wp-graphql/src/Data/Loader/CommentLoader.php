@@ -2,7 +2,7 @@
 
 namespace WPGraphQL\Data\Loader;
 
-use GraphQL\Deferred;
+use Exception;
 use WPGraphQL\Model\Comment;
 
 /**
@@ -13,10 +13,10 @@ use WPGraphQL\Model\Comment;
 class CommentLoader extends AbstractDataLoader {
 
 	/**
-	 * @param $entry
-	 * @param $key
+	 * @param mixed $entry The User Role object
+	 * @param mixed $key The Key to identify the user role by
 	 *
-	 * @return Comment
+	 * @return mixed|\WPGraphQL\Model\Comment|null
 	 * @throws \Exception
 	 */
 	protected function get_model( $entry, $key ) {
@@ -25,7 +25,12 @@ class CommentLoader extends AbstractDataLoader {
 			return null;
 		}
 
-		return new Comment( $entry );
+		$comment_model = new Comment( $entry );
+		if ( empty( $comment_model->fields ) ) {
+			return null;
+		}
+
+		return $comment_model;
 	}
 
 	/**
