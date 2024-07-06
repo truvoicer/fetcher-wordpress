@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Twenty-Three package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-06-04 17:38:55+0000\n"
+"PO-Revision-Date: 2024-06-10 07:13:10+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,6 +22,11 @@ msgstr "Twenty Twenty-Three is designed to take advantage of the new design tool
 #, gp-priority: high
 msgid "Twenty Twenty-Three"
 msgstr "Twenty Twenty-Three"
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Comments Template Part"
+msgstr "Comments Template Part"
 
 #: theme.json
 msgctxt "Template part name"
