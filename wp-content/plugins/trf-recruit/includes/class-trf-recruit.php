@@ -1,12 +1,12 @@
 <?php
 namespace TrfRecruit\Includes;
 
-use TrfRecruit\Includes\Api\Controllers\Trf_Recruit_Api_Skills_Controller;
+use TrfRecruit\Includes\Api\Controllers\Protected\Trf_Recruit_Api_Skills_Controller;
 use TrfRecruit\Includes\DB\Model\Trf_Recruit_DB_Model_Skill;
 use TrfRecruit\Includes\DB\Model\Trf_Recruit_DB_Model_User_Skill;
 use TrfRecruit\Includes\Helpers\Trf_Recruit_Api_Helpers_Skill;
 use TruFetcher\Includes\Traits\Tru_Fetcher_Traits_Errors;
-use \TruFetcher\Includes\Tru_Fetcher_Filters;
+use TruFetcher\Includes\Tru_Fetcher_Filters;
 
 class Trf_Recruit
 {

@@ -28,6 +28,18 @@ class Trf_Recruit_DB_Model_Skill extends Tru_Fetcher_DB_Model
             Tru_Fetcher_DB_Model_Constants::ALIAS => 'skill',
             Tru_Fetcher_DB_Model_Constants::PRIMARY_KEY_FIELD => $this->getIdColumn(),
             Tru_Fetcher_DB_Model_Constants::UNIQUE_CONSTRAINT_FIELD => [$this->getNameColumn()],
+            Tru_Fetcher_DB_Model_Constants::PIVOTS => [
+                [
+                    Tru_Fetcher_DB_Model_Constants::PIVOTS_TABLE => Trf_Recruit_DB_Model_User_Skill::class,
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY => (new Trf_Recruit_DB_Model_User_Skill())->getSkillIdColumn(),
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY_REFERENCE => $this->getIdColumn()
+                ],
+                [
+                    Tru_Fetcher_DB_Model_Constants::PIVOTS_TABLE => \WP_User::class,
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY => 'user_id',
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY_REFERENCE => 'ID'
+                ]
+            ]
         ];
     }
 
