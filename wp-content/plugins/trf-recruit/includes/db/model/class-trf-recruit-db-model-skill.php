@@ -3,6 +3,7 @@ namespace TrfRecruit\Includes\DB\Model;
 
 use \TruFetcher\Includes\DB\Model\Constants\Tru_Fetcher_DB_Model_Constants;
 use \TruFetcher\Includes\DB\Model\Tru_Fetcher_DB_Model;
+use TruFetcher\Includes\DB\Model\WP\Tru_Fetcher_DB_Model_WP_User;
 
 class Trf_Recruit_DB_Model_Skill extends Tru_Fetcher_DB_Model
 {
@@ -31,14 +32,13 @@ class Trf_Recruit_DB_Model_Skill extends Tru_Fetcher_DB_Model
             Tru_Fetcher_DB_Model_Constants::PIVOTS => [
                 [
                     Tru_Fetcher_DB_Model_Constants::PIVOTS_TABLE => Trf_Recruit_DB_Model_User_Skill::class,
-                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY => (new Trf_Recruit_DB_Model_User_Skill())->getSkillIdColumn(),
-                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY_REFERENCE => $this->getIdColumn()
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_TABLE => Tru_Fetcher_DB_Model_WP_User::class,
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY => (new Trf_Recruit_DB_Model_User_Skill())->getUserIdColumn(),
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY_REFERENCE => (new Tru_Fetcher_DB_Model_WP_User())->getUserIdField(),
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_RELATED_TABLE => self::class,
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_RELATED_KEY => (new Trf_Recruit_DB_Model_User_Skill())->getSkillIdColumn(),
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_RELATED_REF => $this->getIdColumn()
                 ],
-                [
-                    Tru_Fetcher_DB_Model_Constants::PIVOTS_TABLE => \WP_User::class,
-                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY => 'user_id',
-                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY_REFERENCE => 'ID'
-                ]
             ]
         ];
     }
