@@ -173,7 +173,10 @@ class Trf_Recruit_Api_Helpers_Skill {
     public function syncUserSkills(\WP_User $user, array $userSkills = []) {
         $results = $this->skillRepository->sync(
             $this->userSkillModel,
-            $userSkills
+            array_map(function ($skill) use ($user) {
+                $skill['user_id'] = $user->ID;
+                return $skill;
+            }, $userSkills),
         );
     }
 
