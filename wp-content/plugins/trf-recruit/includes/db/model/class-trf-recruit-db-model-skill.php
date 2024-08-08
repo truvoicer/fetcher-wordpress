@@ -33,11 +33,11 @@ class Trf_Recruit_DB_Model_Skill extends Tru_Fetcher_DB_Model
                 [
                     Tru_Fetcher_DB_Model_Constants::PIVOTS_TABLE => Trf_Recruit_DB_Model_User_Skill::class,
                     Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_TABLE => Tru_Fetcher_DB_Model_WP_User::class,
-                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY => (new Trf_Recruit_DB_Model_User_Skill())->getUserIdColumn(),
-                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY_REFERENCE => (new Tru_Fetcher_DB_Model_WP_User())->getUserIdField(),
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY => 'user_id',
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_FOREIGN_KEY_REFERENCE => 'ID',
                     Tru_Fetcher_DB_Model_Constants::PIVOT_RELATED_TABLE => self::class,
-                    Tru_Fetcher_DB_Model_Constants::PIVOT_RELATED_KEY => (new Trf_Recruit_DB_Model_User_Skill())->getSkillIdColumn(),
-                    Tru_Fetcher_DB_Model_Constants::PIVOT_RELATED_REF => $this->getIdColumn()
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_RELATED_KEY => 'skill_id',
+                    Tru_Fetcher_DB_Model_Constants::PIVOT_RELATED_REF => 'id'
                 ],
             ]
         ];

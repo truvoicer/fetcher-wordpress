@@ -171,8 +171,12 @@ class Trf_Recruit_Api_Helpers_Skill {
 
 
     public function syncUserSkills(\WP_User $user, array $userSkills = []) {
-
+        $results = $this->skillRepository->sync(
+            $this->userSkillModel,
+            $userSkills
+        );
     }
+
     public function updateUserSkillBatch(\WP_User $user, array $userSkills = []) {
         $errors = [];
         foreach ($userSkills as $skill) {

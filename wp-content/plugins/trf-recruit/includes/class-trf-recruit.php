@@ -24,9 +24,14 @@ class Trf_Recruit
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_DB_DATA, [$this, 'addDbData']);
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_API_PUBLIC_CONTROLLERS, [$this, 'publicControllers']);
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_API_ADMIN_CONTROLLERS, [$this, 'adminControllers']);
-        add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_USER_PROFILE_SAVE, [$this, 'adminControllers']);
+        add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_USER_PROFILE_SAVE, [$this, 'userProfileSaveHandler'], 10, 2);
+        add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_ALLOWED_USER_PROFILE_FIELDS, [$this, 'getAllowedUserProfileFields']);
     }
-
+    public function getAllowedUserProfileFields() {
+        return [
+            "skills"
+        ];
+    }
     public function addDbModels() {
         return [
             new Trf_Recruit_DB_Model_Skill(),
@@ -44,8 +49,8 @@ class Trf_Recruit
     public function adminControllers() {
         return [];
     }
-    public function userProfileSaveHandler(\WP_User $user, $data) {
-        if (empty($data["skills"] && is_array($data["skills"]))) {
+    public function userProfileSaveHandler(\WP_User $user, array $data) {
+        if (!empty($data["skills"] && is_array($data["skills"]))) {
             $this->skillHelpers->syncUserSkills($user, $data["skills"]);
         }
 
