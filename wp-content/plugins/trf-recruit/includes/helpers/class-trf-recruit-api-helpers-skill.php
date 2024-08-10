@@ -145,39 +145,24 @@ class Trf_Recruit_Api_Helpers_Skill {
         return $this->userSkillRepository->deleteById($data[$this->userSkillModel->getIdColumn()]);
     }
 
-    public function updateUserProfileSkillsBatch(\WP_User $user, array $skillsArray = [])
-    {
-        $userSkills = array_filter($skillsArray, function ($skill) {
-            return !empty($skill['entity']) && $skill['entity'] === $this->userSkillModel->getAlias();
-        });
-        $existingSkills = array_filter($skillsArray, function ($skill) {
-            return !empty($skill['entity']) && $skill['entity'] === $this->skillModel->getAlias();
-        });
-        $newSkills = array_filter($skillsArray, function ($skill) {
-            return empty($skill['entity']);
-        });
-
-        $updateUserSkills = $this->syncUserSkills($user, array_filter($skillsArray, function ($skill) {
-            return !empty($skill['entity']) && $skill['entity'] === $this->skillModel->getAlias();
-        }));
-//        $updateSkills = $this->updateSkillBatch($user, $existingSkills);
-//        $updateNewSkills = $this->updateNewSkillBatch($user, $newSkills);
-        $this->mergeErrors([
-            $this->skillRepository,
-            $this->userSkillRepository
-        ]);
-        return [];
-    }
-
 
     public function syncUserSkills(\WP_User $user, array $userSkills = []) {
         $results = $this->skillRepository->sync(
             $this->userSkillModel,
-            array_map(function ($skill) use ($user) {
-                $skill['user_id'] = $user->ID;
-                return $skill;
-            }, $userSkills),
+            [
+                'user_id' => $user->ID
+            ],
+            $userSkills,
         );
+        if ($this->skillRepository->hasErrors()) {
+            $this->setErrors(
+                array_merge(
+                    $this->getErrors(),
+                    $this->skillRepository->getErrors()
+                )
+            );
+        }
+        return $results;
     }
 
     public function updateUserSkillBatch(\WP_User $user, array $userSkills = []) {
@@ -275,6 +260,26 @@ class Trf_Recruit_Api_Helpers_Skill {
     {
         $this->site = $site;
         $this->db->setSite($site);
+    }
+
+    public function getSkillModel(): Trf_Recruit_DB_Model_Skill
+    {
+        return $this->skillModel;
+    }
+
+    public function getUserSkillModel(): Trf_Recruit_DB_Model_User_Skill
+    {
+        return $this->userSkillModel;
+    }
+
+    public function getSkillRepository(): Trf_Recruit_DB_Repository_Skill
+    {
+        return $this->skillRepository;
+    }
+
+    public function getUserSkillRepository(): Trf_Recruit_DB_Repository_User_Skill
+    {
+        return $this->userSkillRepository;
     }
 
 

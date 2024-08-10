@@ -46,7 +46,8 @@ class Trf_Recruit_DB_Repository_User_Skill extends Tru_Fetcher_DB_Repository_Bas
     {
         $this->setSelect([
             "{$this->userSkillModel->getTableName()}.*",
-            "{$this->skillModel->getTableName()}.{$this->skillModel->getIdColumn()} as skill_id",
+            "{$this->userSkillModel->getTableName()}.{$this->userSkillModel->getIdColumn()} as user_skill_id",
+            "{$this->skillModel->getTableName()}.{$this->skillModel->getIdColumn()} as id",
             "{$this->skillModel->getTableName()}.{$this->skillModel->getNameColumn()}",
             "{$this->skillModel->getTableName()}.{$this->skillModel->getLabelColumn()}",
         ]);
@@ -56,6 +57,11 @@ class Trf_Recruit_DB_Repository_User_Skill extends Tru_Fetcher_DB_Repository_Bas
             "{$this->skillModel->getTableName()}.{$this->skillModel->getIdColumn()} = {$this->userSkillModel->getTableName()}.{$this->userSkillModel->getSkillIdColumn()}"
         );
         $this->addWhere($this->model->getUserIdColumn(), $user->ID);
+        $this->addWhere(
+            "{$this->skillModel->getTableName()}.{$this->skillModel->getIdColumn()}",
+            null,
+            Tru_Fetcher_DB_Model_Constants::WHERE_COMPARE_IS_NOT_NULL,
+        );
         return $this->findMany();
     }
 

@@ -30,7 +30,7 @@ class  Trf_Recruit_Api_Skills_Controller extends Tru_Fetcher_Api_Controller_Base
     }
     public function register_routes()
     {
-        register_rest_route($this->apiConfigEndpoints->protectedEndpoint, '/skills/list', array(
+        register_rest_route($this->apiConfigEndpoints->protectedEndpoint, '/list', array(
             'methods' => \WP_REST_Server::READABLE,
             'callback' => [$this, "skillsSelectData"],
             'permission_callback' => [$this->apiAuthApp, 'protectedTokenRequestHandler']

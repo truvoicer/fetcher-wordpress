@@ -17,6 +17,10 @@ class Trf_Recruit_DB_Model_Skill extends Tru_Fetcher_DB_Model
 
     private string $nameColumn = 'name';
     private string $labelColumn = 'label';
+    protected array $requiredFields = [
+        'name',
+        'label',
+    ];
 
     public function __construct()
     {
