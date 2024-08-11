@@ -6,6 +6,7 @@ use TrfRecruit\Includes\DB\Model\Trf_Recruit_DB_Model_User_Skill;
 use TrfRecruit\Includes\DB\Repository\Trf_Recruit_DB_Repository_Skill;
 use TrfRecruit\Includes\DB\Repository\Trf_Recruit_DB_Repository_User_Skill;
 use \TruFetcher\Includes\DB\Engine\Tru_Fetcher_DB_Engine;
+use TruFetcher\Includes\DB\Model\Constants\Tru_Fetcher_DB_Model_Constants;
 use \TruFetcher\Includes\DB\Traits\WP\Tru_Fetcher_DB_Traits_WP_Site;
 use \TruFetcher\Includes\Traits\Tru_Fetcher_Traits_Errors;
 
@@ -147,13 +148,19 @@ class Trf_Recruit_Api_Helpers_Skill {
 
 
     public function syncUserSkills(\WP_User $user, array $userSkills = []) {
-        $results = $this->skillRepository->sync(
-            $this->userSkillModel,
-            [
-                'user_id' => $user->ID
-            ],
-            $userSkills,
-        );
+        $results = $this->skillRepository->getRelations()
+            ->getSync()
+            ->setSyncModeReplace()
+            ->setConditions(
+                [
+                    [
+                        Tru_Fetcher_DB_Model_Constants::COLUMN => 'user_id',
+                        Tru_Fetcher_DB_Model_Constants::VALUE => $user->ID,
+                        Tru_Fetcher_DB_Model_Constants::COMPARE => Tru_Fetcher_DB_Model_Constants::WHERE_COMPARE_EQUALS
+                    ]
+                ]
+            )
+            ->sync($this->userSkillModel, $userSkills);
         if ($this->skillRepository->hasErrors()) {
             $this->setErrors(
                 array_merge(
