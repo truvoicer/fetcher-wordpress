@@ -15,6 +15,19 @@ use TruFetcher\Includes\Tru_Fetcher_Filters;
 class Trf_Recruit
 {
     use Tru_Fetcher_Traits_Errors;
+
+    const REQUEST_FORM_ARRAY_FIELDS = [
+        "experiences", "education"
+    ];
+
+    const REQUEST_TEXT_FIELDS = [
+        "short_description", "personal_statement"
+    ];
+
+    const REQUEST_FILE_UPLOAD_FIELDS = [
+        "profile_picture", "cv_file"
+    ];
+
     private Trf_Recruit_Api_Helpers_Skill $skillHelpers;
     private Tru_Fetcher_Api_Form_Handler $apiFormHandler;
 
@@ -32,6 +45,8 @@ class Trf_Recruit
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_API_ADMIN_CONTROLLERS, [$this, 'adminControllers']);
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_USER_PROFILE_SAVE, [$this, 'userProfileSaveHandler'], 10, 2);
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_USER_PROFILE_FETCH, [$this, 'getUserProfileData'], 10, 2);
+        add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_UPLOADED_FILE_SAVE, [$this, 'uploadedFileHandler'], 10, 2);
+        add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_ALLOWED_UPLOAD_FIELDS, [$this, 'getAllowedUserFileUploadFields']);
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_ALLOWED_USER_PROFILE_FIELDS, [$this, 'getAllowedUserProfileFields']);
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_DATA_SOURCE_DATA, [$this, "getDataSourceData"], 10, 2);
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_USER_META_SELECT_DATA_SOURCE, [$this, "filterUserMetaSelectData"], 10, 2);
@@ -73,9 +88,16 @@ class Trf_Recruit
         return [];
     }
 
+    public function getAllowedUserFileUploadFields() {
+        return [
+            ...self::REQUEST_FILE_UPLOAD_FIELDS,
+        ];
+    }
     public function getAllowedUserProfileFields() {
         return [
-            "skills"
+            "skills",
+            ...self::REQUEST_TEXT_FIELDS,
+            ...self::REQUEST_FORM_ARRAY_FIELDS
         ];
     }
     public function addDbModels() {
@@ -95,24 +117,46 @@ class Trf_Recruit
     public function adminControllers() {
         return [];
     }
-    public function userProfileSaveHandler(\WP_User $user, array $data) {
-        if (empty($data["skills"] || is_array($data["skills"]))) {
-            return true;
-        }
-        $skillModel = new Trf_Recruit_DB_Model_Skill();
-        $this->skillHelpers->syncUserSkills(
-            $user,
-            array_map(function($skill) use ($skillModel) {
-                if (!empty($skill["value"])) {
-                    $skill[$skillModel->getNameColumn()] = sanitize_text_field($skill["value"]);
-                }
-                return $skill;
-            }, $data["skills"])
-        );
 
-        if ($this->skillHelpers->hasErrors()) {
-            return $this->skillHelpers->getErrors();
+    public function uploadedFileHandler(\WP_User $user, array $data) {
+        $filesArray = array_filter($data, function ($key) {
+            return in_array($key, self::REQUEST_FILE_UPLOAD_FIELDS);
+        }, ARRAY_FILTER_USE_KEY);
+
+        $saveFiles = $this->apiFormHandler->saveUserProfileFileUploads($user, $filesArray);
+        if (!$this->apiFormHandler->validateFileUploadResponse($saveFiles)) {
+            return false;
         }
-        return true;
+        return $saveFiles;
+    }
+
+    public function userProfileSaveHandler(\WP_User $user, array $data) {
+        $errors = [];
+        if (!empty($data["skills"] && is_array($data["skills"]))) {
+            $skillModel = new Trf_Recruit_DB_Model_Skill();
+            $this->skillHelpers->syncUserSkills(
+                $user,
+                array_map(function ($skill) use ($skillModel) {
+                    if (!empty($skill["value"])) {
+                        $skill[$skillModel->getNameColumn()] = sanitize_text_field($skill["value"]);
+                    }
+                    return $skill;
+                }, $data["skills"])
+            );
+
+            if ($this->skillHelpers->hasErrors()) {
+                $errors = [...$errors, ...$this->skillHelpers->getErrors()];
+            }
+        }
+
+        $metaUpdateData = array_filter($data, function ($key) {
+            return in_array($key, [...self::REQUEST_TEXT_FIELDS, ...self::REQUEST_FORM_ARRAY_FIELDS]);
+        }, ARRAY_FILTER_USE_KEY);
+        $this->apiFormHandler->updateUserMetaData($user, $metaUpdateData);
+        if ($this->apiFormHandler->hasErrors()) {
+            $errors = [...$errors, ...$this->apiFormHandler->getErrors()];
+        }
+
+        return (count($errors))? $errors : true;
     }
 }
