@@ -25,7 +25,7 @@ class Trf_Recruit
     ];
 
     const REQUEST_FILE_UPLOAD_FIELDS = [
-        "profile_picture", "cv_file"
+        "cv_file"
     ];
 
     private Trf_Recruit_Api_Helpers_Skill $skillHelpers;
@@ -122,17 +122,18 @@ class Trf_Recruit
         $filesArray = array_filter($data, function ($key) {
             return in_array($key, self::REQUEST_FILE_UPLOAD_FIELDS);
         }, ARRAY_FILTER_USE_KEY);
-
         $saveFiles = $this->apiFormHandler->saveUserProfileFileUploads($user, $filesArray);
+
         if (!$this->apiFormHandler->validateFileUploadResponse($saveFiles)) {
             return false;
         }
+
         return $saveFiles;
     }
 
     public function userProfileSaveHandler(\WP_User $user, array $data) {
         $errors = [];
-        if (!empty($data["skills"] && is_array($data["skills"]))) {
+        if (!empty($data["skills"]) && is_array($data["skills"])) {
             $skillModel = new Trf_Recruit_DB_Model_Skill();
             $this->skillHelpers->syncUserSkills(
                 $user,
