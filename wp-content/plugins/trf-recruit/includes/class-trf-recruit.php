@@ -25,7 +25,7 @@ class Trf_Recruit
     ];
 
     const REQUEST_FILE_UPLOAD_FIELDS = [
-        "cv_file"
+        "cv"
     ];
 
     private Trf_Recruit_Api_Helpers_Skill $skillHelpers;
