@@ -51,6 +51,7 @@ class Trf_Recruit
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_DATA_SOURCE_DATA, [$this, "getDataSourceData"], 10, 2);
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_USER_META_SELECT_DATA_SOURCE, [$this, "filterUserMetaSelectData"], 10, 2);
         add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_FORM_PROGRESS_FIELD_GROUPS, [$this, "getFormFieldGroupsArray"]);
+//        add_filter(Tru_Fetcher_Filters::TRU_FETCHER_FILTER_HANDLE_ENDPOINT_PROVIDER, [$this, "handleEndpointProviders"], 10, 3);
     }
 
     public function getUserProfileData(\WP_User $user, array $userMetaData) {
