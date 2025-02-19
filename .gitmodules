@@ -1,4 +1,8 @@
 [submodule "wp-content/plugins/tru-fetcher-plugin"]
 	path = wp-content/plugins/tru-fetcher-plugin
-	url = https://366484229c689b3b402c37737ef147396932eadd@github.com/truvoicer/tru-fetcher-plugin.git
+	url = git@github.com:truvoicer/tru-fetcher-plugin.git
 	branch = master
+[submodule "wp-content/plugins/trf-recruit"]
+	path = wp-content/plugins/trf-recruit
+	url = git@github.com:truvoicer/trf-recruit.git
+	branch = main
